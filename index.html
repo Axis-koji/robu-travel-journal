@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja" data-runtime="preview">
+<html lang="ja" data-runtime="production">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,7 +18,6 @@
     body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif; }
     a { color: inherit; text-decoration: none; }
 
-    .preview-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; padding: 8px 18px; background: #ef5a43; color: #fff; text-align: center; font-size: 12px; font-weight: 700; }
 
     .api-consent {
       position: fixed;
@@ -310,9 +309,8 @@
   </style>
 </head>
 <body>
-  <div class="preview-bar">ろぶーの気になる事</div>
   <div id="apiConsentBanner" class="api-consent" role="dialog" aria-live="polite">
-    <small>公開前プレビューでは、外部APIへの実行は事前許可が必要です。許可しますか？</small>
+    <small>外部APIを利用する前に確認します。この操作を許可しますか？</small>
     <div>
       <button class="approve" id="approveApi">許可する</button>
       <button class="deny" id="denyApi">今は許可しない</button>
@@ -644,7 +642,7 @@
       return filtered;
     }
 
-    function previewHref(article) { return isPreview ? '#latestDigest' : article.url; }
+    function previewHref() { return '#latestDigest'; }
 
     function renderDigest(article, locale) {
       const { title, excerpt } = translated(article, locale);
@@ -748,7 +746,7 @@
         }
 
         const articleLink = event.target.closest('.article-preview-link');
-        if (!articleLink || !isPreview) return;
+        if (!articleLink) return;
         event.preventDefault();
         const selectedArticle = getLocalArticle(articleLink.dataset.articleDate);
         if (!selectedArticle) return;
