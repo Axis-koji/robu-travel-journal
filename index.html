@@ -1,1 +1,807 @@
+<!doctype html>
+<html lang="ja" data-runtime="preview">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ろぶーの気になる事</title>
+  <meta name="description" content="ろぶーの気になる事｜旅と暮らしのブログ">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <style>
+    :root {
+      --ink: #102933;
+      --paper: #fffdf9;
+      --sea: #0e6c78;
+      --line: #dfe7e6;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif; }
+    a { color: inherit; text-decoration: none; }
 
+    .preview-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; padding: 8px 18px; background: #ef5a43; color: #fff; text-align: center; font-size: 12px; font-weight: 700; }
+
+    .api-consent {
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 62px;
+      z-index: 80;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #e4d0a8;
+      background: #fff8ea;
+      color: #2b2620;
+    }
+    .api-consent button { appearance: none; border: none; cursor: pointer; padding: 7px 12px; border-radius: 6px; font-weight: 700; }
+    .api-consent .approve { background: #0e6c78; color: #fff; }
+    .api-consent .deny { background: #4b5a61; color: #fff; }
+    .api-consent small { font-size: 12px; color: #5a4b31; }
+
+    .hero {
+      position: relative;
+      min-height: 650px;
+      padding: 120px clamp(30px,8vw,105px) 70px;
+      color: white;
+      background-image:
+        linear-gradient(100deg, rgba(0,20,31,.72), rgba(0,53,69,.28)),
+        url("https://www.axis-jp.net/assets/images/vietnam-sea.png");
+      background-size: cover;
+      background-position: center;
+    }
+    .topbar {
+      position: absolute;
+      inset: 0 0 auto;
+      min-height: 104px;
+      padding: 18px 28px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      background: linear-gradient(rgba(3,28,38,.62), transparent);
+    }
+    .header-tools { display: flex; flex-direction: column; align-items: flex-end; gap: 9px; }
+
+    .language-picker { position: relative; }
+    .language-trigger {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 6px;
+      background: rgba(3,28,38,.68);
+      color: white;
+      padding: 8px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+    }
+    .language-panel {
+      position: absolute;
+      z-index: 10;
+      top: calc(100% + 6px);
+      right: 0;
+      width: 255px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #fff;
+      color: #17343c;
+      box-shadow: 0 12px 34px rgba(0,18,26,.32);
+      display: none;
+    }
+    .language-panel[hidden] { display: none !important; }
+    .language-search {
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #b9c8cb;
+      border-radius: 5px;
+      font: inherit;
+      font-size: 13px;
+    }
+    .language-options { display: grid; gap: 4px; margin-top: 8px; max-height: 230px; overflow: auto; }
+    .language-option {
+      appearance: none;
+      border: 0;
+      border-radius: 4px;
+      background: #f1f6f6;
+      color: #17343c;
+      padding: 9px 10px;
+      text-align: left;
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .language-option:hover,
+    .language-option:focus-visible { background: #dbeeee; }
+    .language-option[aria-selected="true"] { background: #0e6c78; color: #fff; }
+
+    .nav {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 7px;
+      max-width: 610px;
+    }
+    .nav a {
+      min-height: 44px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      text-shadow: 0 1px 4px #000;
+      box-shadow: 0 3px 14px rgba(0,18,26,.32);
+    }
+    .nav a[aria-current="page"] {
+      border-color: #fff;
+      box-shadow: 0 0 0 2px #ef765c, 0 5px 18px rgba(0,18,26,.42);
+    }
+    .nav a:nth-child(1) { background-image: linear-gradient(#031d2777,#031d2777), url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e");}
+    .nav a:nth-child(2) { background-image: linear-gradient(#2c160a77,#2c160a77), url("https://images.unsplash.com/photo-1563245372-f21724e3856d");}
+    .nav a:nth-child(3) { background-image: linear-gradient(#03203477,#03203477), url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05");}
+    .nav a:nth-child(4) { background-image: linear-gradient(#060e2a77,#060e2a77), url("https://images.unsplash.com/photo-1536599018102-9f803c140fc1");}
+    .nav a:nth-child(5) { background-image: linear-gradient(#122c1f77,#122c1f77), url("https://images.unsplash.com/photo-1528127269322-539801943592");}
+    .nav a:nth-child(6) { background-image: linear-gradient(#25182d77,#25182d77), url("https://images.unsplash.com/photo-1441986300917-64674bd600d8");}
+
+    .hero-copy { max-width: 720px; }
+    .kicker { font-size: 12px; letter-spacing: .2em; color: #c6f1ee; }
+    h1 { font-size: clamp(50px,8vw,105px); line-height: 1.03; letter-spacing: .06em; margin: 24px 0; }
+    h1 em { font-style: normal; color: #e0f7f6; }
+    .lead { font-size: 17px; line-height: 2; margin-bottom: 28px; }
+    .latest-button {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.8);
+      background: rgba(3,28,38,.25);
+      color: white;
+      padding: 14px 20px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .latest-digest {
+      display: none;
+      margin-top: 18px;
+      max-width: 620px;
+      padding: 20px;
+      border-left: 4px solid #ef765c;
+      background: rgba(2,26,37,.84);
+      backdrop-filter: blur(8px);
+    }
+    .latest-digest.open { display: block; }
+    .latest-digest small { letter-spacing: .12em; color: #9edbd7; }
+    .latest-digest h2 { margin: 8px 0; font-size: 22px; }
+    .latest-digest p { margin: 0 0 12px; line-height: 1.8; font-size: 14px; }
+    .latest-digest a { color: #b9efeb; font-weight: 700; }
+    .digest-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 430px;
+      margin: 14px 0 18px;
+      object-fit: contain;
+      background: rgba(0,0,0,.18);
+    }
+
+    .article-detail { margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.24);}
+    .article-detail h3 { margin: 20px 0 8px; font-size: 17px; color: #d9f5f2; }
+    .article-detail ul, .article-detail ol { margin: 8px 0 18px; padding-left: 1.4em; line-height: 1.85; font-size: 14px; }
+    .article-detail li + li { margin-top: 6px; }
+    .article-note { padding: 12px 14px; border-radius: 4px; background: rgba(255,255,255,.1); line-height: 1.75; font-size: 13px; }
+    .coffee-shop-list { display: grid; gap: 12px; margin: 12px 0 20px; }
+    .coffee-shop {
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.07);
+    }
+    .coffee-shop strong { display: block; margin-bottom: 5px; color: #fff; }
+    .coffee-shop span { display: block; color: #b9d8d6; font-size: 12px; margin-bottom: 5px; }
+    .phrase-list { display: grid; gap: 10px; margin: 12px 0 20px; }
+    .phrase-row {
+      display: grid;
+      grid-template-columns: minmax(190px, 1fr) 1.4fr;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+    }
+    .vietnamese-phrase {
+      position: relative;
+      display: inline-block;
+      width: fit-content;
+      padding: 4px 7px;
+      border-bottom: 1px dashed #9edbd7;
+      color: #fff;
+      font-weight: 800;
+      cursor: help;
+      outline: none;
+    }
+    .vietnamese-phrase::after {
+      content: attr(data-katakana);
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      bottom: calc(100% + 8px);
+      transform: translate(-50%, 5px);
+      min-width: max-content;
+      padding: 7px 10px;
+      border-radius: 3px;
+      background: #f6e9cf;
+      color: #14313a;
+      box-shadow: 0 6px 18px rgba(0,0,0,.3);
+      font-size: 12px;
+      letter-spacing: .04em;
+      opacity: 0;
+      visibility: hidden;
+      transition: .16s ease;
+      pointer-events: none;
+    }
+    .vietnamese-phrase:hover::after,
+    .vietnamese-phrase:focus::after,
+    .vietnamese-phrase.is-reading::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+    .phrase-meaning { color: #d8e6e5; font-size: 13px; line-height: 1.55; }
+    @media (max-width: 620px) {
+      .phrase-row { grid-template-columns: 1fr; }
+    }
+
+    .section { padding: 72px clamp(24px,8vw,100px); }
+    .section h2 { font-size: 32px; margin: 0 0 24px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 20px;
+    }
+    .card { overflow: hidden; border: 1px solid var(--line); background: white; }
+    .card-image-link { position: relative; display: block; overflow: hidden; cursor: pointer; }
+    .card-image-link::after {
+      content: "記事を読む";
+      position: absolute; right: 10px; bottom: 10px;
+      padding: 5px 8px; border-radius: 3px;
+      background: rgba(3,28,38,.78); color: #fff; font-size: 11px;
+      font-weight: 700; opacity: 0; transform: translateY(4px); transition: .2s;
+    }
+    .card-image { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: contain; background: #edf2f1; transition: transform .25s ease, filter .25s ease; }
+    .card-image-link:hover .card-image { transform: scale(1.035); filter: brightness(.88); }
+    .card-image-link:hover::after { opacity: 1; transform: none; }
+    .card-body { padding: 22px; }
+    .card small { color: var(--sea); font-weight: 700; }
+    .card h3 { font-size: 19px; line-height: 1.5; }
+    .card p { color: #536368; line-height: 1.8; font-size: 14px; }
+
+    .coming-soon {
+      grid-column: 1 / -1;
+      position: relative;
+      min-height: 520px;
+      overflow: hidden;
+      display: grid;
+      place-items: start center;
+      padding: 48px 24px;
+      border-radius: 4px;
+      background: #082d39 var(--coming-soon-image, url("assets/coming-soon-digger-v1.png")) center/cover no-repeat;
+      color: #fff;
+      text-align: center;
+    }
+    .coming-soon::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,24,32,.18), rgba(2,24,32,.05)); }
+    .coming-soon-copy { position: relative; z-index: 1; }
+    .coming-soon h3 { margin: 0; font-family: Georgia, serif; font-size: clamp(38px,7vw,72px); font-weight: 500; letter-spacing: .06em; }
+    .coming-soon p { margin: 10px 0 0; color: #d6e9e9; font-size: 14px; letter-spacing: .08em; }
+
+    footer { padding: 48px clamp(24px,8vw,100px) 80px; background: #092f3d; color: #fff; display: flex; justify-content: space-between; gap: 25px; flex-wrap: wrap; }
+    footer a { text-decoration: underline; }
+
+    @media(max-width: 800px){
+      .hero { padding-top: 220px; }
+      .topbar { min-height: 205px; }
+      .header-tools { max-width: 68vw; }
+      .nav { max-width: 68vw; }
+      .nav a { min-height: 38px; padding: 6px 10px; }
+      .cards { grid-template-columns: 1fr; }
+      .coming-soon { min-height: 430px; background-position: center bottom; }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-bar">ろぶーの気になる事</div>
+  <div id="apiConsentBanner" class="api-consent" role="dialog" aria-live="polite">
+    <small>公開前プレビューでは、外部APIへの実行は事前許可が必要です。許可しますか？</small>
+    <div>
+      <button class="approve" id="approveApi">許可する</button>
+      <button class="deny" id="denyApi">今は許可しない</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="topbar">
+      <div class="header-tools">
+        <div class="language-picker">
+          <button class="language-trigger" type="button" aria-expanded="false" aria-controls="languagePanel">Language</button>
+          <div class="language-panel" id="languagePanel" hidden>
+            <input class="language-search" type="search" placeholder="Languageを検索" aria-label="Languageを検索">
+            <div class="language-options" role="listbox" aria-label="言語を選択"></div>
+          </div>
+        </div>
+        <nav class="nav" aria-label="カテゴリ">
+          <a href="#articles" data-filter="all" aria-current="page">ホーム</a>
+          <a href="#articles" data-filter="gourmet">グルメ</a>
+          <a href="#articles" data-filter="vehicles">乗り物</a>
+          <a href="#articles" data-filter="travel">旅行</a>
+          <a href="#articles" data-filter="vietnam">ベトナム</a>
+          <a href="#articles" data-filter="selection">Robu-'s Selection</a>
+        </nav>
+      </div>
+    </div>
+    <div class="hero-copy">
+      <p class="kicker">LIFE &amp; TRAVEL JOURNAL</p>
+      <h1>毎日の旅と暮らしを、<br><em>いま読める形</em>で。</h1>
+      <p class="lead">今日の話題、街の空気感、暮らしの知恵を、ひと目で見てすぐ読める形で並べました。</p>
+      <button class="latest-button" type="button" aria-expanded="false" aria-controls="latestDigest">最新記事の要約を見る</button>
+      <article class="latest-digest" id="latestDigest" aria-live="polite"></article>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="articles">
+      <h2>最新記事</h2>
+      <div class="cards" id="articleCards"></div>
+    </section>
+  </main>
+
+  <footer><strong>ろぶーの気になる事</strong><a href="privacy-policy.html">プライバシーポリシー</a><span>© 2026 ろぶーの気になる事</span></footer>
+
+  <script>
+    const localeText = {
+      ja:{ code:'ja', label:'日本語', aliases:'japanese', nav:['ホーム','グルメ','乗り物','旅行','ベトナム','Robu\'s Selection'], lead:'今日の話題、街の空気感、暮らしの知恵を、ひと目で見てすぐ読める形で並べました。', section:'最新記事', read:'記事を読む', latest:'最新記事の要約を見る', close:'要約を閉じる', operator:'運営者', titleKey:'title', excerptKey:'excerpt' },
+      en:{ code:'en', label:'English', aliases:'english', nav:['Home','Gourmet','Cars','Travel','Vietnam','Robu\'s Selection'], lead:'Life, travel and practical notes from everyday moments, arranged so you can read quickly.', section:'Latest posts', read:'Read article', latest:'Read latest digest', close:'Close digest', operator:'Editor', titleKey:'enTitle', excerptKey:'enExcerpt' },
+      fr:{ code:'fr', label:'Français', aliases:'french', nav:['Accueil','Gastronomie','Véhicules','Voyages','Vietnam','Robu\'s Selection'], lead:'Cuisine, conduite et découvertes du quotidien, présentées pour une lecture rapide.', section:'Derniers articles', read:'Lire l’article', latest:'Voir le dernier résumé', close:'Fermer le résumé', operator:'Éditeur', titleKey:'frTitle', excerptKey:'frExcerpt' },
+      es:{ code:'es', label:'Español', aliases:'spanish', nav:['Inicio','Gastronomía','Vehículos','Viajes','Vietnam','Robu\'s Selection'], lead:'Comida, conducción y hallazgos del día a día para leer de un vistazo.', section:'Últimos artículos', read:'Leer artículo', latest:'Ver resumen más reciente', close:'Cerrar resumen', operator:'Editor', titleKey:'esTitle', excerptKey:'esExcerpt' },
+      vi:{ code:'vi', label:'Tiếng Việt', aliases:'vietnamese', nav:['Trang chủ','Ẩm thực','Xe cộ','Du lịch','Việt Nam','Robu\'s Selection'], lead:'Những điều về cuộc sống, du lịch và kinh nghiệm hàng ngày, được trình bày dễ đọc ngay.', section:'Bài viết mới nhất', read:'Đọc bài', latest:'Xem tóm tắt mới nhất', close:'Đóng tóm tắt', operator:'Biên tập viên', titleKey:'viTitle', excerptKey:'viExcerpt' },
+      it:{ code:'it', label:'Italiano', aliases:'italian', nav:['Home','Gastronomia','Veicoli','Viaggi','Vietnam','Robu\'s Selection'], lead:'Cibo, guida e scoperte della vita quotidiana in modo rapido da leggere.', section:'Articoli recenti', read:'Leggi l’articolo', latest:'Leggi il riepilogo più recente', close:'Chiudi riepilogo', operator:'Editore', titleKey:'itTitle', excerptKey:'itExcerpt' },
+      az:{ code:'az', label:'Azərbaycanca', aliases:'azerbaijani', nav:['Ana səhifə','Qastronomiya','Nəqliyyat','Səyahət','Vyetnam','Robu\'s Selection'], lead:'Müasir həyat və səyahətə dair mövzular, tez oxunaq formada.', section:'Ən son məqalələr', read:'Məqaləni oxu', latest:'Ən son xülasə', close:'Xülasəni bağla', operator:'Redaktor', titleKey:'azTitle', excerptKey:'azExcerpt' },
+      uk:{ code:'uk', label:'Українська', aliases:'ukrainian', nav:['Головна','Гастрономія','Транспорт','Подорожі','Вʼєтнам','Robu\'s Selection'], lead:'Життєві поради та подорожі в форматі, який легко прочитати одразу.', section:'Останні статті', read:'Читати статтю', latest:'Переглянути останній дайджест', close:'Закрити дайджест', operator:'Редактор', titleKey:'ukTitle', excerptKey:'ukExcerpt' },
+      yue:{ code:'yue', label:'粵語', aliases:'cantonese', nav:['主頁','美食','交通','旅行','越南','Robu\'s Selection'], lead:'生活同埋旅行小貼士，整理成一眼就睇到嘅內容。', section:'最新文章', read:'閱讀文章', latest:'睇最新摘要', close:'收起摘要', operator:'編輯', titleKey:'zhTWTitle', excerptKey:'zhTWExcerpt' },
+      zhTW:{ code:'zh-Hant', label:'繁体中文', aliases:'traditional chinese', nav:['首頁','美食','交通','旅行','越南','Robu\'s Selection'], lead:'以生活、旅遊和實用知識為主題，快速閱讀。', section:'最新文章', read:'閱讀文章', latest:'閱讀最新摘要', close:'關閉摘要', operator:'編輯', titleKey:'zhTWTitle', excerptKey:'zhTWExcerpt' },
+      zhCN:{ code:'zh-Hans', label:'简体中文', aliases:'simplified chinese', nav:['首页','美食','出行','旅行','越南','Robu\'s Selection'], lead:'汇总生活、旅行和实用内容，方便快速阅读。', section:'最新文章', read:'阅读文章', latest:'查看最新摘要', close:'关闭摘要', operator:'编辑', titleKey:'zhCNTitle', excerptKey:'zhCNExcerpt' }
+    };
+
+    const articles = [
+      {
+        date: '2026-07-12',
+        dateLabel: '2026.07.12',
+        category: 'GOURMET',
+        title: 'コーヒーの香りが導く、ベトナムの朝',
+        excerpt: '豆の選び方から入れ方まで。ベトナムで飲むコーヒーのコツを短くまとめました。',
+        enTitle: 'Vietnamese-style morning coffee, easy guide',
+        enExcerpt: 'Coffee tips from bean choice to simple brewing, inspired by morning routines in Vietnam.',
+        frTitle: 'Guide rapide du café vietnamien du matin',
+        frExcerpt: 'Des astuces du matin inspirées du Vietnam, du choix des grains à la préparation.',
+        esTitle: 'Guía rápida del café vietnamita por la mañana',
+        esExcerpt: 'Consejos sobre cómo elegir granos y preparar un café al estilo vietnamita.',
+        viTitle: 'Cà phê kiểu Việt Nam vào buổi sáng',
+        viExcerpt: 'Từ chọn hạt đến cách pha, gợi ý nhanh cho một tách cà phê phong vị Việt.',
+        itTitle: 'Guida rapida al caffè vietnamita della mattina',
+        itExcerpt: 'Consigli veloci dal Vietnam: scelta dei chicchi e preparazione.',
+        azTitle: 'Vietnam səhər kahvesi',
+        azExcerpt: 'Dana qovrulma və bişirmə barədə qısa tövsiyələr.',
+        ukTitle: 'В&apos;єтнамська кава зранку',
+        ukExcerpt: 'Короткі поради: вибір зерна та просте приготування ранкового кави.',
+        zhTWTitle: '越南式晨間咖啡入門',
+        zhTWExcerpt: '從豆子選擇到沖煮，快速掌握越南風味咖啡。',
+        zhCNTitle: '越南式晨间咖啡入门',
+        zhCNExcerpt: '从选豆到冲煮，快速掌握越南咖啡的技巧。',
+        image:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=82',
+        url:'/articles/vietnamese-morning-coffee/',
+        imageAlt:'ベトナム風のコーヒー'
+      },
+      {
+        date: '2026-07-11',
+        dateLabel: '2026.07.11',
+        category: 'VIETNAM / VEHICLES',
+        title: 'ベトナムでGrabを使う前に知っておきたいこと',
+        excerpt: '配車から支払い、乗車場所の確認まで。初めてでも迷わないGrabの使い方と注意点。',
+        enTitle: 'How to use Grab safely in Vietnam',
+        enExcerpt: 'A simple guide to booking, meeting your driver, paying and avoiding common mistakes.',
+        frTitle: 'Bien utiliser Grab au Vietnam',
+        frExcerpt: 'Réservation, point de rendez-vous, paiement et précautions essentielles.',
+        esTitle: 'Cómo usar Grab en Vietnam',
+        esExcerpt: 'Guía práctica para reservar, encontrar al conductor y pagar con seguridad.',
+        viTitle: 'Cách sử dụng Grab an toàn tại Việt Nam',
+        viExcerpt: 'Hướng dẫn đặt xe, gặp tài xế, thanh toán và tránh những nhầm lẫn thường gặp.',
+        zhTWTitle: '在越南安全使用 Grab',
+        zhTWExcerpt: '從叫車、確認司機到付款，一次掌握常見注意事項。',
+        zhCNTitle: '在越南安全使用 Grab',
+        zhCNExcerpt: '从叫车、确认司机到付款，掌握常见注意事项。',
+        image:'https://images.unsplash.com/photo-1556122071-e404eaedb77f?auto=format&fit=crop&w=1200&q=82',
+        url:'/articles/grab-vietnam-guide/',
+        imageAlt:'ベトナムの街を走る配車サービスの車'
+      },
+      {
+        date: '2026-07-10',
+        dateLabel: '2026.07.10',
+        category: 'VEHICLES',
+        title: '週末ドライブの10分チェックリスト',
+        excerpt: '出発前に車と心の準備を整える、初心者向けのチェックリストです。',
+        enTitle: '10-minute weekend drive checklist',
+        enExcerpt: 'Prepare your vehicle and route so your weekend drive starts smoothly.',
+        frTitle: 'Checklist de 10 minutes pour un week-end en voiture',
+        frExcerpt: 'Préparez véhicule et itinéraire pour bien démarrer votre weekend.',
+        esTitle: 'Checklist de 10 minutos para un viaje de fin de semana',
+        esExcerpt: 'Prepara tu vehículo y ruta para iniciar sin prisas.',
+        viTitle: 'Danh sách kiểm tra 10 phút cho chuyến đi cuối tuần',
+        viExcerpt: 'Kiểm tra xe và lộ trình để bắt đầu chuyến đi suôn sẻ.',
+        itTitle: 'Checklist di 10 minuti per il weekend in auto',
+        itExcerpt: 'Prepara auto e percorso in modo semplice prima della partenza.',
+        azTitle: 'Həftəsonu sürüş üçün 10 dəqiqəlik siyahı',
+        azExcerpt: 'Yola çıxmazdan əvvəl maşın və marşrutu yoxla.',
+        ukTitle: '10-хвилинний чекліст для виїзду',
+        ukExcerpt: 'Підготуйте авто і маршрут, щоб виїхати спокійно.',
+        zhTWTitle: '週末開車 10 分鐘檢查清單',
+        zhTWExcerpt: '出發前確認車況與路線，讓旅程更順利。',
+        zhCNTitle: '周末开车10分钟清单',
+        zhCNExcerpt: '出发前确认车辆和路线，避免手忙脚乱。',
+        image:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=82',
+        url:'/articles/weekend-drive-preparation/',
+        imageAlt:'週末のドライブ'
+      },
+      {
+        date: '2026-07-08',
+        dateLabel: '2026.07.08',
+        category: 'TRAVEL',
+        title: '写真に残らない“記憶”を残す旅ノート',
+        excerpt: '写真では捉えきれない匂い、音、気分を短く残すメモ術。',
+        enTitle: 'Travel notes that keep memories vivid',
+        enExcerpt: 'Capture sounds, smells and moments that photographs cannot hold.',
+        frTitle: 'Un carnet de voyage pour garder les souvenirs',
+        frExcerpt: 'Conserver sons, odeurs et instants qui échappent aux photos.',
+        esTitle: 'Notas de viaje para no perder recuerdos',
+        esExcerpt: 'Anota sonidos, aromas y sensaciones que no quedan en foto.',
+        viTitle: 'Ghi chú chuyến đi để giữ ký ức',
+        viExcerpt: 'Ghi lại âm thanh, mùi hương và cảm giác không vào được ảnh.',
+        itTitle: 'Appunti di viaggio per tenere vivi i ricordi',
+        itExcerpt: 'Registra suoni, odori e sensazioni che le foto non colgono.',
+        azTitle: 'Səfər qeydləri ilə xatirələri qorumaq',
+        azExcerpt: 'Fotoqrafiyada görünməyən şeyləri yaza saxla.',
+        ukTitle: 'Нотатки в подорожі для яскравих спогадів',
+        ukExcerpt: 'Записуйте запахи, звуки та відчуття, яких немає на фото.',
+        zhTWTitle: '保留照片以外的旅行記錄',
+        zhTWExcerpt: '記錄聞到的味道、聽到的聲音與心情。',
+        zhCNTitle: '保存照片之外的旅行记忆',
+        zhCNExcerpt: '记录气味、声音和心情，让回忆更完整。',
+        image:'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=82',
+        url:'/articles/travel-memory-notes/',
+        imageAlt:'旅行中のノート'
+      }
+    ];
+
+    const articleFilters = {
+      '2026-07-12': ['gourmet', 'vietnam', 'selection'],
+      '2026-07-11': ['vehicles', 'vietnam'],
+      '2026-07-10': ['vehicles'],
+      '2026-07-08': ['travel', 'selection']
+    };
+    const comingSoonFilters = new Set(['travel', 'selection']);
+    const comingSoonImages = {
+      all:'https://robu-travel-journal.koji742481.chatgpt.site/assets/coming-soon-pattern-1.png',
+      gourmet:'https://robu-travel-journal.koji742481.chatgpt.site/assets/coming-soon-pattern-2.png',
+      travel:'https://robu-travel-journal.koji742481.chatgpt.site/assets/coming-soon-pattern-3.png',
+      selection:'https://robu-travel-journal.koji742481.chatgpt.site/assets/coming-soon-pattern-4.png',
+      fallback:'https://robu-travel-journal.koji742481.chatgpt.site/assets/coming-soon-pattern-5.png'
+    };
+    const photoDescriptions = {
+      '2026-07-12':'ベトナムのコーヒー',
+      '2026-07-11':'ベトナムのGrab利用ガイド',
+      '2026-07-10':'週末ドライブ準備',
+      '2026-07-08':'旅行ノート'
+    };
+    const articleDetails = {
+      '2026-07-12': `<div class="article-detail">
+        <h3>地元で親しまれる、ベトナムコーヒーの店</h3>
+        <p>ベトナムのコーヒーは、濃く抽出したロブスタ豆に練乳を合わせる一杯だけではありません。街ごとに違う味と空気があり、店選びそのものが旅の楽しみです。評判や営業状況は変わるため、訪問前に公式情報も確認してください。</p>
+        <div class="coffee-shop-list">
+          <div class="coffee-shop"><strong>Café Giảng（ハノイ）</strong><span>39 Nguyễn Hữu Huân, Hoàn Kiếm</span>1946年創業。卵黄のクリームと濃いコーヒーを合わせた「エッグコーヒー」で知られる老舗です。</div>
+          <div class="coffee-shop"><strong>96B café &amp; roastery（ホーチミン）</strong><span>96B Phan Ngữ, Tân Định</span>ベトナム産のロブスタ、アラビカ、リベリカなど、豆の個性を比べたい人に向くロースタリーです。</div>
+          <div class="coffee-shop"><strong>43 Factory Coffee Roaster（ダナン）</strong><span>Đà Nẵng</span>豆の産地や抽出にこだわるスペシャルティコーヒー店。すっきりした一杯を試したい日に。</div>
+        </div>
+
+        <h3>まず覚えたい定番コーヒー</h3>
+        <ul>
+          <li><strong>cà phê sữa đá</strong>：濃いコーヒー＋練乳＋氷。甘くて力強い定番。</li>
+          <li><strong>cà phê đen đá</strong>：練乳なしのアイスブラック。苦味がはっきりしています。</li>
+          <li><strong>cà phê trứng</strong>：卵黄のふわりとしたクリームをのせる、ハノイ名物。</li>
+          <li><strong>cà phê muối</strong>：塩味のクリームで甘さと苦味を引き立てる一杯。</li>
+        </ul>
+
+        <h3>そのまま使える注文のことば</h3>
+        <p>ベトナム語にカーソルを合わせると、カタカナの読み方が出ます。スマートフォンではベトナム語をタップしてください。</p>
+        <div class="phrase-list">
+          <div class="phrase-row"><span class="vietnamese-phrase" tabindex="0" role="button" data-katakana="チョー トイ モッ カーフェー スア ダー">Cho tôi một cà phê sữa đá.</span><span class="phrase-meaning">アイス練乳コーヒーを1つください。</span></div>
+          <div class="phrase-row"><span class="vietnamese-phrase" tabindex="0" role="button" data-katakana="チョー トイ モッ カーフェー デン ダー">Cho tôi một cà phê đen đá.</span><span class="phrase-meaning">アイスブラックコーヒーを1つください。</span></div>
+          <div class="phrase-row"><span class="vietnamese-phrase" tabindex="0" role="button" data-katakana="イット ドゥオン">Ít đường.</span><span class="phrase-meaning">砂糖は少なめで。</span></div>
+          <div class="phrase-row"><span class="vietnamese-phrase" tabindex="0" role="button" data-katakana="コン ドゥオン">Không đường.</span><span class="phrase-meaning">砂糖なしで。</span></div>
+          <div class="phrase-row"><span class="vietnamese-phrase" tabindex="0" role="button" data-katakana="コン スア">Không sữa.</span><span class="phrase-meaning">ミルク（練乳）なしで。</span></div>
+          <div class="phrase-row"><span class="vietnamese-phrase" tabindex="0" role="button" data-katakana="ウオン オー ダイ">Uống ở đây.</span><span class="phrase-meaning">ここで飲みます。</span></div>
+          <div class="phrase-row"><span class="vietnamese-phrase" tabindex="0" role="button" data-katakana="マン ディ">Mang đi.</span><span class="phrase-meaning">持ち帰りで。</span></div>
+          <div class="phrase-row"><span class="vietnamese-phrase" tabindex="0" role="button" data-katakana="バオ ニュー ティエン">Bao nhiêu tiền?</span><span class="phrase-meaning">いくらですか？</span></div>
+        </div>
+        <div class="article-note">カタカナは発音の目安です。声調を含む実際の発音は地域によって少し異なります。注文時は画面のベトナム語を店員さんに見せても伝わりやすくなります。</div>
+      </div>`,
+      '2026-07-11': `<div class="article-detail">
+        <h3>Grabはベトナム移動の強い味方</h3>
+        <p>Grabはアプリで行き先と料金の目安を確認してから車やバイクを呼べる配車サービスです。流しの車との交渉が不安な時や、目的地の発音に自信がない時にも便利です。</p>
+        <h3>乗るまでの手順</h3>
+        <ol>
+          <li>通信できるSIMまたはWi-Fiを用意し、Grabアプリを設定する。</li>
+          <li>現在地のピンを、車が停まりやすい場所へ合わせる。</li>
+          <li>目的地を入力し、GrabBike・GrabCarなど車種と料金を確認する。</li>
+          <li>予約後に、ナンバープレート・車種・運転手の写真を照合する。</li>
+          <li>乗車後もアプリのルートを確認し、到着したら選択した方法で支払う。</li>
+        </ol>
+        <h3>ここは必ず確認</h3>
+        <ul>
+          <li><strong>ナンバープレート：</strong>アプリ表示と違う車には乗らない。</li>
+          <li><strong>乗車地点：</strong>空港や大型施設では専用の乗車場所が指定される場合があります。</li>
+          <li><strong>現金払い：</strong>大きなお札だけでなく、小額紙幣も用意しておく。</li>
+          <li><strong>追加請求：</strong>アプリ外で不自然な金額を求められたら、その場で承諾せず明細を確認する。</li>
+          <li><strong>GrabBike：</strong>ヘルメットを正しく着用し、大きな荷物がある時は車を選ぶ。</li>
+        </ul>
+        <div class="article-note">料金・対応エリア・決済方法は変更されることがあります。予約画面に表示される最新情報を確認してください。緊急時に備え、車両情報を同行者へ共有しておくと安心です。</div>
+      </div>`,
+      '2026-07-10': `<div class="article-detail"><h3>出発前の安全チェック</h3><p>車の点検・移動時間・持ち物を1ページで確認。</p><ul><li>タイヤ空気圧</li><li>燃料残量</li><li>保険書類の確認</li></ul></div>`,
+      '2026-07-08': `<div class="article-detail"><h3>見えない記憶の記録</h3><p>写真に残らない感覚を、1分で書くテンプレートを提案します。</p><ul><li>匂い</li><li>音</li><li>肌感</li></ul></div>`
+    };
+
+    const isPreview = document.documentElement.dataset.runtime === 'preview';
+    const isApiAllowedDefault = false;
+    const API_PERMISSION_KEY = 'axis-api-permission';
+    let hasApiPermission = localStorage.getItem(API_PERMISSION_KEY) === 'true';
+    if (localStorage.getItem(API_PERMISSION_KEY) === null) {
+      hasApiPermission = isApiAllowedDefault;
+    }
+    const waitingApiActions = [];
+
+    const cards = document.querySelector('#articleCards');
+    const button = document.querySelector('.latest-button');
+    const digest = document.querySelector('.latest-digest');
+    const languageTrigger = document.querySelector('.language-trigger');
+    const languagePanel = document.querySelector('.language-panel');
+    const languageSearch = document.querySelector('.language-search');
+    const languageOptions = document.querySelector('.language-options');
+    const consentBanner = document.querySelector('#apiConsentBanner');
+    const consentApprove = document.querySelector('#approveApi');
+    const consentDeny = document.querySelector('#denyApi');
+
+    const detected = (navigator.languages || [navigator.language || 'ja']).join(' ').toLowerCase();
+    const detectedLanguage =
+      detected.includes('yue') || detected.includes('zh-hk') ? 'yue'
+      : detected.includes('zh-tw') || detected.includes('zh-hant') ? 'zhTW'
+      : detected.includes('zh-cn') || detected.includes('zh-hans') ? 'zhCN'
+      : detected.includes('fr') ? 'fr'
+      : detected.includes('es') ? 'es'
+      : detected.includes('vi') ? 'vi'
+      : detected.includes('az') ? 'az'
+      : detected.includes('uk') ? 'uk'
+      : detected.includes('it') ? 'it'
+      : detected.includes('en') ? 'en'
+      : 'ja';
+
+    let currentLanguage = localStorage.getItem('axis-language') || detectedLanguage;
+    if (!localeText[currentLanguage]) currentLanguage = 'ja';
+    let activeFilter = 'all';
+    let selectedDigestDate = '';
+
+    function syncApiConsentUI() {
+      if (hasApiPermission || waitingApiActions.length === 0) {
+        consentBanner.style.display = 'none';
+      } else {
+        consentBanner.style.display = 'flex';
+      }
+    }
+    function withApiPermission(action) {
+      return new Promise((resolve, reject) => {
+        if (hasApiPermission) { resolve(action()); return; }
+        waitingApiActions.push({ action, resolve, reject });
+        syncApiConsentUI();
+      });
+    }
+    async function runProtectedApiAction(action) {
+      try {
+        return await withApiPermission(action);
+      } catch (error) {
+        return null;
+      }
+    }
+    function getLocalArticle(articleDate) {
+      return articles.find(item => item.date === articleDate) || null;
+    }
+
+    function translated(article, locale) {
+      const key = locale.titleKey && locale.excerptKey ? locale.titleKey : 'title';
+      return {
+        title: article[locale.titleKey] || article.title,
+        excerpt: article[locale.excerptKey] || article.excerpt
+      };
+    }
+
+    function visibleArticles() {
+      const filtered = [...articles].filter(article =>
+        activeFilter === 'all' || (articleFilters[article.date] || []).includes(activeFilter)
+      ).sort((a,b)=>b.date.localeCompare(a.date));
+      if (activeFilter === 'vietnam') {
+        return filtered.sort((a, b) => {
+          if (a.date === '2026-07-11') return -1;
+          if (b.date === '2026-07-11') return 1;
+          return b.date.localeCompare(a.date);
+        });
+      }
+      return filtered;
+    }
+
+    function previewHref(article) { return isPreview ? '#latestDigest' : article.url; }
+
+    function renderDigest(article, locale) {
+      const { title, excerpt } = translated(article, locale);
+      digest.innerHTML = `<small>${locale.latest}</small><h2>${title}</h2><img class="digest-image" src="${article.image}" alt="${photoDescriptions[article.date] || article.imageAlt || title}" width="1200" height="675"><p>${excerpt}</p>${articleDetails[article.date] || ''}`;
+    }
+
+    function renderLanguageOptions(query = '') {
+      const normalized = query.trim().toLowerCase();
+      languageOptions.innerHTML = Object.entries(localeText)
+        .filter(([, locale]) =>
+          !normalized || `${locale.label} ${locale.aliases}`.toLowerCase().includes(normalized)
+        )
+        .map(([key, locale]) => `<button class="language-option" type="button" role="option" data-lang="${key}" aria-selected="${key===currentLanguage}">${locale.label}</button>`)
+        .join('');
+
+      languageOptions.querySelectorAll('.language-option').forEach((option) => {
+        option.addEventListener('click', () => {
+          applyLanguage(option.dataset.lang);
+          languagePanel.hidden = true;
+          languageTrigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    function applyLanguage(language) {
+      currentLanguage = localeText[language] ? language : 'ja';
+      const locale = localeText[currentLanguage];
+      localStorage.setItem('axis-language', currentLanguage);
+      document.documentElement.lang = locale.code;
+      document.querySelectorAll('.nav a').forEach((item, index) => item.textContent = locale.nav[index]);
+      document.querySelector('.lead').innerHTML = locale.lead;
+      document.querySelector('.section h2').textContent = locale.section;
+      button.textContent = digest.classList.contains('open') ? locale.close : locale.latest;
+      document.querySelector('footer a').textContent = 'プライバシーポリシー';
+
+      if (comingSoonFilters.has(activeFilter)) {
+        const comingSoonImage = comingSoonImages[activeFilter] || comingSoonImages.fallback;
+        cards.innerHTML = `<section class="coming-soon" aria-label="Coming soon" style="--coming-soon-image:url('${comingSoonImage}')"><div class="coming-soon-copy"><h3>Coming soon</h3><p>準備中です。ごめんなさい、もう少しお待ちください。</p></div></section>`;
+        digest.classList.remove('open');
+        button.hidden = true;
+      } else {
+        button.hidden = false;
+        const filteredArticles = visibleArticles();
+        cards.innerHTML = filteredArticles.map((article) => {
+          const { title, excerpt } = translated(article, locale);
+          return `
+            <article class="card">
+              <a class="card-image-link article-preview-link" href="${previewHref(article)}" data-article-date="${article.date}" aria-label="${title}">
+                <img class="card-image" src="${article.image}" alt="${photoDescriptions[article.date] || ''}" loading="lazy" decoding="async" width="800" height="450">
+              </a>
+              <div class="card-body">
+                <small>${article.category} / ${article.dateLabel}</small>
+                <h3>${title}</h3>
+                <p>${excerpt}</p>
+                <a class="article-preview-link" href="${previewHref(article)}" data-article-date="${article.date}">${locale.read}</a>
+              </div>
+            </article>
+          `;
+        }).join('');
+        if (!selectedDigestDate) selectedDigestDate = (filteredArticles[0] || articles[0]).date;
+        renderDigest(articles.find(a => a.date === selectedDigestDate) || filteredArticles[0] || articles[0], locale);
+      }
+      renderLanguageOptions(languageSearch.value);
+      languageTrigger.textContent = `Language: ${locale.label}`;
+    }
+
+    function bindEvents() {
+      languageTrigger.addEventListener('click', () => {
+        languagePanel.hidden = !languagePanel.hidden;
+        languageTrigger.setAttribute('aria-expanded', String(!languagePanel.hidden));
+        if (!languagePanel.hidden) { languageSearch.value=''; renderLanguageOptions(); languageSearch.focus(); }
+      });
+
+      languageSearch.addEventListener('input', () => renderLanguageOptions(languageSearch.value));
+      languageSearch.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter') return;
+        const first = languageOptions.querySelector('.language-option');
+        if (first) first.click();
+      });
+
+      document.querySelector('.nav').addEventListener('click', async (event) => {
+        const categoryLink = event.target.closest('a[data-filter]');
+        if (!categoryLink) return;
+        event.preventDefault();
+        activeFilter = categoryLink.dataset.filter;
+        selectedDigestDate = '';
+        document.querySelectorAll('.nav a[data-filter]').forEach((el) =>
+          el.toggleAttribute('aria-current', el === categoryLink)
+        );
+        applyLanguage(currentLanguage);
+      });
+
+      document.addEventListener('click', async (event) => {
+        const pronunciation = event.target.closest('.vietnamese-phrase');
+        if (pronunciation) {
+          pronunciation.classList.toggle('is-reading');
+          document.querySelectorAll('.vietnamese-phrase.is-reading').forEach((phrase) => {
+            if (phrase !== pronunciation) phrase.classList.remove('is-reading');
+          });
+          return;
+        }
+
+        const articleLink = event.target.closest('.article-preview-link');
+        if (!articleLink || !isPreview) return;
+        event.preventDefault();
+        const selectedArticle = getLocalArticle(articleLink.dataset.articleDate);
+        if (!selectedArticle) return;
+        selectedDigestDate = selectedArticle.date;
+        const locale = localeText[currentLanguage];
+        renderDigest(selectedArticle, locale);
+        digest.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
+        button.textContent = locale.close;
+        requestAnimationFrame(() => digest.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+      });
+
+      button.addEventListener('click', async () => {
+        const locale = localeText[currentLanguage];
+        if (!digest.classList.contains('open')) {
+          selectedDigestDate = (visibleArticles()[0] || articles[0]).date;
+          renderDigest(articles.find(article => article.date === selectedDigestDate), locale);
+          digest.classList.add('open');
+          button.setAttribute('aria-expanded', 'true');
+          button.textContent = locale.close;
+        } else {
+          digest.classList.remove('open');
+          button.setAttribute('aria-expanded', 'false');
+          button.textContent = locale.latest;
+        }
+      });
+
+      consentApprove.addEventListener('click', () => {
+        hasApiPermission = true;
+        localStorage.setItem(API_PERMISSION_KEY, 'true');
+        syncApiConsentUI();
+        while (waitingApiActions.length > 0) {
+          const item = waitingApiActions.shift();
+          try { item.resolve(item.action()); } catch (error) { item.reject(error); }
+        }
+      });
+      consentDeny.addEventListener('click', () => {
+        hasApiPermission = false;
+        localStorage.setItem(API_PERMISSION_KEY, 'false');
+        syncApiConsentUI();
+        while (waitingApiActions.length > 0) {
+          const item = waitingApiActions.shift();
+          item.reject(new Error('API実行は事前許可がありません。'));
+        }
+      });
+    }
+
+    bindEvents();
+    syncApiConsentUI();
+    applyLanguage(currentLanguage);
+    if (!isPreview) {
+      consentBanner.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
