@@ -343,7 +343,7 @@
       <p class="kicker">LIFE &amp; TRAVEL JOURNAL</p>
       <h1>ろぶーの<br><em>きになる事</em></h1>
       <p class="lead">今日の話題、街の空気感、暮らしの知恵を、ひと目で見てすぐ読める形で並べました。</p>
-      <button class="latest-button" type="button" aria-expanded="false" aria-controls="latestDigest">最新記事の要約を見る</button>
+      <button class="latest-button" type="button" aria-expanded="false" aria-controls="latestDigest">ベトナムの朝、コーヒーでひと息</button>
       <article class="latest-digest" id="latestDigest" aria-live="polite"></article>
     </div>
   </header>
@@ -359,7 +359,7 @@
 
   <script>
     const localeText = {
-      ja:{ code:'ja', label:'日本語', aliases:'japanese', nav:['ホーム','グルメ','乗り物','旅行','ベトナム','Robu-\'s selection'], lead:'今日の話題、街の空気感、暮らしの知恵を、ひと目で見てすぐ読める形で並べました。', section:'最新記事', read:'記事を読む', latest:'最新記事の要約を見る', close:'要約を閉じる', operator:'運営者', privacy:'プライバシーポリシー', search:'言語を検索', choose:'言語を選択', soon:'準備中です。ごめんなさい、もう少しお待ちください。', site:'ろぶーのきになる事', titleKey:'title', excerptKey:'excerpt' },
+      ja:{ code:'ja', label:'日本語', aliases:'japanese', nav:['ホーム','グルメ','乗り物','旅行','ベトナム','Robu-\'s selection'], lead:'今日の話題、街の空気感、暮らしの知恵を、ひと目で見てすぐ読める形で並べました。', section:'最新記事', read:'記事を読む', latest:'最新記事のダイジェスト', close:'ダイジェストを閉じる', operator:'運営者', privacy:'プライバシーポリシー', search:'言語を検索', choose:'言語を選択', soon:'準備中です。ごめんなさい、もう少しお待ちください。', site:'ろぶーのきになる事', titleKey:'title', excerptKey:'excerpt' },
       en:{ code:'en', label:'English', aliases:'english', nav:['Home','Gourmet','Cars','Travel','Vietnam','Robu-\'s selection'], lead:'Life, travel and practical notes from everyday moments, arranged so you can read quickly.', section:'Latest posts', read:'Read article', latest:'Read latest digest', close:'Close digest', operator:'Editor', privacy:'Privacy policy', search:'Search languages', choose:'Choose a language', soon:'We are getting this section ready. Please check back soon.', site:'Robu’s Curiosities', titleKey:'enTitle', excerptKey:'enExcerpt' },
       fr:{ code:'fr', label:'Français', aliases:'french', nav:['Accueil','Gastronomie','Véhicules','Voyages','Vietnam','Robu-\'s selection'], lead:'Cuisine, conduite et découvertes du quotidien, présentées pour une lecture rapide.', section:'Derniers articles', read:'Lire l’article', latest:'Voir le dernier résumé', close:'Fermer le résumé', operator:'Éditeur', privacy:'Politique de confidentialité', search:'Rechercher une langue', choose:'Choisir une langue', soon:'Cette rubrique est en préparation. Revenez bientôt.', site:'Les curiosités de Robu', titleKey:'frTitle', excerptKey:'frExcerpt' },
       es:{ code:'es', label:'Español', aliases:'spanish', nav:['Inicio','Gastronomía','Vehículos','Viajes','Vietnam','Robu-\'s selection'], lead:'Comida, conducción y hallazgos del día a día para leer de un vistazo.', section:'Últimos artículos', read:'Leer artículo', latest:'Ver resumen más reciente', close:'Cerrar resumen', operator:'Editor', privacy:'Política de privacidad', search:'Buscar idiomas', choose:'Elegir un idioma', soon:'Estamos preparando esta sección. Vuelve pronto.', site:'Curiosidades de Robu', titleKey:'esTitle', excerptKey:'esExcerpt' },
@@ -378,6 +378,8 @@
         dateLabel: '2026.07.12',
         category: 'GOURMET',
         title: 'コーヒーの香りが導く、ベトナムの朝',
+        digestTitle: 'ベトナムの朝、コーヒーでひと息',
+        digestLead: '甘い香りに包まれながら、ベトナムらしい朝の一杯を楽しみます。',
         excerpt: '豆の選び方から入れ方まで。ベトナムで飲むコーヒーのコツを短くまとめました。',
         enTitle: 'Vietnamese-style morning coffee, easy guide',
         enExcerpt: 'Coffee tips from bean choice to simple brewing, inspired by morning routines in Vietnam.',
@@ -406,6 +408,8 @@
         dateLabel: '2026.07.11',
         category: 'VIETNAM / VEHICLES',
         title: 'ベトナムでGrabを使う前に知っておきたいこと',
+        digestTitle: 'ベトナムの移動、Grabで迷わないために',
+        digestLead: '便利に使えるGrabを、乗車場所や料金で迷わず使うためのポイントです。',
         excerpt: '配車から支払い、乗車場所の確認まで。初めてでも迷わないGrabの使い方と注意点。',
         enTitle: 'How to use Grab safely in Vietnam',
         enExcerpt: 'A simple guide to booking, meeting your driver, paying and avoiding common mistakes.',
@@ -434,6 +438,8 @@
         dateLabel: '2026.07.10',
         category: 'VEHICLES',
         title: '週末ドライブの10分チェックリスト',
+        digestTitle: '週末のドライブ、出発前の10分',
+        digestLead: '気持ちよく走り出すために、車と持ち物を短時間で確認します。',
         excerpt: '出発前に車と心の準備を整える、初心者向けのチェックリストです。',
         enTitle: '10-minute weekend drive checklist',
         enExcerpt: 'Prepare your vehicle and route so your weekend drive starts smoothly.',
@@ -462,6 +468,8 @@
         dateLabel: '2026.07.08',
         category: 'TRAVEL',
         title: '写真に残らない“記憶”を残す旅ノート',
+        digestTitle: '旅の空気を、短い言葉で残す',
+        digestLead: '写真だけでは残せない音や匂い、その日の気分を旅の言葉にします。',
         excerpt: '写真では捉えきれない匂い、音、気分を短く残すメモ術。',
         enTitle: 'Travel notes that keep memories vivid',
         enExcerpt: 'Capture sounds, smells and moments that photographs cannot hold.',
@@ -654,7 +662,14 @@
 
     function renderDigest(article, locale) {
       const { title, excerpt } = translated(article, locale);
-      digest.innerHTML = `<small>${locale.latest}</small><h2>${title}</h2><img class="digest-image" src="${article.image}" alt="${currentLanguage === 'ja' ? (photoDescriptions[article.date] || article.imageAlt || title) : title}" width="1200" height="675"><p>${excerpt}</p>${currentLanguage === 'ja' ? (articleDetails[article.date] || '') : ''}`;
+      const digestTitle = currentLanguage === 'ja' ? (article.digestTitle || title) : title;
+      const digestLead = currentLanguage === 'ja' ? (article.digestLead || excerpt) : excerpt;
+      digest.innerHTML = `<small>${locale.latest}</small><h2>${digestTitle}</h2><img class="digest-image" src="${article.image}" alt="${currentLanguage === 'ja' ? (photoDescriptions[article.date] || article.imageAlt || title) : title}" width="1200" height="675"><p>${digestLead}</p>${currentLanguage === 'ja' ? (articleDetails[article.date] || '') : ''}`;
+    }
+
+    function digestButtonLabel(article, locale) {
+      if (!article) return locale.latest;
+      return currentLanguage === 'ja' ? (article.digestTitle || article.title) : locale.latest;
     }
 
     function renderLanguageOptions(query = '') {
@@ -720,7 +735,9 @@
           `;
         }).join('');
         if (!selectedDigestDate) selectedDigestDate = (filteredArticles[0] || articles[0]).date;
-        renderDigest(articles.find(a => a.date === selectedDigestDate) || filteredArticles[0] || articles[0], locale);
+        const selectedArticle = articles.find(a => a.date === selectedDigestDate) || filteredArticles[0] || articles[0];
+        renderDigest(selectedArticle, locale);
+        if (!digest.classList.contains('open')) button.textContent = digestButtonLabel(selectedArticle, locale);
       }
       renderLanguageOptions(languageSearch.value);
       languageTrigger.textContent = `Language: ${locale.label}`;
@@ -787,7 +804,9 @@
         } else {
           digest.classList.remove('open');
           button.setAttribute('aria-expanded', 'false');
-          button.textContent = locale.latest;
+          const latestArticle = visibleArticles()[0] || articles[0];
+          selectedDigestDate = latestArticle.date;
+          button.textContent = digestButtonLabel(latestArticle, locale);
         }
       });
 
