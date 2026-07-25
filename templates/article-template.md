@@ -5,6 +5,9 @@ category: "gourmet | vehicles | travel | vietnam | selection"
 digest: "表紙に表示する短い一言"
 image: "assets/images/画像ファイル名.jpg"
 image_alt: "写真の内容を具体的に説明"
+video: ""
+video_poster: ""
+video_caption: ""
 status: "draft"
 ---
 
@@ -26,9 +29,12 @@ status: "draft"
 
 安全面、料金変更、地域差など、読者が事前に知るべき内容を書きます。
 
+## 動画
+
+動画を使う場合は、内容の説明、字幕または要約、サムネイル画像を用意します。短い動画は `assets/videos/`、長い動画はYouTubeなどの埋め込みURLを記載します。
+
 ## 情報源
 
 - 確認日:
 - 公式サイト:
 - 補足:
-
