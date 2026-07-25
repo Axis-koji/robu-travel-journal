@@ -68,6 +68,20 @@ if (!existsSync(indexPath)) {
     }
   }
 
+  const videoReferences = [...html.matchAll(/(?:src|video)\s*[:=]\s*['"]([^'"]+\.(?:mp4|webm|ogv))['"]/gi)]
+    .map((match) => match[1])
+    .filter((path) => !/^https?:\/\//i.test(path) && !path.startsWith("data:"));
+
+  for (const videoPath of new Set(videoReferences)) {
+    const normalizedPath = videoPath.replace(/^\/+/, "");
+    const fullVideoPath = join(root, normalizedPath);
+    if (!existsSync(fullVideoPath)) {
+      errors.push(`index.html: 動画ファイルが見つかりません: ${videoPath}`);
+    } else if (statSync(fullVideoPath).size > 50 * 1024 * 1024) {
+      errors.push(`index.html: 動画が50MBを超えています。外部動画サービスの埋め込みを検討してください: ${videoPath}`);
+    }
+  }
+
   if (!html.includes('lang="ja"')) warnings.push('index.html: lang="ja" を確認してください');
   if (!/<meta\s+name=["']description["']/i.test(html)) warnings.push("index.html: descriptionがありません");
 }
