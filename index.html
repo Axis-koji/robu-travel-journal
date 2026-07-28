@@ -400,7 +400,7 @@
         zhCNTitle: '越南式晨间咖啡入门',
         zhCNExcerpt: '从选豆到冲煮，快速掌握越南咖啡的技巧。',
         image:'assets/images/article-vietnam-coffee.jpg',
-        url:'/articles/vietnamese-morning-coffee/',
+        url:'/articles/vietnam-coffee/',
         imageAlt:'ベトナム風のコーヒー'
       },
       {
@@ -430,7 +430,7 @@
         zhCNTitle: '在越南安全使用 Grab',
         zhCNExcerpt: '从叫车、确认司机到付款，掌握常见注意事项。',
         image:'assets/images/article-vietnam-grab.jpg',
-        url:'/articles/grab-vietnam-guide/',
+        url:'/articles/vietnam-grab/',
         imageAlt:'ベトナムの街を走る配車サービスの車'
       },
       {
@@ -781,9 +781,10 @@
 
         const articleLink = event.target.closest('.article-preview-link');
         if (!articleLink) return;
-        event.preventDefault();
         const selectedArticle = getLocalArticle(articleLink.dataset.articleDate);
         if (!selectedArticle) return;
+        if (selectedArticle.date === '2026-07-12' || selectedArticle.date === '2026-07-11') return;
+        event.preventDefault();
         selectedDigestDate = selectedArticle.date;
         const locale = localeText[currentLanguage];
         renderDigest(selectedArticle, locale);
