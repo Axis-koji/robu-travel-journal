@@ -501,7 +501,7 @@
       '2026-07-10': ['vehicles'],
       '2026-07-08': ['travel', 'selection']
     };
-    const comingSoonFilters = new Set(['travel', 'selection']);
+        const comingSoonFilters = new Set(['selection']);
     const comingSoonImages = {
       all:'assets/images/coming-soon-pattern-1.png',
       gourmet:'assets/images/coming-soon-pattern-2.png',
@@ -569,7 +569,7 @@
         <div class="article-note">料金・対応エリア・決済方法は変更されることがあります。予約画面に表示される最新情報を確認してください。緊急時に備え、車両情報を同行者へ共有しておくと安心です。</div>
       </div>`,
       '2026-07-10': `<div class="article-detail"><h3>出発前の安全チェック</h3><p>車の点検・移動時間・持ち物を1ページで確認。</p><ul><li>タイヤ空気圧</li><li>燃料残量</li><li>保険書類の確認</li></ul></div>`,
-      '2026-07-08': `<div class="article-detail"><h3>見えない記憶の記録</h3><p>写真に残らない感覚を、1分で書くテンプレートを提案します。</p><ul><li>匂い</li><li>音</li><li>肌感</li></ul></div>`
+      '2026-07-08': `<div class="article-detail"><h3>写真に残らないものを、一言で残す</h3><p>匂い、音、温度、会話を、旅を止めない短いメモにします。</p><ul><li>その場の1分メモ</li><li>夜の5分整理</li><li>帰宅後の再編集</li></ul></div>`
     };
 
     const isPreview = document.documentElement.dataset.runtime === 'preview';
@@ -783,7 +783,7 @@
         if (!articleLink) return;
         const selectedArticle = getLocalArticle(articleLink.dataset.articleDate);
         if (!selectedArticle) return;
-        if (selectedArticle.date === '2026-07-12' || selectedArticle.date === '2026-07-11' || selectedArticle.date === '2026-07-10') return;
+        if (selectedArticle.date === '2026-07-12' || selectedArticle.date === '2026-07-11' || selectedArticle.date === '2026-07-10' || selectedArticle.date === '2026-07-08') return;
         event.preventDefault();
         selectedDigestDate = selectedArticle.date;
         const locale = localeText[currentLanguage];
