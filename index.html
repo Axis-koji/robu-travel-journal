@@ -335,7 +335,7 @@
           <a href="#articles" data-filter="vehicles">乗り物</a>
           <a href="#articles" data-filter="travel">旅行</a>
           <a href="#articles" data-filter="vietnam">ベトナム</a>
-          <a href="#articles" data-filter="selection">Robu-'s selection</a>
+          <a href="#articles" data-filter="selection">Robu-'s Selection</a>
         </nav>
       </div>
     </div>
@@ -359,24 +359,24 @@
 
   <script>
     const localeText = {
-      ja:{ code:'ja', label:'日本語', aliases:'japanese', nav:['ホーム','グルメ','乗り物','旅行','ベトナム','Robu-\'s selection'], lead:'今日の話題、街の空気感、暮らしの知恵を、ひと目で見てすぐ読める形で並べました。', section:'最新記事', read:'記事を読む', latest:'最新記事のダイジェスト', close:'ダイジェストを閉じる', operator:'運営者', privacy:'プライバシーポリシー', search:'言語を検索', choose:'言語を選択', soon:'準備中です。ごめんなさい、もう少しお待ちください。', site:'ろぶーのきになる事', titleKey:'title', excerptKey:'excerpt' },
-      en:{ code:'en', label:'English', aliases:'english', nav:['Home','Gourmet','Cars','Travel','Vietnam','Robu-\'s selection'], lead:'Life, travel and practical notes from everyday moments, arranged so you can read quickly.', section:'Latest posts', read:'Read article', latest:'Read latest digest', close:'Close digest', operator:'Editor', privacy:'Privacy policy', search:'Search languages', choose:'Choose a language', soon:'We are getting this section ready. Please check back soon.', site:'Robu’s Curiosities', titleKey:'enTitle', excerptKey:'enExcerpt' },
-      fr:{ code:'fr', label:'Français', aliases:'french', nav:['Accueil','Gastronomie','Véhicules','Voyages','Vietnam','Robu-\'s selection'], lead:'Cuisine, conduite et découvertes du quotidien, présentées pour une lecture rapide.', section:'Derniers articles', read:'Lire l’article', latest:'Voir le dernier résumé', close:'Fermer le résumé', operator:'Éditeur', privacy:'Politique de confidentialité', search:'Rechercher une langue', choose:'Choisir une langue', soon:'Cette rubrique est en préparation. Revenez bientôt.', site:'Les curiosités de Robu', titleKey:'frTitle', excerptKey:'frExcerpt' },
-      es:{ code:'es', label:'Español', aliases:'spanish', nav:['Inicio','Gastronomía','Vehículos','Viajes','Vietnam','Robu-\'s selection'], lead:'Comida, conducción y hallazgos del día a día para leer de un vistazo.', section:'Últimos artículos', read:'Leer artículo', latest:'Ver resumen más reciente', close:'Cerrar resumen', operator:'Editor', privacy:'Política de privacidad', search:'Buscar idiomas', choose:'Elegir un idioma', soon:'Estamos preparando esta sección. Vuelve pronto.', site:'Curiosidades de Robu', titleKey:'esTitle', excerptKey:'esExcerpt' },
-      vi:{ code:'vi', label:'Tiếng Việt', aliases:'vietnamese', nav:['Trang chủ','Ẩm thực','Xe cộ','Du lịch','Việt Nam','Robu-\'s selection'], lead:'Những điều về cuộc sống, du lịch và kinh nghiệm hàng ngày, được trình bày dễ đọc ngay.', section:'Bài viết mới nhất', read:'Đọc bài', latest:'Xem tóm tắt mới nhất', close:'Đóng tóm tắt', operator:'Biên tập viên', privacy:'Chính sách quyền riêng tư', search:'Tìm ngôn ngữ', choose:'Chọn ngôn ngữ', soon:'Mục này đang được chuẩn bị. Vui lòng quay lại sớm.', site:'Điều Robu quan tâm', titleKey:'viTitle', excerptKey:'viExcerpt' },
-      it:{ code:'it', label:'Italiano', aliases:'italian', nav:['Home','Gastronomia','Veicoli','Viaggi','Vietnam','Robu-\'s selection'], lead:'Cibo, guida e scoperte della vita quotidiana in modo rapido da leggere.', section:'Articoli recenti', read:'Leggi l’articolo', latest:'Leggi il riepilogo più recente', close:'Chiudi riepilogo', operator:'Editore', privacy:'Informativa sulla privacy', search:'Cerca lingue', choose:'Scegli una lingua', soon:'Questa sezione è in preparazione. Torna presto.', site:'Le curiosità di Robu', titleKey:'itTitle', excerptKey:'itExcerpt' },
-      az:{ code:'az', label:'Azərbaycanca', aliases:'azerbaijani', nav:['Ana səhifə','Qastronomiya','Nəqliyyat','Səyahət','Vyetnam','Robu-\'s selection'], lead:'Müasir həyat və səyahətə dair mövzular, tez oxunaq formada.', section:'Ən son məqalələr', read:'Məqaləni oxu', latest:'Ən son xülasə', close:'Xülasəni bağla', operator:'Redaktor', privacy:'Məxfilik siyasəti', search:'Dil axtar', choose:'Dil seçin', soon:'Bu bölmə hazırlanır. Tezliklə yenidən baxın.', site:'Robunun maraq dairəsi', titleKey:'azTitle', excerptKey:'azExcerpt' },
-      uk:{ code:'uk', label:'Українська', aliases:'ukrainian', nav:['Головна','Гастрономія','Транспорт','Подорожі','Вʼєтнам','Robu-\'s selection'], lead:'Життєві поради та подорожі в форматі, який легко прочитати одразу.', section:'Останні статті', read:'Читати статтю', latest:'Переглянути останній дайджест', close:'Закрити дайджест', operator:'Редактор', privacy:'Політика конфіденційності', search:'Пошук мов', choose:'Виберіть мову', soon:'Цей розділ готується. Завітайте незабаром.', site:'Цікавинки Робу', titleKey:'ukTitle', excerptKey:'ukExcerpt' },
-      yue:{ code:'yue', label:'粵語', aliases:'cantonese', nav:['主頁','美食','交通','旅行','越南','Robu-\'s selection'], lead:'生活同埋旅行小貼士，整理成一眼就睇到嘅內容。', section:'最新文章', read:'閱讀文章', latest:'睇最新摘要', close:'收起摘要', operator:'編輯', privacy:'私隱政策', search:'搜尋語言', choose:'選擇語言', soon:'呢個部分準備緊，請遲啲再嚟。', site:'Robu 感興趣嘅事', titleKey:'zhTWTitle', excerptKey:'zhTWExcerpt' },
-      zhTW:{ code:'zh-Hant', label:'繁体中文', aliases:'traditional chinese', nav:['首頁','美食','交通','旅行','越南','Robu-\'s selection'], lead:'以生活、旅遊和實用知識為主題，快速閱讀。', section:'最新文章', read:'閱讀文章', latest:'閱讀最新摘要', close:'關閉摘要', operator:'編輯', privacy:'隱私權政策', search:'搜尋語言', choose:'選擇語言', soon:'此區正在準備中，敬請稍後再來。', site:'Robu 感興趣的事', titleKey:'zhTWTitle', excerptKey:'zhTWExcerpt' },
-      zhCN:{ code:'zh-Hans', label:'简体中文', aliases:'simplified chinese', nav:['首页','美食','出行','旅行','越南','Robu-\'s selection'], lead:'汇总生活、旅行和实用内容，方便快速阅读。', section:'最新文章', read:'阅读文章', latest:'查看最新摘要', close:'关闭摘要', operator:'编辑', privacy:'隐私政策', search:'搜索语言', choose:'选择语言', soon:'此栏目正在准备中，请稍后再来。', site:'Robu 感兴趣的事', titleKey:'zhCNTitle', excerptKey:'zhCNExcerpt' }
+      ja:{ code:'ja', label:'日本語', aliases:'japanese', nav:['ホーム','グルメ','乗り物','旅行','ベトナム','Robu-\'s Selection'], lead:'今日の話題、街の空気感、暮らしの知恵を、ひと目で見てすぐ読める形で並べました。', section:'最新記事', read:'記事を読む', latest:'最新記事のダイジェスト', close:'ダイジェストを閉じる', operator:'運営者', privacy:'プライバシーポリシー', search:'言語を検索', choose:'言語を選択', soon:'準備中です。ごめんなさい、もう少しお待ちください。', site:'ろぶーのきになる事', titleKey:'title', excerptKey:'excerpt' },
+      en:{ code:'en', label:'English', aliases:'english', nav:['Home','Gourmet','Cars','Travel','Vietnam','Robu-\'s Selection'], lead:'Life, travel and practical notes from everyday moments, arranged so you can read quickly.', section:'Latest posts', read:'Read article', latest:'Read latest digest', close:'Close digest', operator:'Editor', privacy:'Privacy policy', search:'Search languages', choose:'Choose a language', soon:'We are getting this section ready. Please check back soon.', site:'Robu’s Curiosities', titleKey:'enTitle', excerptKey:'enExcerpt' },
+      fr:{ code:'fr', label:'Français', aliases:'french', nav:['Accueil','Gastronomie','Véhicules','Voyages','Vietnam','Robu-\'s Selection'], lead:'Cuisine, conduite et découvertes du quotidien, présentées pour une lecture rapide.', section:'Derniers articles', read:'Lire l’article', latest:'Voir le dernier résumé', close:'Fermer le résumé', operator:'Éditeur', privacy:'Politique de confidentialité', search:'Rechercher une langue', choose:'Choisir une langue', soon:'Cette rubrique est en préparation. Revenez bientôt.', site:'Les curiosités de Robu', titleKey:'frTitle', excerptKey:'frExcerpt' },
+      es:{ code:'es', label:'Español', aliases:'spanish', nav:['Inicio','Gastronomía','Vehículos','Viajes','Vietnam','Robu-\'s Selection'], lead:'Comida, conducción y hallazgos del día a día para leer de un vistazo.', section:'Últimos artículos', read:'Leer artículo', latest:'Ver resumen más reciente', close:'Cerrar resumen', operator:'Editor', privacy:'Política de privacidad', search:'Buscar idiomas', choose:'Elegir un idioma', soon:'Estamos preparando esta sección. Vuelve pronto.', site:'Curiosidades de Robu', titleKey:'esTitle', excerptKey:'esExcerpt' },
+      vi:{ code:'vi', label:'Tiếng Việt', aliases:'vietnamese', nav:['Trang chủ','Ẩm thực','Xe cộ','Du lịch','Việt Nam','Robu-\'s Selection'], lead:'Những điều về cuộc sống, du lịch và kinh nghiệm hàng ngày, được trình bày dễ đọc ngay.', section:'Bài viết mới nhất', read:'Đọc bài', latest:'Xem tóm tắt mới nhất', close:'Đóng tóm tắt', operator:'Biên tập viên', privacy:'Chính sách quyền riêng tư', search:'Tìm ngôn ngữ', choose:'Chọn ngôn ngữ', soon:'Mục này đang được chuẩn bị. Vui lòng quay lại sớm.', site:'Điều Robu quan tâm', titleKey:'viTitle', excerptKey:'viExcerpt' },
+      it:{ code:'it', label:'Italiano', aliases:'italian', nav:['Home','Gastronomia','Veicoli','Viaggi','Vietnam','Robu-\'s Selection'], lead:'Cibo, guida e scoperte della vita quotidiana in modo rapido da leggere.', section:'Articoli recenti', read:'Leggi l’articolo', latest:'Leggi il riepilogo più recente', close:'Chiudi riepilogo', operator:'Editore', privacy:'Informativa sulla privacy', search:'Cerca lingue', choose:'Scegli una lingua', soon:'Questa sezione è in preparazione. Torna presto.', site:'Le curiosità di Robu', titleKey:'itTitle', excerptKey:'itExcerpt' },
+      az:{ code:'az', label:'Azərbaycanca', aliases:'azerbaijani', nav:['Ana səhifə','Qastronomiya','Nəqliyyat','Səyahət','Vyetnam','Robu-\'s Selection'], lead:'Müasir həyat və səyahətə dair mövzular, tez oxunaq formada.', section:'Ən son məqalələr', read:'Məqaləni oxu', latest:'Ən son xülasə', close:'Xülasəni bağla', operator:'Redaktor', privacy:'Məxfilik siyasəti', search:'Dil axtar', choose:'Dil seçin', soon:'Bu bölmə hazırlanır. Tezliklə yenidən baxın.', site:'Robunun maraq dairəsi', titleKey:'azTitle', excerptKey:'azExcerpt' },
+      uk:{ code:'uk', label:'Українська', aliases:'ukrainian', nav:['Головна','Гастрономія','Транспорт','Подорожі','Вʼєтнам','Robu-\'s Selection'], lead:'Життєві поради та подорожі в форматі, який легко прочитати одразу.', section:'Останні статті', read:'Читати статтю', latest:'Переглянути останній дайджест', close:'Закрити дайджест', operator:'Редактор', privacy:'Політика конфіденційності', search:'Пошук мов', choose:'Виберіть мову', soon:'Цей розділ готується. Завітайте незабаром.', site:'Цікавинки Робу', titleKey:'ukTitle', excerptKey:'ukExcerpt' },
+      yue:{ code:'yue', label:'粵語', aliases:'cantonese', nav:['主頁','美食','交通','旅行','越南','Robu-\'s Selection'], lead:'生活同埋旅行小貼士，整理成一眼就睇到嘅內容。', section:'最新文章', read:'閱讀文章', latest:'睇最新摘要', close:'收起摘要', operator:'編輯', privacy:'私隱政策', search:'搜尋語言', choose:'選擇語言', soon:'呢個部分準備緊，請遲啲再嚟。', site:'Robu 感興趣嘅事', titleKey:'zhTWTitle', excerptKey:'zhTWExcerpt' },
+      zhTW:{ code:'zh-Hant', label:'繁体中文', aliases:'traditional chinese', nav:['首頁','美食','交通','旅行','越南','Robu-\'s Selection'], lead:'以生活、旅遊和實用知識為主題，快速閱讀。', section:'最新文章', read:'閱讀文章', latest:'閱讀最新摘要', close:'關閉摘要', operator:'編輯', privacy:'隱私權政策', search:'搜尋語言', choose:'選擇語言', soon:'此區正在準備中，敬請稍後再來。', site:'Robu 感興趣的事', titleKey:'zhTWTitle', excerptKey:'zhTWExcerpt' },
+      zhCN:{ code:'zh-Hans', label:'简体中文', aliases:'simplified chinese', nav:['首页','美食','出行','旅行','越南','Robu-\'s Selection'], lead:'汇总生活、旅行和实用内容，方便快速阅读。', section:'最新文章', read:'阅读文章', latest:'查看最新摘要', close:'关闭摘要', operator:'编辑', privacy:'隐私政策', search:'搜索语言', choose:'选择语言', soon:'此栏目正在准备中，请稍后再来。', site:'Robu 感兴趣的事', titleKey:'zhCNTitle', excerptKey:'zhCNExcerpt' }
     };
 
     const articles = [
       {
         date: '2026-07-12',
         dateLabel: '2026.07.12',
-        category: 'GOURMET',
+        category: 'グルメ',
         title: 'コーヒーの香りが導く、ベトナムの朝',
         digestTitle: 'ベトナムの朝、コーヒーでひと息',
         digestLead: '甘い香りに包まれながら、ベトナムらしい朝の一杯を楽しみます。',
@@ -406,7 +406,7 @@
       {
         date: '2026-07-11',
         dateLabel: '2026.07.11',
-        category: 'VIETNAM / VEHICLES',
+        category: 'ベトナム / 乗り物',
         title: 'ベトナムでGrabを使う前に知っておきたいこと',
         digestTitle: 'ベトナムの移動、Grabで迷わないために',
         digestLead: '便利に使えるGrabを、乗車場所や料金で迷わず使うためのポイントです。',
@@ -436,7 +436,7 @@
       {
         date: '2026-07-10',
         dateLabel: '2026.07.10',
-        category: 'VEHICLES',
+        category: '乗り物',
         title: '週末ドライブの10分チェックリスト',
         digestTitle: '週末のドライブ、出発前の10分',
         digestLead: '気持ちよく走り出すために、車と持ち物を短時間で確認します。',
@@ -606,7 +606,7 @@
       : detected.includes('en') ? 'en'
       : 'ja';
 
-    let currentLanguage = detectedLanguage;
+    let currentLanguage = 'ja';
     if (!localeText[currentLanguage]) currentLanguage = 'ja';
     let activeFilter = 'all';
     let selectedDigestDate = '';
