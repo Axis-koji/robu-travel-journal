@@ -374,6 +374,52 @@
 
     const articles = [
       {
+        id: 'travel-vietnam-digest-2026-08-09',
+        date: '2026-08-09',
+        dateLabel: '2026.08.09',
+        category: '旅行 / ベトナム / ホテル',
+        title: '夏の海外旅行、出発前に確認したい5つの最新ポイント',
+        digestTitle: '夏の海外旅行、出発前に確認したい5つの最新ポイント',
+        digestLead: '入国条件、持込禁止品、航空便、治安、ホテルの開業状況を、出発前にまとめて確認します。',
+        excerpt: 'ベトナムの入国・持込禁止品・治安・新ホテル計画と、中東経由便やロシア・ウクライナ情勢を公式情報から整理しました。',
+        enTitle: 'Five current checks before a summer trip abroad',
+        enExcerpt: 'A practical pre-departure review of entry rules, restricted items, flights, safety notices and hotel openings.',
+        image:'assets/images/category-travel.jpg',
+        video:'assets/videos/2026-08-08-vietnam-travel-digest.mp4',
+        url:'/articles/2026-08-08-travel-vietnam-hotel-digest/',
+        imageAlt:'ユーザー提供の海外旅行動画'
+      },
+      {
+        id: 'suma-seaworld-hotel-2026-08-09',
+        date: '2026-08-09',
+        dateLabel: '2026.08.09',
+        category: '旅行 / ホテル',
+        title: '【宿泊レビュー】須磨シーワールドホテルは高い？料金と満足度を解説',
+        digestTitle: '須磨シーワールドホテル、体験込みの満足度は？',
+        digestLead: '水族館との動線、客室、食事、宿泊者ならではの体験を振り返ります。',
+        excerpt: '実際の宿泊体験をもとに、料金、部屋、食事、水族館との動線、満足度を紹介します。',
+        enTitle: 'Suma Sea World Hotel: price and experience review',
+        enExcerpt: 'A firsthand review of the rooms, meals, aquarium access and overall value.',
+        image:'assets/images/article-suma-seaworld-hotel.jpg',
+        url:'/articles/suma-seaworld-hotel/',
+        imageAlt:'須磨シーワールドホテルで撮影した写真'
+      },
+      {
+        id: 'hong-kong-dim-sum-shiki-2026-08-09',
+        date: '2026-08-09',
+        dateLabel: '2026.08.09',
+        category: 'グルメ / 旅行',
+        title: '【京都二条】本場香港の味を堪能！「香港点心専門店 四季」で絶品ランチ',
+        digestTitle: '京都二条で味わう、本格香港点心のランチ',
+        digestLead: '三条会商店街で見つけた香港点心専門店「四季」の料理と店内を紹介します。',
+        excerpt: '京都二条・三条会商店街にある「香港点心専門店 四季」で、本格的な香港料理を楽しんだ記録です。',
+        enTitle: 'Authentic Hong Kong dim sum at Shiki in Kyoto Nijo',
+        enExcerpt: 'A lunch visit to Hong Kong Dim Sum Shiki in Kyoto’s Sanjo-kai shopping arcade.',
+        image:'assets/images/article-hong-kong-dim-sum-shiki.jpg',
+        url:'/articles/hong-kong-dim-sum-shiki/',
+        imageAlt:'香港点心専門店 四季の外観'
+      },
+      {
         date: '2026-07-12',
         dateLabel: '2026.07.12',
         category: 'ベトナム',
@@ -496,12 +542,15 @@
     ];
 
     const articleFilters = {
+      'travel-vietnam-digest-2026-08-09': ['travel', 'vietnam'],
+      'suma-seaworld-hotel-2026-08-09': ['travel'],
+      'hong-kong-dim-sum-shiki-2026-08-09': ['gourmet', 'travel'],
       '2026-07-12': ['vietnam'],
       '2026-07-11': ['vehicles', 'vietnam'],
       '2026-07-10': ['vehicles'],
       '2026-07-08': ['travel', 'selection']
     };
-    const comingSoonFilters = new Set(['gourmet', 'selection']);
+    const comingSoonFilters = new Set(['selection']);
     const comingSoonImages = {
       all:'assets/images/coming-soon-guide-v7.png',
       gourmet:'assets/images/coming-soon-guide-v7.png',
@@ -510,6 +559,9 @@
       fallback:'assets/images/coming-soon-guide-v7.png'
     };
     const photoDescriptions = {
+      'travel-vietnam-digest-2026-08-09':'ユーザー提供の海外旅行動画',
+      'suma-seaworld-hotel-2026-08-09':'須磨シーワールドホテルで撮影した写真',
+      'hong-kong-dim-sum-shiki-2026-08-09':'香港点心専門店 四季の外観',
       '2026-07-12':'ベトナムのコーヒー',
       '2026-07-11':'ベトナムのGrab利用ガイド',
       '2026-07-10':'週末ドライブ準備',
@@ -632,8 +684,11 @@
         return null;
       }
     }
-    function getLocalArticle(articleDate) {
-      return articles.find(item => item.date === articleDate) || null;
+    function articleKey(article) {
+      return article.id || article.date;
+    }
+    function getLocalArticle(key) {
+      return articles.find(item => articleKey(item) === key) || null;
     }
 
     function translated(article, locale) {
@@ -646,14 +701,12 @@
 
     function visibleArticles() {
       return [...articles].filter(article =>
-        activeFilter === 'all' || (articleFilters[article.date] || []).includes(activeFilter)
+        activeFilter === 'all' || (articleFilters[articleKey(article)] || []).includes(activeFilter)
       ).sort((a,b)=>b.date.localeCompare(a.date));
     }
 
     function previewHref(article) {
-      return ['2026-07-12', '2026-07-11', '2026-07-10', '2026-07-08'].includes(article.date)
-        ? article.url
-        : '#latestDigest';
+      return article.url || '#latestDigest';
     }
 
     function renderDigest(article, locale) {
@@ -715,22 +768,26 @@
         button.hidden = false;
         cards.innerHTML = filteredArticles.map((article) => {
           const { title, excerpt } = translated(article, locale);
+          const key = articleKey(article);
+          const media = article.video
+            ? `<video class="card-image" muted playsinline preload="metadata" poster="${article.image}" aria-label="${currentLanguage === 'ja' ? (photoDescriptions[key] || '') : title}"><source src="${article.video}" type="video/mp4"></video>`
+            : `<img class="card-image" src="${article.image}" alt="${currentLanguage === 'ja' ? (photoDescriptions[key] || '') : title}" loading="lazy" decoding="async" width="800" height="450">`;
           return `
             <article class="card">
-              <a class="card-image-link article-preview-link" href="${previewHref(article)}" data-article-date="${article.date}" data-read-label="${locale.read}" aria-label="${title}">
-                <img class="card-image" src="${article.image}" alt="${currentLanguage === 'ja' ? (photoDescriptions[article.date] || '') : title}" loading="lazy" decoding="async" width="800" height="450">
+              <a class="card-image-link article-preview-link" href="${previewHref(article)}" data-article-date="${key}" data-read-label="${locale.read}" aria-label="${title}">
+                ${media}
               </a>
               <div class="card-body">
                 <small>${article.category} / ${article.dateLabel}</small>
                 <h3>${title}</h3>
                 <p>${excerpt}</p>
-                <a class="article-preview-link" href="${previewHref(article)}" data-article-date="${article.date}">${locale.read}</a>
+                <a class="article-preview-link" href="${previewHref(article)}" data-article-date="${key}">${locale.read}</a>
               </div>
             </article>
           `;
         }).join('');
-        if (!selectedDigestDate) selectedDigestDate = (filteredArticles[0] || articles[0]).date;
-        const selectedArticle = articles.find(a => a.date === selectedDigestDate) || filteredArticles[0] || articles[0];
+        if (!selectedDigestDate) selectedDigestDate = articleKey(filteredArticles[0] || articles[0]);
+        const selectedArticle = getLocalArticle(selectedDigestDate) || filteredArticles[0] || articles[0];
         renderDigest(selectedArticle, locale);
         if (!digest.classList.contains('open')) button.textContent = digestButtonLabel(selectedArticle, locale);
       }
@@ -778,9 +835,9 @@
         if (!articleLink) return;
         const selectedArticle = getLocalArticle(articleLink.dataset.articleDate);
         if (!selectedArticle) return;
-        if (selectedArticle.date === '2026-07-12' || selectedArticle.date === '2026-07-11' || selectedArticle.date === '2026-07-10' || selectedArticle.date === '2026-07-08') return;
+        if (previewHref(selectedArticle) !== '#latestDigest') return;
         event.preventDefault();
-        selectedDigestDate = selectedArticle.date;
+        selectedDigestDate = articleKey(selectedArticle);
         const locale = localeText[currentLanguage];
         renderDigest(selectedArticle, locale);
         digest.classList.add('open');
@@ -792,8 +849,8 @@
       button.addEventListener('click', async () => {
         const locale = localeText[currentLanguage];
         if (!digest.classList.contains('open')) {
-          selectedDigestDate = (visibleArticles()[0] || articles[0]).date;
-          renderDigest(articles.find(article => article.date === selectedDigestDate), locale);
+          selectedDigestDate = articleKey(visibleArticles()[0] || articles[0]);
+          renderDigest(getLocalArticle(selectedDigestDate), locale);
           digest.classList.add('open');
           button.setAttribute('aria-expanded', 'true');
           button.textContent = locale.close;
@@ -801,7 +858,7 @@
           digest.classList.remove('open');
           button.setAttribute('aria-expanded', 'false');
           const latestArticle = visibleArticles()[0] || articles[0];
-          selectedDigestDate = latestArticle.date;
+          selectedDigestDate = articleKey(latestArticle);
           button.textContent = digestButtonLabel(latestArticle, locale);
         }
       });
