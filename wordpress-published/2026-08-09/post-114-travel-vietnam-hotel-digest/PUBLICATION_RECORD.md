@@ -4,7 +4,7 @@
 - WordPress status: publish
 - WordPress published at: 2026-08-09 22:32:24 JST
 - WordPress URL: https://202604060021883mk7d7.conohawing.com/?p=114
-- GitHub public page: https://axis-jp.net/articles/2026-08-08-travel-vietnam-hotel-digest/
+- GitHub public page: https://www.axis-jp.net/articles/2026-08-08-travel-vietnam-hotel-digest/
 - GitHub sync date: 2026-08-09 (JST)
 - WordPress source body SHA-256: eb79f2de1bacf08f891ae0b28c7114b3ba4d9776ca584dffeb68d2eb834b4327
 - Scope: Published travel-safety digest covering Vietnam, hotels, Middle East connections, Russia and Ukraine.
