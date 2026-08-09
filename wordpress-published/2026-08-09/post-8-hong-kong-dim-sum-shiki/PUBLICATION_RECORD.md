@@ -4,7 +4,7 @@
 - WordPress status: publish
 - WordPress published at: 2026-08-09 20:00:00
 - WordPress URL: https://202604060021883mk7d7.conohawing.com/?p=8
-- GitHub public page: https://axis-jp.net/articles/hong-kong-dim-sum-shiki/
+- GitHub public page: https://www.axis-jp.net/articles/hong-kong-dim-sum-shiki/
 - GitHub sync date: 2026-08-09 (JST)
 - WordPress body SHA-256: 6ca2aa905938f42fb9d5dc51a5be35015d0032fe669ebedb42e5a2ab27390edd
 - Scope: Published WordPress article about Hong Kong Dim Sum Shiki in Kyoto Nijo.
