@@ -730,21 +730,45 @@
     const consentApprove = document.querySelector('#approveApi');
     const consentDeny = document.querySelector('#denyApi');
 
-    const detected = (navigator.languages || [navigator.language || 'ja']).join(' ').toLowerCase();
-    const detectedLanguage =
-      detected.includes('yue') || detected.includes('zh-hk') ? 'yue'
-      : detected.includes('zh-tw') || detected.includes('zh-hant') ? 'zhTW'
-      : detected.includes('zh-cn') || detected.includes('zh-hans') ? 'zhCN'
-      : detected.includes('fr') ? 'fr'
-      : detected.includes('es') ? 'es'
-      : detected.includes('vi') ? 'vi'
-      : detected.includes('az') ? 'az'
-      : detected.includes('uk') ? 'uk'
-      : detected.includes('it') ? 'it'
-      : detected.includes('en') ? 'en'
-      : 'ja';
+    const LANGUAGE_PREFERENCE_KEY = 'axis-language-preference';
+    function loadLanguagePreference() {
+      try {
+        return localStorage.getItem(LANGUAGE_PREFERENCE_KEY) || '';
+      } catch {
+        return '';
+      }
+    }
+    function saveLanguagePreference(language) {
+      try {
+        localStorage.setItem(LANGUAGE_PREFERENCE_KEY, language);
+      } catch {
+        // Storage may be unavailable in strict privacy modes; language switching still works for this page view.
+      }
+    }
+    function resolveSupportedLanguage(language) {
+      const normalized = String(language || '').toLowerCase();
+      if (normalized.startsWith('yue') || normalized.startsWith('zh-hk') || normalized.startsWith('zh-mo')) return 'yue';
+      if (normalized.startsWith('zh-tw') || normalized.startsWith('zh-hant')) return 'zhTW';
+      if (normalized.startsWith('zh-cn') || normalized.startsWith('zh-sg') || normalized.startsWith('zh-hans') || normalized === 'zh') return 'zhCN';
+      if (normalized.startsWith('ja')) return 'ja';
+      if (normalized.startsWith('fr')) return 'fr';
+      if (normalized.startsWith('es')) return 'es';
+      if (normalized.startsWith('vi')) return 'vi';
+      if (normalized.startsWith('az')) return 'az';
+      if (normalized.startsWith('uk')) return 'uk';
+      if (normalized.startsWith('it')) return 'it';
+      if (normalized.startsWith('en')) return 'en';
+      return '';
+    }
+    const browserLanguages = navigator.languages?.length
+      ? navigator.languages
+      : [navigator.language || 'ja'];
+    const detectedLanguage = browserLanguages
+      .map(resolveSupportedLanguage)
+      .find(Boolean) || 'ja';
+    const savedLanguage = loadLanguagePreference();
 
-    let currentLanguage = 'ja';
+    let currentLanguage = localeText[savedLanguage] ? savedLanguage : detectedLanguage;
     if (!localeText[currentLanguage]) currentLanguage = 'ja';
     let activeFilter = 'all';
     let selectedDigestDate = '';
@@ -816,6 +840,7 @@
 
       languageOptions.querySelectorAll('.language-option').forEach((option) => {
         option.addEventListener('click', () => {
+          saveLanguagePreference(option.dataset.lang);
           applyLanguage(option.dataset.lang);
           languagePanel.hidden = true;
           languageTrigger.setAttribute('aria-expanded', 'false');
