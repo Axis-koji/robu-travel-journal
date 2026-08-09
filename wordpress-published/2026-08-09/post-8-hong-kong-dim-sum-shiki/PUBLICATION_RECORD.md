@@ -2,7 +2,7 @@
 
 - WordPress post ID: 8
 - WordPress status: publish
-- WordPress published at: 2026-04-13 00:51:53
+- WordPress published at: 2026-08-09 20:00:00
 - WordPress URL: https://202604060021883mk7d7.conohawing.com/?p=8
 - GitHub public page: https://axis-jp.net/articles/hong-kong-dim-sum-shiki/
 - GitHub sync date: 2026-08-09 (JST)

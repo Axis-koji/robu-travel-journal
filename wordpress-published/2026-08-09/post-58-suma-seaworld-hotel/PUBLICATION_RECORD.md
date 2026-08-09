@@ -2,7 +2,7 @@
 
 - WordPress post ID: 58
 - WordPress status: publish
-- WordPress published at: 2026-04-14 20:18:37
+- WordPress published at: 2026-08-09 20:00:00
 - WordPress URL: https://202604060021883mk7d7.conohawing.com/?p=58
 - GitHub public page: https://axis-jp.net/articles/suma-seaworld-hotel/
 - GitHub sync date: 2026-08-09 (JST)
