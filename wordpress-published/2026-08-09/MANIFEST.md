@@ -4,8 +4,8 @@ Only the two posts explicitly approved by the owner were synchronized from the p
 
 | WordPress ID | Article | WordPress published at | GitHub public page | Body SHA-256 |
 |---:|---|---|---|---|
-| 8 | 【京都二条】本場香港の味を堪能！「香港点心専門店 四季」で絶品ランチ | 2026-04-13 00:51:53 | [hong-kong-dim-sum-shiki](/articles/hong-kong-dim-sum-shiki/) | 6ca2aa905938f42fb9d5dc51a5be35015d0032fe669ebedb42e5a2ab27390edd |
-| 58 | 【宿泊レビュー】須磨シーワールドホテルは高い？料金と満足度を解説 | 2026-04-14 20:18:37 | [suma-seaworld-hotel](/articles/suma-seaworld-hotel/) | a1fdb96cd2dc998794766344135d57415308f8a4fbb5bf2b7641c40eabc851ca |
+| 8 | 【京都二条】本場香港の味を堪能！「香港点心専門店 四季」で絶品ランチ | 2026-08-09 20:00:00 | [hong-kong-dim-sum-shiki](/articles/hong-kong-dim-sum-shiki/) | 6ca2aa905938f42fb9d5dc51a5be35015d0032fe669ebedb42e5a2ab27390edd |
+| 58 | 【宿泊レビュー】須磨シーワールドホテルは高い？料金と満足度を解説 | 2026-08-09 20:00:00 | [suma-seaworld-hotel](/articles/suma-seaworld-hotel/) | a1fdb96cd2dc998794766344135d57415308f8a4fbb5bf2b7641c40eabc851ca |
 
 ## Change scope
 
