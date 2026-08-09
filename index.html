@@ -63,8 +63,8 @@
       padding: 120px clamp(30px,8vw,105px) 70px;
       color: white;
       background-image:
-        linear-gradient(100deg, rgba(0,20,31,.72), rgba(0,53,69,.28)),
-        url("assets/images/hero-vietnam-sea.png");
+        linear-gradient(100deg, rgba(0,20,31,.18), rgba(0,53,69,.04)),
+        url("assets/images/hero-user-photo-2026-08-09.jpg");
       background-size: cover;
       background-position: center;
     }
@@ -165,7 +165,24 @@
     .nav a:nth-child(5) { background-image: linear-gradient(#18233277,#18233277), url("assets/images/category-hotel-marriott-izu-shuzenji.jpg");}
     .nav a:nth-child(6) { background-image: linear-gradient(#25182d77,#25182d77), url("assets/images/category-selection.jpg");}
 
-    .hero-copy { max-width: 720px; }
+    .hero-copy {
+      max-width: 720px;
+      opacity: 0;
+      transform: translateY(72px);
+      animation: hero-copy-rise 1.15s cubic-bezier(.22,.7,.2,1) 1.25s forwards;
+      will-change: opacity, transform;
+      text-shadow: 0 2px 9px rgba(0,18,26,.72), 0 1px 2px rgba(0,18,26,.86);
+    }
+    @keyframes hero-copy-rise {
+      from {
+        opacity: 0;
+        transform: translateY(72px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
     .kicker { font-size: 12px; letter-spacing: .2em; color: #c6f1ee; }
     h1 { font-size: clamp(50px,8vw,105px); line-height: 1.03; letter-spacing: .06em; margin: 24px 0; }
     h1 em { font-style: normal; color: #e0f7f6; }
@@ -314,6 +331,14 @@
 
     footer { padding: 48px clamp(24px,8vw,100px) 80px; background: #092f3d; color: #fff; display: flex; justify-content: space-between; gap: 25px; flex-wrap: wrap; }
     footer a { text-decoration: underline; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-copy {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+    }
 
     @media(max-width: 800px){
       .hero { padding-top: 220px; }
