@@ -6,7 +6,7 @@
 - WordPress URL: https://202604060021883mk7d7.conohawing.com/?p=8
 - GitHub public page: https://www.axis-jp.net/articles/hong-kong-dim-sum-shiki/
 - GitHub sync date: 2026-08-09 (JST)
-- WordPress body SHA-256: 6ca2aa905938f42fb9d5dc51a5be35015d0032fe669ebedb42e5a2ab27390edd
+- WordPress body SHA-256: cbfa9b3c4f7644dd5a964b4c75dc0cee932dc688420c4c387244d4ee5c9ed5a1
 - Scope: Published WordPress article about Hong Kong Dim Sum Shiki in Kyoto Nijo.
 
 The source.wordpress.html file contains only the WordPress post body extracted from the WordPress export. The full WXR export, authentication data, author email, unrelated posts, and attachment records are not included.
