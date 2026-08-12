@@ -1,0 +1,23 @@
+name: Check contact feedback form
+
+on:
+  pull_request:
+    paths:
+      - "articles/**"
+      - "assets/js/contact-feedback.js"
+      - "assets/js/site.js"
+      - "scripts/check-contact-feedback.ps1"
+      - ".github/workflows/check-contact-feedback.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify every article loads the shared contact form
+        shell: pwsh
+        run: ./scripts/check-contact-feedback.ps1
