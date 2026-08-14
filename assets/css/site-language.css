@@ -1,0 +1,88 @@
+.site-language-shell {
+  position: fixed;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(16, 41, 51, .22);
+  border-radius: 999px;
+  background: rgba(255, 253, 249, .96);
+  box-shadow: 0 8px 28px rgba(0, 20, 30, .18);
+  color: #102933;
+  font: 700 13px/1.2 "Yu Gothic", "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
+  backdrop-filter: blur(10px);
+}
+
+.site-language-shell label {
+  white-space: nowrap;
+}
+
+.site-language-shell select {
+  max-width: min(46vw, 180px);
+  min-height: 34px;
+  border: 1px solid #6a858d;
+  border-radius: 999px;
+  background: #fff;
+  color: #102933;
+  padding: 5px 30px 5px 10px;
+  font: inherit;
+}
+
+.site-language-shell select:focus-visible {
+  outline: 3px solid #ef765c;
+  outline-offset: 2px;
+}
+
+.site-language-notice {
+  width: min(100% - 32px, 1040px);
+  margin: 18px auto;
+  padding: 12px 16px;
+  border: 1px solid #b8d6d1;
+  border-left: 4px solid #0e6c78;
+  border-radius: 6px;
+  background: #f2faf8;
+  color: #163740;
+  font: 700 14px/1.7 "Yu Gothic", "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
+}
+
+.site-language-notice[hidden] {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .site-language-shell {
+    right: 8px;
+    bottom: 8px;
+    padding: 6px 8px;
+  }
+
+  .site-language-shell label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .site-language-shell select {
+    max-width: 54vw;
+  }
+
+  .site-language-notice {
+    width: calc(100% - 24px);
+    margin: 12px auto;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+@media print {
+  .site-language-shell,
+  .site-language-notice {
+    display: none !important;
+  }
+}
