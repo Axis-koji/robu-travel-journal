@@ -350,6 +350,7 @@
       .coming-soon { min-height: 430px; background-position: center bottom; }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/site-language.css">
 </head>
 <body>
   <div id="apiConsentBanner" class="api-consent" role="dialog" aria-live="polite">
@@ -401,7 +402,7 @@
   <script>
     const localeText = {
       ja:{ code:'ja', label:'日本語', aliases:'japanese', nav:['ホーム','グルメ','乗り物','旅行','ホテル','Robu-\'s Selection'], lead:'今日の話題、街の空気感、暮らしの知恵を、ひと目で見てすぐ読める形で並べました。', section:'最新記事', read:'記事を読む', latest:'最新の記事ダイジェスト', close:'ダイジェストを閉じる', operator:'運営者', privacy:'プライバシーポリシー', search:'言語を検索', choose:'言語を選択', soon:'準備中です。ごめんなさい、もう少しお待ちください。', site:'ろぶーの気になる事', titleKey:'title', excerptKey:'excerpt' },
-      en:{ code:'en', label:'English', aliases:'english', nav:['Home','Gourmet','Cars','Travel','Hotel','Robu-\'s Selection'], lead:'Life, travel and practical notes from everyday moments, arranged so you can read quickly.', section:'Latest posts', read:'Read article', latest:'Read latest digest', close:'Close digest', operator:'Editor', privacy:'Privacy policy', search:'Search languages', choose:'Choose a language', soon:'We are getting this section ready. Please check back soon.', site:'Robu’s Curiosities', titleKey:'enTitle', excerptKey:'enExcerpt' },
+      en:{ code:'en', label:'English', aliases:'english', nav:['Home','Gourmet','Cars','Travel','Hotel','Robu-\'s Selection'], lead:'Life, travel and practical notes from everyday moments, arranged so you can read quickly.', section:'Latest posts', read:'Read article', latest:'Read latest digest', close:'Close digest', operator:'Editor', privacy:'Privacy policy', search:'Search languages', choose:'Choose a language', soon:'We are getting this section ready. Please check back soon.', site:'Robu-’s Spot Light', titleKey:'enTitle', excerptKey:'enExcerpt' },
       fr:{ code:'fr', label:'Français', aliases:'french', nav:['Accueil','Gastronomie','Véhicules','Voyages','Hôtels','Robu-\'s Selection'], lead:'Cuisine, conduite et découvertes du quotidien, présentées pour une lecture rapide.', section:'Derniers articles', read:'Lire l’article', latest:'Voir le dernier résumé', close:'Fermer le résumé', operator:'Éditeur', privacy:'Politique de confidentialité', search:'Rechercher une langue', choose:'Choisir une langue', soon:'Cette rubrique est en préparation. Revenez bientôt.', site:'Les curiosités de Robu', titleKey:'frTitle', excerptKey:'frExcerpt' },
       es:{ code:'es', label:'Español', aliases:'spanish', nav:['Inicio','Gastronomía','Vehículos','Viajes','Hoteles','Robu-\'s Selection'], lead:'Comida, conducción y hallazgos del día a día para leer de un vistazo.', section:'Últimos artículos', read:'Leer artículo', latest:'Ver resumen más reciente', close:'Cerrar resumen', operator:'Editor', privacy:'Política de privacidad', search:'Buscar idiomas', choose:'Elegir un idioma', soon:'Estamos preparando esta sección. Vuelve pronto.', site:'Curiosidades de Robu', titleKey:'esTitle', excerptKey:'esExcerpt' },
       vi:{ code:'vi', label:'Tiếng Việt', aliases:'vietnamese', nav:['Trang chủ','Ẩm thực','Xe cộ','Du lịch','Khách sạn','Robu-\'s Selection'], lead:'Những điều về cuộc sống, du lịch và kinh nghiệm hàng ngày, được trình bày dễ đọc ngay.', section:'Bài viết mới nhất', read:'Đọc bài', latest:'Xem tóm tắt mới nhất', close:'Đóng tóm tắt', operator:'Biên tập viên', privacy:'Chính sách quyền riêng tư', search:'Tìm ngôn ngữ', choose:'Chọn ngôn ngữ', soon:'Mục này đang được chuẩn bị. Vui lòng quay lại sớm.', site:'Điều Robu quan tâm', titleKey:'viTitle', excerptKey:'viExcerpt' },
@@ -912,6 +913,9 @@
       const locale = localeText[currentLanguage];
       document.documentElement.lang = locale.code;
       document.querySelectorAll('.nav a').forEach((item, index) => item.textContent = locale.nav[index]);
+      document.querySelector('.hero-copy h1').innerHTML = currentLanguage === 'en'
+        ? 'Robu-’s<br><em>Spot Light</em>'
+        : 'ろぶーの<br><em>気になる事</em>';
       document.querySelector('.lead').innerHTML = locale.lead;
       document.querySelector('.section h2').textContent = locale.section;
       button.textContent = digest.classList.contains('open') ? locale.close : locale.latest;
@@ -1062,5 +1066,6 @@
       consentBanner.style.display = 'none';
     }
   </script>
+  <script src="/assets/js/site-language.js"></script>
 </body>
 </html>
