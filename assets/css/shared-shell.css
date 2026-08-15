@@ -189,39 +189,29 @@
 }
 
 /* Shared article table of contents: generated from each article's h2 headings. */
-body.has-robu-article-toc {
+.robu-article-layout {
   display: grid;
   grid-template-columns: clamp(240px, 19vw, 310px) minmax(0, 1fr);
   column-gap: clamp(28px, 4vw, 72px);
   align-items: start;
+  width: 100%;
 }
 
-body.has-robu-article-toc > .robu-common-header,
-body.has-robu-article-toc > .robu-common-footer {
-  grid-column: 1 / -1;
-}
-
-body.has-robu-article-toc > .robu-common-header {
+.robu-article-layout > .robu-article-toc {
+  grid-column: 1;
   grid-row: 1;
 }
 
-body.has-robu-article-toc > .robu-article-toc {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-body.has-robu-article-toc > main,
-body.has-robu-article-toc > article {
+.robu-article-layout > main,
+.robu-article-layout > article {
+  box-sizing: border-box;
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 1;
   width: 100%;
+  max-width: 100%;
   min-width: 0;
-  margin-right: 0;
-  margin-left: 0;
-}
-
-body.has-robu-article-toc > .robu-common-footer {
-  grid-row: 3;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .robu-article-toc {
@@ -309,6 +299,19 @@ body.has-robu-article-toc .toc {
   display: none !important;
 }
 
+/* Older articles reserve a second grid column for their original TOC.
+   Collapse that empty column after the shared TOC replaces it. */
+body.has-robu-article-toc .article-content {
+  grid-template-columns: minmax(0, min(100%, 960px));
+  gap: 0;
+  justify-content: center;
+}
+
+body.has-robu-article-toc .article-content > .prose {
+  width: 100%;
+  max-width: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   body.has-robu-article-toc {
     scroll-behavior: smooth;
@@ -316,30 +319,24 @@ body.has-robu-article-toc .toc {
 }
 
 @media (max-width: 1100px) {
-  body.has-robu-article-toc {
+  .robu-article-layout {
     grid-template-columns: minmax(0, 1fr);
     column-gap: 0;
   }
 
-  body.has-robu-article-toc > .robu-common-header,
-  body.has-robu-article-toc > .robu-common-footer,
-  body.has-robu-article-toc > .robu-article-toc,
-  body.has-robu-article-toc > main,
-  body.has-robu-article-toc > article {
+  .robu-article-layout > .robu-article-toc,
+  .robu-article-layout > main,
+  .robu-article-layout > article {
     grid-column: 1;
   }
 
-  body.has-robu-article-toc > .robu-article-toc {
+  .robu-article-layout > .robu-article-toc {
+    grid-row: 1;
+  }
+
+  .robu-article-layout > main,
+  .robu-article-layout > article {
     grid-row: 2;
-  }
-
-  body.has-robu-article-toc > main,
-  body.has-robu-article-toc > article {
-    grid-row: 3;
-  }
-
-  body.has-robu-article-toc > .robu-common-footer {
-    grid-row: 4;
   }
 
   .robu-article-toc {

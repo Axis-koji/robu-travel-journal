@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var cssHref = '/assets/css/shared-shell.css?v=20260816-3';
+  var cssHref = '/assets/css/shared-shell.css?v=20260816-4';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
 
@@ -16,7 +16,7 @@
 
   function headerMarkup() {
     return '<header class="site-header robu-common-header" data-robu-common-header>' +
-      '<a class="brand" href="/">ろぶーの<span>気になること</span></a>' +
+      '<a class="brand" href="/">ろぶーの<span>気になる事</span></a>' +
       '<button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="robuCommonNavigation">☰</button>' +
       '<nav class="main-nav" id="robuCommonNavigation" aria-label="メインナビゲーション">' +
       '<a href="/">ホーム</a>' +
@@ -31,7 +31,7 @@
 
   function footerMarkup() {
     return '<footer class="site-footer robu-common-footer" data-robu-common-footer>' +
-      '<div><a class="brand" href="/">ろぶーの<span>気になること</span></a><p>日常に、少し旅の気分を。</p></div>' +
+      '<div><a class="brand" href="/">ろぶーの<span>気になる事</span></a><p>日常に、少し旅の気分を。</p></div>' +
       '<div class="footer-links">' +
       '<a href="/about/">運営者情報</a>' +
       '<a href="/privacy-policy/">プライバシーポリシー</a>' +
@@ -45,7 +45,7 @@
       '<a class="social-link social-instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagramを開く">Instagram</a>' +
       '<a class="social-link social-x" href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="Xを開く">X</a>' +
       '</div>' +
-      '<small>© 2026 ろぶーの気になること. All rights reserved.</small>' +
+      '<small>© 2026 ろぶーの気になる事. All rights reserved.</small>' +
       '</footer>';
   }
 
@@ -152,7 +152,15 @@
     nav.appendChild(list);
     details.appendChild(nav);
     aside.appendChild(details);
-    document.body.insertBefore(aside, layoutRoot);
+
+    // Keep the sticky table of contents inside the article region so it
+    // naturally stops before the shared footer instead of overlapping it.
+    var articleLayout = document.createElement('div');
+    articleLayout.className = 'robu-article-layout';
+    articleLayout.setAttribute('data-robu-article-layout', '');
+    document.body.insertBefore(articleLayout, layoutRoot);
+    articleLayout.appendChild(aside);
+    articleLayout.appendChild(layoutRoot);
     document.body.classList.add('has-robu-article-toc');
 
     var desktopQuery = window.matchMedia('(min-width: 1101px)');
