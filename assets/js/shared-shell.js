@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var cssHref = '/assets/css/shared-shell.css?v=20260816-1';
+  var cssHref = '/assets/css/shared-shell.css?v=20260816-2';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
 
   function ensureStyle() {
@@ -37,7 +37,7 @@
       '<a href="/terms/">利用規約</a>' +
       '<a href="/advertising-disclaimer/">広告・免責事項</a>' +
       '<a href="/contact/">お問い合わせ</a>' +
-      '<a href="/sitemap.xml">サイトマップ</a>' +
+      '<a href="/sitemap/">サイトマップ</a>' +
       '</div>' +
       '<div class="social-links" aria-label="SNSリンク">' +
       '<a class="social-link social-facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebookを開く">Facebook</a>' +
