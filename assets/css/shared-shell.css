@@ -6,6 +6,15 @@
   --robu-shell-deep: #073844;
 }
 
+.robu-common-header,
+.robu-common-header *,
+.robu-common-footer,
+.robu-common-footer *,
+.robu-article-toc,
+.robu-article-toc * {
+  box-sizing: border-box;
+}
+
 .site-header.robu-common-header {
   position: relative;
   z-index: 50;
@@ -177,6 +186,187 @@
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   color: #9db7b8;
   font-size: 11px;
+}
+
+/* Shared article table of contents: generated from each article's h2 headings. */
+body.has-robu-article-toc {
+  display: grid;
+  grid-template-columns: clamp(240px, 19vw, 310px) minmax(0, 1fr);
+  column-gap: clamp(28px, 4vw, 72px);
+  align-items: start;
+}
+
+body.has-robu-article-toc > .robu-common-header,
+body.has-robu-article-toc > .robu-common-footer {
+  grid-column: 1 / -1;
+}
+
+body.has-robu-article-toc > .robu-common-header {
+  grid-row: 1;
+}
+
+body.has-robu-article-toc > .robu-article-toc {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+body.has-robu-article-toc > main,
+body.has-robu-article-toc > article {
+  grid-column: 2;
+  grid-row: 2;
+  width: 100%;
+  min-width: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+body.has-robu-article-toc > .robu-common-footer {
+  grid-row: 3;
+}
+
+.robu-article-toc {
+  position: sticky;
+  top: 24px;
+  z-index: 10;
+  align-self: start;
+  max-height: calc(100vh - 48px);
+  margin: clamp(32px, 5vw, 76px) 0 48px clamp(20px, 4vw, 72px);
+  overflow: auto;
+  border-top: 6px solid #0b7a83;
+  background: #e8f5f5;
+  color: #173b45;
+  box-shadow: 0 15px 34px rgba(9, 62, 72, 0.08);
+  font-family: "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: #9fc6c7 transparent;
+}
+
+.robu-article-toc-details {
+  padding: 26px 26px 28px;
+}
+
+.robu-article-toc summary {
+  margin: 0;
+  color: #086b76;
+  font-size: clamp(18px, 1.6vw, 24px);
+  font-weight: 800;
+  line-height: 1.45;
+  cursor: default;
+  list-style: none;
+}
+
+.robu-article-toc summary::-webkit-details-marker {
+  display: none;
+}
+
+.robu-article-toc nav {
+  margin-top: 22px;
+}
+
+.robu-article-toc ol {
+  margin: 0;
+  padding-left: 1.7em;
+}
+
+.robu-article-toc li {
+  margin: 0 0 14px;
+  padding-left: 3px;
+  color: #f1735d;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.robu-article-toc li:last-child {
+  margin-bottom: 0;
+}
+
+.robu-article-toc li::marker {
+  color: #f1735d;
+  font-weight: 900;
+}
+
+.robu-article-toc a {
+  display: inline;
+  color: #264b56;
+  font-weight: 500;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.robu-article-toc a:hover,
+.robu-article-toc a:focus-visible,
+.robu-article-toc a.is-current {
+  color: #087681;
+  text-decoration: underline;
+}
+
+body.has-robu-article-toc h2[id] {
+  scroll-margin-top: 104px;
+}
+
+body.has-robu-article-toc .toc {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body.has-robu-article-toc {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (max-width: 1100px) {
+  body.has-robu-article-toc {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+  }
+
+  body.has-robu-article-toc > .robu-common-header,
+  body.has-robu-article-toc > .robu-common-footer,
+  body.has-robu-article-toc > .robu-article-toc,
+  body.has-robu-article-toc > main,
+  body.has-robu-article-toc > article {
+    grid-column: 1;
+  }
+
+  body.has-robu-article-toc > .robu-article-toc {
+    grid-row: 2;
+  }
+
+  body.has-robu-article-toc > main,
+  body.has-robu-article-toc > article {
+    grid-row: 3;
+  }
+
+  body.has-robu-article-toc > .robu-common-footer {
+    grid-row: 4;
+  }
+
+  .robu-article-toc {
+    position: relative;
+    top: auto;
+    width: auto;
+    max-height: none;
+    margin: 24px 20px 8px;
+  }
+
+  .robu-article-toc-details {
+    padding: 20px 22px;
+  }
+
+  .robu-article-toc summary {
+    cursor: pointer;
+  }
+
+  .robu-article-toc summary::after {
+    float: right;
+    content: "＋";
+    color: #087681;
+  }
+
+  .robu-article-toc details[open] summary::after {
+    content: "−";
+  }
 }
 
 @media (max-width: 980px) {

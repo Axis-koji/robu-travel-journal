@@ -1,8 +1,9 @@
 (function () {
   'use strict';
 
-  var cssHref = '/assets/css/shared-shell.css?v=20260816-2';
+  var cssHref = '/assets/css/shared-shell.css?v=20260816-3';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
+  var articlePath = window.location.pathname.indexOf('/articles/') === 0;
 
   function ensureStyle() {
     if (document.querySelector('link[data-robu-shared-shell]')) return;
@@ -78,10 +79,108 @@
     else document.body.appendChild(footer);
   }
 
+  function articleHeadingRoot() {
+    var main = document.querySelector('body > main');
+    if (main) return main.querySelector('article') || main;
+    return document.querySelector('body > article');
+  }
+
+  function articleLayoutRoot() {
+    return document.querySelector('body > main, body > article');
+  }
+
+  function uniqueHeadingId(heading, index, usedIds) {
+    var currentId = heading.id && heading.id.trim();
+    if (currentId && !usedIds[currentId]) {
+      usedIds[currentId] = true;
+      return currentId;
+    }
+
+    var baseId = 'article-section-' + (index + 1);
+    var candidate = baseId;
+    var suffix = 2;
+    while (usedIds[candidate] || document.getElementById(candidate)) {
+      candidate = baseId + '-' + suffix;
+      suffix += 1;
+    }
+    heading.id = candidate;
+    usedIds[candidate] = true;
+    return candidate;
+  }
+
+  function renderArticleToc() {
+    if (!articlePath || document.querySelector('[data-robu-article-toc]')) return;
+
+    var headingRoot = articleHeadingRoot();
+    var layoutRoot = articleLayoutRoot();
+    if (!headingRoot || !layoutRoot) return;
+
+    var headings = Array.prototype.filter.call(headingRoot.querySelectorAll('h2'), function (heading) {
+      return !heading.closest('.contact-feedback') && heading.textContent.trim();
+    });
+    if (!headings.length) return;
+
+    var usedIds = {};
+    var aside = document.createElement('aside');
+    aside.className = 'robu-article-toc';
+    aside.setAttribute('data-robu-article-toc', '');
+    aside.setAttribute('aria-label', 'この記事の目次');
+
+    var details = document.createElement('details');
+    details.className = 'robu-article-toc-details';
+    details.open = true;
+
+    var summary = document.createElement('summary');
+    summary.textContent = 'この記事の目次';
+    details.appendChild(summary);
+
+    var nav = document.createElement('nav');
+    nav.setAttribute('aria-label', '記事内の見出し');
+    var list = document.createElement('ol');
+
+    headings.forEach(function (heading, index) {
+      var id = uniqueHeadingId(heading, index, usedIds);
+      var item = document.createElement('li');
+      var link = document.createElement('a');
+      link.href = '#' + id;
+      link.textContent = heading.textContent.trim();
+      link.setAttribute('data-robu-toc-link', id);
+      item.appendChild(link);
+      list.appendChild(item);
+    });
+
+    nav.appendChild(list);
+    details.appendChild(nav);
+    aside.appendChild(details);
+    document.body.insertBefore(aside, layoutRoot);
+    document.body.classList.add('has-robu-article-toc');
+
+    var desktopQuery = window.matchMedia('(min-width: 1101px)');
+    function keepDesktopTocOpen(event) {
+      if (event.matches) details.open = true;
+    }
+    keepDesktopTocOpen(desktopQuery);
+    if (desktopQuery.addEventListener) desktopQuery.addEventListener('change', keepDesktopTocOpen);
+
+    var links = aside.querySelectorAll('[data-robu-toc-link]');
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          Array.prototype.forEach.call(links, function (link) {
+            link.classList.toggle('is-current', link.getAttribute('data-robu-toc-link') === entry.target.id);
+          });
+        });
+      }, { rootMargin: '-18% 0px -68% 0px', threshold: 0 });
+      headings.forEach(function (heading) { observer.observe(heading); });
+    }
+  }
+
   function init() {
     ensureStyle();
     renderHeader();
     renderFooter();
+    renderArticleToc();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
