@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var cssHref = '/assets/css/shared-shell.css?v=20260816-3';
+  var cssHref = '/assets/css/shared-shell.css?v=20260816-4';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
 
@@ -152,7 +152,15 @@
     nav.appendChild(list);
     details.appendChild(nav);
     aside.appendChild(details);
-    document.body.insertBefore(aside, layoutRoot);
+
+    // Keep the sticky table of contents inside the article region so it
+    // naturally stops before the shared footer instead of overlapping it.
+    var articleLayout = document.createElement('div');
+    articleLayout.className = 'robu-article-layout';
+    articleLayout.setAttribute('data-robu-article-layout', '');
+    document.body.insertBefore(articleLayout, layoutRoot);
+    articleLayout.appendChild(aside);
+    articleLayout.appendChild(layoutRoot);
     document.body.classList.add('has-robu-article-toc');
 
     var desktopQuery = window.matchMedia('(min-width: 1101px)');
