@@ -374,6 +374,36 @@
 
     const articles = [
       {
+        date: '2026-08-15',
+        dateLabel: '2026.08.15',
+        category: 'TRAVEL',
+        title: '太陽の黒点、出る前に分かる？ NASAのAI研究を旅目線で読んでみた',
+        digestTitle: '太陽の黒点、出る前に分かる？',
+        digestLead: 'NASAのCOFFIES研究を、旅と旅先での通信・運行判断にどう繋げて読むかに絞って整理しました。',
+        excerpt: 'NASAが太陽活動領域の予兆をAIで先回り検知する研究を公開。実運用には公式運行情報の確認を前提に読むことが重要。',
+        enTitle: 'Can We Spot Solar Spots Before They Appear? Travel Perspective on NASA AI Research',
+        enExcerpt: 'NASA COFFIES aims to anticipate solar activity regions before visible effects; this is not yet a direct operational trigger.',
+        frTitle: 'Peut-on voir les taches solaires avant leur apparition ?',
+        frExcerpt: 'La recherche COFFIES de la NASA anticipe des régions actives du soleil; l’usage opérationnel reste prudent.',
+        esTitle: '¿Podemos prever las manchas solares antes de que aparezcan?',
+        esExcerpt: 'COFFIES de la NASA busca anticipar zonas de actividad solar con IA; cela ne remplace pas les directives opérationnelles.',
+        viTitle: 'Nhìn thấy vết đen trên Mặt Trời trước khi xuất hiện? Góc nhìn của người đi du lịch',
+        viExcerpt: 'Nghiên cứu COFFIES của NASA dự đoán vùng hoạt động mặt trời trước khi bộc lộ rõ; cần kết hợp thông tin vận hành chính thức.',
+        itTitle: 'Si possono prevedere le macchie solari prima che compaiano?',
+        itExcerpt: 'COFFIES della NASA cerca di anticipare le aree attive solari con IA; per usi pratici restano necessarie fonti operative ufficiali.',
+        azTitle: 'Günəş ləkələrini görünənə qədər əvvəlcədən görə bilərikmi?',
+        azExcerpt: 'NASA COFFIES görünən zonalardan əvvəl aktiv sahələri proqnozlaşdırır; istifadə üçün rəsmi uçuş məlumatları əsas olmalıdır.',
+        ukTitle: 'Чи можна побачити сонячні плями до появи?',
+        ukExcerpt: 'NASA COFFIES досліджує попереднє виявлення активних областей Сонця за допомогою ШІ; для практики потрібні офіційні операційні джерела.',
+        zhTWTitle: '太陽黑子真的能提前被看見嗎？',
+        zhTWExcerpt: 'NASA COFFIES 探討用AI提前識別太陽活動區域；實務上仍需以官方航運與通信資訊為準。',
+        zhCNTitle: '太阳黑子真的能提前看见吗？',
+        zhCNExcerpt: 'NASA COFFIES研究尝试用AI提前识别太阳活动区；实际使用仍需以官方运行信息为准。',
+        image:'assets/images/sun-ai-forecast-concept-v1.png',
+        url:'/articles/nasa-coffies-solar-ai/',
+        imageAlt:'太陽フレア前兆を示すコンセプト画像'
+      },
+      {
         date: '2026-07-12',
         dateLabel: '2026.07.12',
         category: 'GOURMET',
@@ -496,6 +526,7 @@
     ];
 
     const articleFilters = {
+      '2026-08-15': ['travel'],
       '2026-07-12': ['gourmet', 'vietnam', 'selection'],
       '2026-07-11': ['vehicles', 'vietnam'],
       '2026-07-10': ['vehicles'],
@@ -510,12 +541,25 @@
       fallback:'assets/images/coming-soon-pattern-5.png'
     };
     const photoDescriptions = {
+      '2026-08-15':'太陽の黒点と通信・運行の予兆研究',
       '2026-07-12':'ベトナムのコーヒー',
       '2026-07-11':'ベトナムのGrab利用ガイド',
       '2026-07-10':'週末ドライブ準備',
       '2026-07-08':'旅行ノート'
     };
     const articleDetails = {
+      '2026-08-15': `<div class="article-detail">
+        <h3>旅行と太陽天気、つなげて読むポイント</h3>
+        <p>今回のテーマは、NASAが研究している「太陽活動の先読み」を、現場の視点で使えるかという問いです。発表内容としては「可視化・判定」の精度向上が中心で、航空・船舶・広域通信の運用判断を単独で置き換えるものではありません。</p>
+        <h3>なぜ旅目線で見る？</h3>
+        <p>長距離移動中は、気象だけでなく通信不安定や運行変更が体験の大きな変化点です。だから、研究が本番の意思決定に使えるならどこが嬉しいかを「予備知識」として整理しておきたいと思いました。</p>
+        <h3>読後メモ</h3>
+        <ul>
+          <li>目的地到着予定時刻がタイトな旅なら、公式の運行情報を1回確認する習慣を追加。</li>
+          <li>研究段階の技術と、実運用の運行情報は同列に扱わない。</li>
+          <li>科学情報は「おもしろい」で終わらせず、出発前チェックに落とし込む。</li>
+        </ul>
+      </div>`,
       '2026-07-12': `<div class="article-detail">
         <h3>地元で親しまれる、ベトナムコーヒーの店</h3>
         <p>ベトナムのコーヒーは、濃く抽出したロブスタ豆に練乳を合わせる一杯だけではありません。街ごとに違う味と空気があり、店選びそのものが旅の楽しみです。評判や営業状況は変わるため、訪問前に公式情報も確認してください。</p>
