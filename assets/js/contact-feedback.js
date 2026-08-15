@@ -11,7 +11,7 @@
     if(document.querySelector('link[data-contact-feedback-style]')) return;
     var link=document.createElement('link');
     link.rel='stylesheet';
-    link.href='/assets/css/contact-feedback.css';
+    link.href='/assets/css/contact-feedback.css?v=20260816-2';
     link.dataset.contactFeedbackStyle='';
     document.head.appendChild(link);
   }

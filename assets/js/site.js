@@ -96,7 +96,7 @@
   function loadContactFeedback() {
     if (document.querySelector('script[data-contact-feedback-loader]')) return;
     var script = document.createElement('script');
-    script.src = '/assets/js/contact-feedback.js';
+    script.src = '/assets/js/contact-feedback.js?v=20260816-2';
     script.defer = true;
     script.dataset.contactFeedbackLoader = '';
     document.head.appendChild(script);
