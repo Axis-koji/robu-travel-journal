@@ -97,3 +97,117 @@ body.robus-selection-page .robu-article-toc a:focus-visible,
 body.robus-selection-page .robu-article-toc a.is-current {
   color: #d8b676;
 }
+
+/* Robu's Selection contact area: keep the shared form structure, but use
+   the category's deep navy, ivory and bronze palette only on Selection pages. */
+body.robus-selection-page .contact-feedback {
+  --contact-ink: var(--robu-selection-ivory);
+  --contact-muted: #cfc4b4;
+  --contact-paper: var(--robu-selection-panel);
+  --contact-cream: #0b242c;
+  --contact-line: rgba(169, 120, 50, 0.58);
+  --contact-green: var(--robu-selection-bronze);
+  margin-top: 30px;
+  margin-bottom: 22px;
+  color: var(--robu-selection-ivory);
+}
+
+body.robus-selection-page .contact-details {
+  border: 1px solid var(--robu-selection-bronze);
+  background: var(--robu-selection-panel);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+}
+
+body.robus-selection-page .contact-details summary,
+body.robus-selection-page .contact-details summary:hover {
+  background: linear-gradient(135deg, #102d35, #0b222a);
+}
+
+body.robus-selection-page .contact-icon {
+  border: 1px solid var(--robu-selection-bronze);
+  background: rgba(169, 120, 50, 0.12);
+  color: #d6ad68;
+}
+
+body.robus-selection-page .contact-details summary strong,
+body.robus-selection-page .contact-field > span,
+body.robus-selection-page .contact-privacy h3 {
+  color: var(--robu-selection-ivory);
+}
+
+body.robus-selection-page .contact-details summary small,
+body.robus-selection-page .contact-intro,
+body.robus-selection-page .contact-counter,
+body.robus-selection-page .contact-privacy p {
+  color: var(--contact-muted);
+}
+
+body.robus-selection-page .summary-action,
+body.robus-selection-page .contact-consent a,
+body.robus-selection-page .contact-security-note > span,
+body.robus-selection-page .contact-status.contact-success {
+  color: #d6ad68;
+}
+
+body.robus-selection-page .contact-panel {
+  border-top: 1px solid var(--contact-line);
+  background: #0d2931;
+}
+
+body.robus-selection-page .contact-field input,
+body.robus-selection-page .contact-field select,
+body.robus-selection-page .contact-field textarea {
+  border-color: rgba(169, 120, 50, 0.62);
+  background: #f7efe1;
+  color: #102d35;
+}
+
+body.robus-selection-page .contact-field input:focus,
+body.robus-selection-page .contact-field select:focus,
+body.robus-selection-page .contact-field textarea:focus {
+  border-color: var(--robu-selection-bronze);
+  box-shadow: 0 0 0 3px rgba(169, 120, 50, 0.22);
+}
+
+body.robus-selection-page .contact-consent,
+body.robus-selection-page .contact-security-note {
+  border-color: var(--robu-selection-bronze);
+  background: #0b222a;
+  color: var(--robu-selection-ivory);
+}
+
+body.robus-selection-page .contact-consent input {
+  accent-color: var(--robu-selection-bronze);
+}
+
+body.robus-selection-page .contact-security-note p {
+  color: var(--contact-muted);
+}
+
+body.robus-selection-page .contact-submit {
+  background: var(--robu-selection-bronze);
+  color: #071821;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.32);
+}
+
+body.robus-selection-page .contact-submit:hover {
+  background: #bd8b43;
+}
+
+body.robus-selection-page .contact-privacy {
+  border-top-color: var(--contact-line);
+}
+
+body.robus-selection-page .robu-article-layout > main,
+body.robus-selection-page .robu-article-layout > article,
+body.robus-selection-page > main,
+body.robus-selection-page > article {
+  padding-bottom: 40px !important;
+}
+
+@media (max-width: 760px) {
+  body.robus-selection-page .contact-feedback {
+    margin-top: 24px;
+    margin-bottom: 18px;
+  }
+}
