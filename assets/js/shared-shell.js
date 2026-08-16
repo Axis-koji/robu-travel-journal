@@ -30,7 +30,7 @@
     if (document.querySelector('link[data-robu-selection-theme]')) return;
     var link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = '/assets/css/robus-selection-theme.css?v=20260816-1';
+    link.href = '/assets/css/robus-selection-theme.css?v=20260816-2';
     link.setAttribute('data-robu-selection-theme', '');
     document.head.appendChild(link);
   }
