@@ -4,6 +4,16 @@
   var cssHref = '/assets/css/shared-shell.css?v=20260816-4';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
+  var selectionArticlePaths = [
+    '/articles/garmin-cirqa-smart-band/',
+    '/articles/meta-glasses/',
+    '/articles/breitling-navitimer-samurai-japan/',
+    '/articles/breitling-navitimer-concorde/',
+    '/articles/seiko-astron-hab005j/',
+    '/articles/casio-gwr-b3000/'
+  ];
+  var currentPath = window.location.pathname.replace(/index\.html$/, '');
+  var selectionArticle = selectionArticlePaths.indexOf(currentPath) !== -1;
 
   function ensureStyle() {
     if (document.querySelector('link[data-robu-shared-shell]')) return;
@@ -12,6 +22,31 @@
     link.href = cssHref;
     link.setAttribute('data-robu-shared-shell', '');
     document.head.appendChild(link);
+  }
+
+  function ensureSelectionTheme() {
+    if (!selectionArticle) return;
+    document.body.classList.add('robus-selection-page');
+    if (document.querySelector('link[data-robu-selection-theme]')) return;
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/assets/css/robus-selection-theme.css?v=20260816-1';
+    link.setAttribute('data-robu-selection-theme', '');
+    document.head.appendChild(link);
+  }
+
+  function renderSelectionLabel() {
+    if (!selectionArticle) return;
+    var heading = document.querySelector('body > main h1, body > article h1, body > header:not(.site-header) h1, body h1');
+    if (!heading) return;
+
+    var label = document.createElement('div');
+    label.className = 'robu-selection-label';
+    label.textContent = "Robu's Selection";
+
+    var existing = document.querySelector('.robu-selection-label, .badge, .draft, .status');
+    if (existing && !existing.closest('.contact-feedback')) existing.replaceWith(label);
+    else heading.parentNode.insertBefore(label, heading);
   }
 
   function headerMarkup() {
@@ -186,7 +221,9 @@
 
   function init() {
     ensureStyle();
+    ensureSelectionTheme();
     renderHeader();
+    renderSelectionLabel();
     renderFooter();
     renderArticleToc();
   }
