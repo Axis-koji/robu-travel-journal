@@ -1,0 +1,99 @@
+:root {
+  --robu-selection-navy: #071821;
+  --robu-selection-deep: #030910;
+  --robu-selection-panel: #102d35;
+  --robu-selection-ivory: #f4ebdd;
+  --robu-selection-muted: #c9c0b2;
+  --robu-selection-bronze: #a97832;
+  --robu-selection-blue: #9fc8e9;
+}
+
+body.robus-selection-page {
+  background: linear-gradient(145deg, var(--robu-selection-deep), var(--robu-selection-navy) 55%, #02070c) !important;
+  color: var(--robu-selection-ivory) !important;
+}
+
+body.robus-selection-page .site-header.robu-common-header {
+  border-bottom: 1px solid var(--robu-selection-bronze);
+}
+
+body.robus-selection-page .robu-selection-label {
+  margin: 0 0 14px;
+  color: var(--robu-selection-blue);
+  font-family: "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+body.robus-selection-page h1,
+body.robus-selection-page h2,
+body.robus-selection-page h3 {
+  color: var(--robu-selection-ivory);
+}
+
+body.robus-selection-page h2 {
+  border-color: rgba(169, 120, 50, 0.62);
+}
+
+body.robus-selection-page p,
+body.robus-selection-page li,
+body.robus-selection-page figcaption,
+body.robus-selection-page .lead,
+body.robus-selection-page .note {
+  color: var(--robu-selection-muted);
+}
+
+body.robus-selection-page a {
+  color: #c9974d;
+}
+
+body.robus-selection-page .viewer,
+body.robus-selection-page .hero img,
+body.robus-selection-page article > img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--robu-selection-bronze);
+  border-radius: 16px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+body.robus-selection-page .card,
+body.robus-selection-page .fact,
+body.robus-selection-page .lead,
+body.robus-selection-page .note,
+body.robus-selection-page .warning {
+  border-color: rgba(169, 120, 50, 0.45);
+  background: #0c2029;
+}
+
+body.robus-selection-page .card b,
+body.robus-selection-page .fact strong,
+body.robus-selection-page .fact b {
+  color: #c9974d;
+}
+
+body.robus-selection-page .robu-article-toc {
+  border-top: 3px solid var(--robu-selection-bronze);
+  background: var(--robu-selection-panel);
+  color: var(--robu-selection-ivory);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
+  scrollbar-color: var(--robu-selection-bronze) transparent;
+}
+
+body.robus-selection-page .robu-article-toc summary,
+body.robus-selection-page .robu-article-toc a {
+  color: var(--robu-selection-ivory);
+}
+
+body.robus-selection-page .robu-article-toc li,
+body.robus-selection-page .robu-article-toc li::marker,
+body.robus-selection-page .robu-article-toc summary::after {
+  color: var(--robu-selection-bronze);
+}
+
+body.robus-selection-page .robu-article-toc a:hover,
+body.robus-selection-page .robu-article-toc a:focus-visible,
+body.robus-selection-page .robu-article-toc a.is-current {
+  color: #d8b676;
+}
