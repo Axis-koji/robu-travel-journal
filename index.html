@@ -951,10 +951,11 @@
 
       languageOptions.querySelectorAll('.language-option').forEach((option) => {
         option.addEventListener('click', () => {
-          saveLanguagePreference(option.dataset.lang);
-          applyLanguage(option.dataset.lang);
           languagePanel.hidden = true;
           languageTrigger.setAttribute('aria-expanded', 'false');
+          saveLanguagePreference(option.dataset.lang);
+          applyLanguage(option.dataset.lang);
+          languageTrigger.focus();
         });
       });
     }
@@ -967,9 +968,12 @@
       document.querySelector('.lead').innerHTML = locale.lead;
       document.querySelector('.section h2').textContent = locale.section;
       button.textContent = digest.classList.contains('open') ? locale.close : locale.latest;
-      document.querySelector('footer strong').textContent = locale.site;
-      document.querySelector('footer a').textContent = locale.privacy;
-      document.querySelector('footer span').textContent = `© 2026 ${locale.site}`;
+      const legacyFooterBrand = document.querySelector('footer:not([data-robu-common-footer]) > strong');
+      const legacyFooterPrivacy = document.querySelector('footer:not([data-robu-common-footer]) > a');
+      const legacyFooterCopyright = document.querySelector('footer:not([data-robu-common-footer]) > span');
+      if (legacyFooterBrand) legacyFooterBrand.textContent = locale.site;
+      if (legacyFooterPrivacy) legacyFooterPrivacy.textContent = locale.privacy;
+      if (legacyFooterCopyright) legacyFooterCopyright.textContent = `© 2026 ${locale.site}`;
       languageSearch.placeholder = locale.search;
       languageSearch.setAttribute('aria-label', locale.search);
       languageOptions.setAttribute('aria-label', locale.choose);
