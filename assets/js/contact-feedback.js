@@ -57,7 +57,7 @@
       var source=values.source||document.title;
       var subject='【ろぶーの気になる事】'+values.category+'｜'+source;
       var body=['お名前：'+values.name,'折り返し用メールアドレス：'+values.email,'電話番号：'+(values.phone||'未記入'),'住所：'+(values.address||'未記入'),'お問い合わせの種類：'+values.category,'対象ページ：'+source,'ページURL：'+window.location.href,'','内容：',values.message].join('\r\n');
-      var recipient=['koji','axis-jp.net'].join('@');
+      var recipient=['goiken','axis-jp.net'].join('@');
       status.textContent='メールアプリを開きます。内容を確認して送信してください。';status.className='contact-status contact-success';
       window.location.href='mailto:'+recipient+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
     });
