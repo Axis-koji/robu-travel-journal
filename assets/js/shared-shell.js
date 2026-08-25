@@ -5,6 +5,7 @@
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
   var selectionArticlePaths = [
+    '/articles/google-pixel-watch-5/',
     '/articles/garmin-cirqa-smart-band/',
     '/articles/meta-glasses/',
     '/articles/breitling-navitimer-samurai-japan/',
