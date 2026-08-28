@@ -2,8 +2,37 @@
   'use strict';
 
   var analyticsMeasurementId = 'G-609VD0NVVF';
+  var consentStorageKey = 'robu_google_consent_v1';
 
-  var cssHref = '/assets/css/shared-shell.css?v=20260816-4';
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+  function readStoredConsent() {
+    try {
+      return window.localStorage.getItem(consentStorageKey);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function storeConsent(value) {
+    try {
+      window.localStorage.setItem(consentStorageKey, value);
+    } catch (error) {
+      // Continue with the visitor's choice for the current page.
+    }
+  }
+
+  var storedConsent = readStoredConsent();
+  window.gtag('consent', 'default', {
+    analytics_storage: storedConsent === 'granted' ? 'granted' : 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    wait_for_update: 500
+  });
+
+  var cssHref = '/assets/css/shared-shell.css?v=20260828-1';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
   var selectionArticlePaths = [
@@ -77,6 +106,7 @@
       '<a href="/advertising-disclaimer/">広告・免責事項</a>' +
       '<a href="/contact/">お問い合わせ</a>' +
       '<a href="/sitemap/">サイトマップ</a>' +
+      '<button type="button" class="privacy-settings" data-robu-consent-settings>Cookie設定 / Cookie settings</button>' +
       '</div>' +
       '<div class="social-links" aria-label="SNSリンク">' +
       '<a class="social-link social-facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebookを開く">Facebook</a>' +
@@ -115,6 +145,11 @@
     var current = document.querySelector('body > footer');
     if (current) current.replaceWith(footer);
     else document.body.appendChild(footer);
+
+    var settingsButton = footer.querySelector('[data-robu-consent-settings]');
+    if (settingsButton) settingsButton.addEventListener('click', function () {
+      showConsentBanner(true);
+    });
   }
 
   function articleHeadingRoot() {
@@ -224,8 +259,6 @@
 
   function loadGoogleAnalytics() {
     if (document.querySelector('script[data-robu-google-analytics]')) return;
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
     window.gtag('config', analyticsMeasurementId);
     var script = document.createElement('script');
@@ -235,14 +268,58 @@
     document.head.appendChild(script);
   }
 
+  function consentBannerMarkup() {
+    return '<section class="robu-consent-banner" data-robu-consent-banner role="dialog" aria-labelledby="robuConsentTitle" aria-describedby="robuConsentDescription">' +
+      '<div class="robu-consent-copy">' +
+      '<strong id="robuConsentTitle">Cookieとアクセス解析 / Cookies &amp; analytics</strong>' +
+      '<p id="robuConsentDescription">サイト改善のためGoogle Analyticsを使用します。分析Cookieを許可するか選択してください。We use Google Analytics to improve this site. You can accept or reject analytics cookies.</p>' +
+      '<a href="/privacy-policy/">プライバシーポリシー / Privacy policy</a>' +
+      '</div>' +
+      '<div class="robu-consent-actions">' +
+      '<button type="button" data-robu-consent="denied">拒否 / Reject</button>' +
+      '<button type="button" class="is-primary" data-robu-consent="granted">同意する / Accept</button>' +
+      '</div>' +
+      '</section>';
+  }
+
+  function applyConsent(value) {
+    storeConsent(value);
+    storedConsent = value;
+    window.gtag('consent', 'update', {
+      analytics_storage: value === 'granted' ? 'granted' : 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    if (value === 'granted') loadGoogleAnalytics();
+    var banner = document.querySelector('[data-robu-consent-banner]');
+    if (banner) banner.remove();
+  }
+
+  function showConsentBanner(force) {
+    if (!force && storedConsent) return;
+    var current = document.querySelector('[data-robu-consent-banner]');
+    if (current) current.remove();
+    var banner = elementFrom(consentBannerMarkup());
+    banner.querySelectorAll('[data-robu-consent]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        applyConsent(button.getAttribute('data-robu-consent'));
+      });
+    });
+    document.body.appendChild(banner);
+    var preferred = banner.querySelector('[data-robu-consent="' + (storedConsent || 'denied') + '"]');
+    if (preferred) preferred.focus();
+  }
+
   function init() {
-    loadGoogleAnalytics();
     ensureStyle();
     ensureSelectionTheme();
     renderHeader();
     renderSelectionLabel();
     renderFooter();
     renderArticleToc();
+    if (storedConsent === 'granted') loadGoogleAnalytics();
+    else if (!storedConsent) showConsentBanner(false);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

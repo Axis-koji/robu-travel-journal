@@ -11,8 +11,103 @@
 .robu-common-footer,
 .robu-common-footer *,
 .robu-article-toc,
-.robu-article-toc * {
+.robu-article-toc *,
+.robu-consent-banner,
+.robu-consent-banner * {
   box-sizing: border-box;
+}
+
+.robu-common-footer .privacy-settings {
+  grid-column: 1 / -1;
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.robu-common-footer .privacy-settings:hover,
+.robu-common-footer .privacy-settings:focus-visible {
+  color: var(--robu-shell-accent);
+}
+
+.robu-consent-banner {
+  position: fixed;
+  z-index: 10000;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px 28px;
+  align-items: center;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 22px 24px;
+  border: 1px solid rgba(220, 230, 228, 0.95);
+  border-radius: 16px;
+  background: rgba(255, 253, 249, 0.98);
+  color: var(--robu-shell-ink);
+  box-shadow: 0 22px 70px rgba(3, 28, 38, 0.28);
+  font-family: "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
+}
+
+.robu-consent-copy strong {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.robu-consent-copy p {
+  margin: 0 0 8px;
+  color: #36545c;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.robu-consent-copy a {
+  color: var(--robu-shell-accent);
+  font-size: 13px;
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+
+.robu-consent-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.robu-consent-actions button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #9bb4b6;
+  border-radius: 9px;
+  background: #fff;
+  color: var(--robu-shell-ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.robu-consent-actions button:hover,
+.robu-consent-actions button:focus-visible {
+  border-color: var(--robu-shell-accent);
+  outline: 3px solid rgba(8, 118, 129, 0.18);
+}
+
+.robu-consent-actions .is-primary {
+  border-color: var(--robu-shell-accent);
+  background: var(--robu-shell-accent);
+  color: #fff;
 }
 
 .site-header.robu-common-header {
@@ -412,6 +507,26 @@ body.has-robu-article-toc .article-content > .prose {
 }
 
 @media (max-width: 640px) {
+  .robu-consent-banner {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 18px;
+    border-radius: 13px;
+  }
+
+  .robu-consent-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .robu-consent-actions button {
+    width: 100%;
+    white-space: normal;
+  }
+
   .robu-common-header .brand {
     font-size: 20px;
   }
