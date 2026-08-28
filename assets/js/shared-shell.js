@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  var analyticsMeasurementId = 'G-609VD0NVVF';
+
   var cssHref = '/assets/css/shared-shell.css?v=20260816-4';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
@@ -225,10 +227,10 @@
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
-    window.gtag('config', 'G-CSY3V14TV1');
+    window.gtag('config', analyticsMeasurementId);
     var script = document.createElement('script');
     script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-CSY3V14TV1';
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(analyticsMeasurementId);
     script.setAttribute('data-robu-google-analytics', '');
     document.head.appendChild(script);
   }
