@@ -75,5 +75,16 @@
   </article>
 </main>
 <script src="/assets/js/contact-feedback.js"></script>
+<script>
+  (function () {
+    function removeStandaloneBodyLabel() {
+      document.querySelectorAll('body *').forEach(function (element) {
+        if (!element.children.length && element.textContent.trim() === '本文') element.remove();
+      });
+    }
+    removeStandaloneBodyLabel();
+    new MutationObserver(removeStandaloneBodyLabel).observe(document.body, {childList:true,subtree:true});
+  }());
+</script>
 </body>
 </html>
