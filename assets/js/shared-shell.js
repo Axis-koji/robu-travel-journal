@@ -36,6 +36,7 @@
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
   var selectionArticlePaths = [
+    '/articles/seiko-prospex-hbc011j/',
     '/articles/google-pixel-watch-5/',
     '/articles/garmin-cirqa-smart-band/',
     '/articles/meta-glasses/',
