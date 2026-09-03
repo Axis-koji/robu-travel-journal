@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://www.google-analytics.com data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.googletagmanager.com 'unsafe-inline'; connect-src https://www.google-analytics.com https://region1.google-analytics.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <title>Android 17のMotion AssistとGuided visionとは？対応条件と注意点｜ろぶーの気になる事</title>
+  <meta name="description" content="AndroidのMotion AssistとGuided visionを解説。対応OS、使い方、日本での提供条件、運転中・移動時に必ず守りたい安全上の注意を公式情報で確認します。">
+  <meta name="keywords" content="Android 17,Motion Assist,Guided vision,Gemini Live,乗り物酔い,アクセシビリティ">
+  <link rel="canonical" href="https://www.axis-jp.net/articles/android-motion-assist-guided-vision/">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="ろぶーの気になる事">
+  <meta property="og:title" content="車酔いと「見えにくい」に、Androidはどう寄り添う？">
+  <meta property="og:description" content="Motion AssistとGuided visionの仕組み、対応条件、安全上の注意を公式情報で整理。">
+  <meta property="og:url" content="https://www.axis-jp.net/articles/android-motion-assist-guided-vision/">
+  <meta property="og:image" content="https://www.axis-jp.net/articles/android-motion-assist-guided-vision/android-motion-assist-passenger-hero-v1.png">
+  <meta property="og:image:alt" content="走行中の車の後部座席で同乗者がスマートフォンを見る説明用AI生成画像">
+  <meta property="article:published_time" content="2026-09-03T00:00:00+09:00">
+  <meta property="article:modified_time" content="2026-09-03T00:00:00+09:00">
+  <meta property="article:section" content="AI・テクノロジー">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="車酔いと『見えにくい』に、Androidはどう寄り添う？">
+  <meta name="twitter:description" content="Motion AssistとGuided visionの仕組み、対応条件、安全上の注意を公式情報で整理します。">
+  <meta name="twitter:image" content="https://www.axis-jp.net/articles/android-motion-assist-guided-vision/android-motion-assist-passenger-hero-v1.png">
+  <link rel="stylesheet" href="/assets/css/contact-feedback-ees-standard.css?v=3" data-contact-feedback-style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"車酔いと「見えにくい」に、Androidはどう寄り添う？ Motion AssistとGuided visionを読む","description":"GoogleのSeptember Android Dropから、乗り物酔いの軽減を助けるMotion Assistと、周囲の理解を音声で支えるGuided visionを、安全上の注意と日本での利用条件を含めて読み解きます。","inLanguage":"ja-JP","datePublished":"2026-09-03T00:00:00+09:00","dateModified":"2026-09-03T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.axis-jp.net/articles/android-motion-assist-guided-vision/"},"image":["https://www.axis-jp.net/articles/android-motion-assist-guided-vision/android-motion-assist-passenger-hero-v1.png","https://www.axis-jp.net/articles/android-motion-assist-guided-vision/guided-vision-kitchen-v1.png"],"citation":["https://blog.google/products-and-platforms/platforms/android/Android-Drop-September-2026/","https://www.android.com/intl/en_us/new-features-on-android/featured/september-2026/"],"author":{"@type":"Organization","name":"ろぶーの気になる事"},"publisher":{"@type":"Organization","name":"ろぶーの気になる事","url":"https://www.axis-jp.net/"},"isAccessibleForFree":true}
+  </script>
+  <style>
+    :root{--ink:#17312d;--muted:#60736f;--green:#176c5b;--mint:#eaf7f1;--cream:#fffaf0;--line:#d9e6e1;--coral:#e96f51}
+    *{box-sizing:border-box}body{margin:0;background:#fffdf8;color:var(--ink);font-family:"Yu Gothic UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;line-height:1.9}
+    a{color:#096b7a}.site-header{display:flex;justify-content:space-between;align-items:center;max-width:1180px;margin:auto;padding:20px 24px;background:#fffdf8}.brand{font-family:Georgia,"Yu Mincho",serif;color:var(--ink);text-decoration:none;font-size:22px;font-weight:800}.brand span{color:var(--coral)}
+    .hero{position:relative;min-height:min(68vw,720px);display:grid;align-items:end;background:linear-gradient(180deg,rgba(13,42,38,.02),rgba(13,42,38,.72)),url('./android-motion-assist-passenger-hero-v1.png') center/cover no-repeat}
+    .hero-copy{width:min(980px,calc(100% - 40px));margin:0 auto;padding:72px 0 50px;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.35)}.eyebrow{font-weight:800;letter-spacing:.09em}.hero h1{max-width:880px;margin:.25em 0;font-family:Georgia,"Yu Mincho",serif;font-size:clamp(34px,5.6vw,68px);line-height:1.3}.lead{max-width:780px;font-size:clamp(17px,2.2vw,22px);font-weight:700}
+    main{width:min(1080px,calc(100% - 32px));margin:0 auto 80px}.article-grid{display:grid;grid-template-columns:240px minmax(0,740px);gap:58px;justify-content:center;padding-top:52px}.toc{position:sticky;top:24px;align-self:start;padding:24px;background:var(--mint);border:1px solid var(--line);border-radius:14px}.toc strong{font-family:Georgia,"Yu Mincho",serif}.toc ol{padding-left:1.4em;margin-bottom:0}.prose h2{margin:2.2em 0 .7em;font-family:Georgia,"Yu Mincho",serif;font-size:clamp(26px,4vw,38px);line-height:1.45}.prose p{font-size:17px}.prose img{display:block;width:100%;margin:30px 0 10px;border-radius:18px;box-shadow:0 16px 40px rgba(25,66,57,.16)}.caption{margin:0 0 32px!important;color:var(--muted);font-size:13px!important}.notice,.safety{padding:20px 22px;border-radius:12px}.notice{background:var(--cream);border-left:5px solid #d79d32}.safety{background:#fff1ed;border-left:5px solid var(--coral)}.checklist{padding:24px 28px;background:var(--mint);border:1px solid var(--line);border-radius:14px}.sources{font-size:14px}.contact-note{margin-top:44px;padding:20px;border:1px solid var(--line);background:#fff;border-radius:10px}.site-footer{padding:42px 24px;background:#17312d;color:#e8f3ef;text-align:center}.site-footer a{color:#fff}
+    @media(max-width:800px){.article-grid{grid-template-columns:1fr}.toc{position:static}.hero{min-height:74vh}.hero-copy{padding-bottom:34px}}
+  </style>
+  <script defer src="/assets/js/shared-shell.js?v=20260903-1"></script>
+</head>
+<body>
+  <article>
+    <section class="hero" aria-label="走行中の車の後部座席で同乗者がスマートフォンを見る説明用AI生成画像">
+      <div class="hero-copy">
+        <p class="eyebrow">ANDROID / 暮らしとアクセシビリティ</p>
+        <h1>車酔いと「見えにくい」に、Androidはどう寄り添う？</h1>
+        <p class="lead">Motion AssistとGuided vision。便利さの前に、対応条件と安全の線引きを確認します。</p>
+      </div>
+    </section>
+    <main data-contact-page>
+      <div class="article-grid">
+        <aside class="toc"><strong>この記事の目次</strong><ol><li>Motion Assist</li><li>Guided vision</li><li>日本での条件</li><li>安全ライン</li><li>ろぶーはこう見る</li></ol></aside>
+        <div class="prose">
+          <p class="notice">Googleが2026年9月1日に発表したSeptember Android Dropから、困りごとへの支援に焦点を当てた二つの機能を取り上げます。2026年9月3日時点でGuided visionは「近日提供」と案内されており、実際の利用可否は端末の設定画面とGoogleの最新情報で確認してください。</p>
+          <p>今回、ろぶーが気になったのは、スマートフォンをもっと派手に見せる機能ではなく、使う人の感覚と画面の間にある距離を縮めようとする「Motion Assist」と「Guided vision」でした。</p>
+
+          <h2>Motion Assistは、目と乗り物の動きの「ずれ」に手を差し伸べる</h2>
+          <p>Motion Assistは、走行中の車内でスマートフォンを使う同乗者に向けた機能です。画面上に控えめなバブル状のオーバーレイを表示し、車両の動きに合わせて動かすことで、目に入る画面と身体が感じる移動のずれを小さくする助けを目指します。</p>
+          <p>自動起動やクイック設定に加え、バブルの形、色、透明度も調整可能。対応条件はAndroid 17です。</p>
+          <p class="safety"><strong>安全上の注意：</strong>効果には個人差があり、少数では症状が悪化する可能性もあります。不快感があれば使用を中止し、運転中や安全への集中が必要な場面では使いません。</p>
+
+          <h2>Guided visionは、カメラの向け方まで声で支える</h2>
+          <img src="./guided-vision-kitchen-v1.png" alt="明るいキッチンでスマートフォンを食品容器に向け、音声案内を聞く人物" width="1672" height="941">
+          <p class="caption">OpenAIの画像生成機能で制作した説明用AI生成イメージ。公式画像や実際の認識結果ではありません。</p>
+          <p>Guided visionは、Gemini Liveでカメラを共有し、目の前のものの説明を音声で聞ける機能です。視覚に障害のある人やロービジョンの人たちとともに設計され、食品ラベル、暗い店内のメニュー、家の中の物を確認する場面が例示されています。</p>
+          <p>カメラが対象から外れていれば、向きを変える、空間をゆっくり映す、物を中央に置くといった調整も音声で案内します。</p>
+
+          <h2>日本で使える？ 「条件を満たす」と「もう届いている」は別</h2>
+          <p>2026年9月3日時点の公式案内では近日提供で、Android 9以降かつGemini提供国が対象です。日本でGeminiを利用できても、この機能が日本の全端末へ同時に届くという意味ではありません。機種、通信事業者、地域、段階配信により利用可否は変わります。</p>
+          <p>機能別注記では、対応端末、事前設定、18歳以上という条件も示されています。アクセシビリティショートカット、TalkBackメニュー、Geminiアプリ設定から利用できる予定です。</p>
+
+          <h2>便利さより先に覚えておきたい安全ライン</h2>
+          <p class="safety">Guided visionは認識を誤る可能性があります。医療機器、移動支援機器、安全な移動ガイドの代わりにはならず、ナビゲーションや障害物検知には使いません。道路横断、階段、ホームなどでは、スマートフォンの回答だけで判断しないことが大前提です。</p>
+
+          <h2>ろぶーはこう見る</h2>
+          <p>Motion Assistは動きを見える形にし、Guided visionはカメラの向け方を声で返します。どちらも「答え」より手前の部分を支えようとしているのが面白いところです。</p>
+          <p>支援機能は万能であるほど安心なのではなく、限界が分かるほど安心して使いやすくなります。「効かないことがある」「間違えることがある」「この場面では使わない」という線引きまで含めて、便利さとして受け取りたいアップデートです。</p>
+
+          <h2>利用前の確認メモ</h2>
+          <ul class="checklist"><li>Motion Assist：Android 17か、運転者ではなく同乗者か、不快感が出ていないか。</li><li>Guided vision：対応端末か、18歳以上か、初期設定済みか、最新の提供地域に含まれるか。</li><li>どちらも：機能より安全を優先し、Google・端末メーカー・通信事業者の最新表示を確認する。</li></ul>
+
+          <h2>確認した公式情報</h2>
+          <ul class="sources"><li><a href="https://blog.google/products-and-platforms/platforms/android/Android-Drop-September-2026/" target="_blank" rel="noopener noreferrer">Google Blog：September Android Drop</a></li><li><a href="https://www.android.com/intl/en_us/new-features-on-android/featured/september-2026/" target="_blank" rel="noopener noreferrer">Android公式：September 2026の新機能</a></li><li><a href="https://support.google.com/gemini/answer/14579026?hl=ja&amp;co=GENIE.Platform%3DAndroid" target="_blank" rel="noopener noreferrer">Geminiモバイルアプリの提供状況</a></li><li><a href="https://support.google.com/accessibility/android/answer/7650693?hl=ja" target="_blank" rel="noopener noreferrer">アクセシビリティのショートカット</a></li></ul>
+          <p class="caption">情報確認日：2026年9月3日（日本時間）</p>
+          <h2>あわせて読みたい</h2>
+          <ul class="related"><li><a href="/articles/weekend-drive-preparation/">週末ドライブの10分チェックリスト</a></li><li><a href="/articles/meta-glasses/">普通の眼鏡にAIが入る。「Meta Glasses」は旅の相棒になるのでしょうか</a></li></ul>
+          <aside class="contact-note"><strong>記事の内容やリンクについてお気づきの点がある場合</strong><p><a href="/contact/">お問い合わせページ</a>からお知らせください。公式情報を確認のうえ、必要に応じて更新します。</p></aside>
+        </div>
+      </div>
+    </main>
+  </article>
+  <script src="/assets/js/contact-feedback.js"></script>
+</body>
+</html>
