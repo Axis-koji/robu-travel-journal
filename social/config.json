@@ -1,0 +1,7 @@
+{
+  "site_url": "https://www.axis-jp.net",
+  "site_name": "ろぶーの気になる事",
+  "platforms": ["facebook", "instagram", "twitter", "tiktok", "threads", "pinterest"],
+  "max_articles_per_run": 3,
+  "overrides": {}
+}

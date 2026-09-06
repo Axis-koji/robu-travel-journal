@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+/_site/
+/_social/
+/.venv/
+/.env
+/_social_media/

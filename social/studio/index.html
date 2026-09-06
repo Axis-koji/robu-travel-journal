@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="ろぶーのブログから、6つのSNSへ。記事の紹介文と投稿素材をまとめて用意します。">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self' https://raw.githubusercontent.com; object-src 'none'; base-uri 'self'">
+  <title>Robu 投稿アプリ</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#workspace">投稿の準備へ</a>
+  <header class="topbar">
+    <div class="identity"><span class="monogram" aria-hidden="true">R.</span><div><strong>Robu 投稿アプリ</strong><span id="site-name">ろぶーの気になる事</span></div></div>
+    <div class="header-actions"><span class="free">無料運用</span><a id="guide-link" target="_blank" rel="noopener noreferrer">接続ガイド</a></div>
+  </header>
+  <main>
+    <div id="notice" class="notice" role="status">記事データを読み込んでいます。</div>
+    <div class="page-heading"><div><p class="eyebrow">ブログから、SNSへ</p><h1>今日の投稿を用意する</h1></div><div class="refresh"><button id="refresh" type="button">投稿状況を更新</button><small id="updated"></small></div></div>
+    <section class="connection-section" aria-labelledby="connection-title"><h2 id="connection-title" class="sr-only">SNSの接続</h2><div id="connections" class="connections"></div></section>
+    <div class="workspace" id="workspace">
+      <aside class="article-panel"><div class="panel-heading"><h2>ブログ記事</h2><span id="article-count" class="count">0件</span></div><label class="search-label" for="search">記事を探す</label><input id="search" type="search" placeholder="タイトルで検索" autocomplete="off"><div id="article-list" class="article-list"></div><p class="aside-note">新しい記事から順に最大30件。公開済みの記事だけを表示します。</p></aside>
+      <section class="editor" aria-labelledby="article-title">
+        <div id="empty" class="empty"><h2>投稿する記事を待っています</h2><p>ブログで新しい記事を公開すると、紹介文と投稿素材がここに届きます。</p></div>
+        <div id="article-content" hidden>
+          <div class="article-heading"><div><p id="article-date" class="eyebrow"></p><h2 id="article-title"></h2></div><a id="article-link" target="_blank" rel="noopener noreferrer">記事を読む ↗</a></div>
+          <div id="tabs" class="tabs" role="tablist" aria-label="投稿先"></div>
+          <div id="post-panel" class="post-panel" role="tabpanel" tabindex="0">
+            <div class="media-panel"><img id="preview-image" alt="" width="1080" height="1350"><video id="preview-video" controls playsinline preload="metadata" hidden></video><a id="download" class="button secondary" download>画像を保存</a><p id="media-note" class="muted"></p></div>
+            <div class="caption-panel"><div class="caption-heading"><label for="caption">紹介文</label><span id="char-count"></span></div><textarea id="caption" rows="12" spellcheck="false"></textarea><p id="caption-note" class="muted">編集内容はこの端末に保存されます。</p><div class="copy-actions"><button id="copy" type="button">紹介文をコピー</button><button id="reset" class="text-button" type="button">元の文章に戻す</button></div><div class="posting-box"><span id="delivery-status" class="status-label"></span><p id="platform-help"></p><a id="open-platform" class="button primary" target="_blank" rel="noopener noreferrer">投稿画面を開く ↗</a><label class="done-label"><input type="checkbox" id="manual-done">このSNSへの投稿を完了した</label><p id="done-note" class="muted">完了チェックはこの端末だけのメモです。</p></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer><span>記事を書く時間を、もっと。</span><a id="workflow-link" target="_blank" rel="noopener noreferrer">自動投稿の実行履歴 ↗</a><a id="app-download" href="../social-posting-app.zip" download>アプリ一式を保存</a></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <noscript>このアプリを利用するにはJavaScriptを有効にしてください。</noscript>
+</body>
+</html>
