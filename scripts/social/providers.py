@@ -151,8 +151,12 @@ class Direct:
         target = self.settings[platform]["target"]
         text = caption(article, platform)
         if platform == "facebook":
-            return self.identifier(self.call(platform, target + "/photos", {
-                "url": article["image_url"], "caption": text, "published": "true"}))
+            # Publish the article as a Page link post. Facebook builds the image
+            # preview from the article's verified Open Graph image, while /feed
+            # avoids the stricter photo-upload permission path that can reject a
+            # token which is otherwise allowed to create ordinary Page posts.
+            return self.identifier(self.call(platform, target + "/feed", {
+                "message": text, "link": article["url"], "published": "true"}))
         if platform == "pinterest":
             return self.identifier(self.call(platform, "pins", {
                 "board_id": target, "title": clip(article["title"], 100),
