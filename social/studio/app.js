@@ -4,7 +4,7 @@
   const meta = {
     instagram: {name: "Instagram", url: "https://www.instagram.com/", help: "画像を保存し、紹介文をコピーしてInstagramの「作成」から投稿してください。プロフィールにはブログのリンクを設定してください。", limit: 2200},
     facebook: {name: "Facebook", url: "https://www.facebook.com/", help: "紹介文をコピーして共有画面を開き、投稿先のFacebookページを選んでください。画像付きの投稿にする場合は、保存した画像をページの投稿画面に添付します。", limit: 63206},
-    twitter: {name: "X", url: "https://x.com/", help: "紹介文を入れた投稿画面が開きます。保存した画像を添付し、内容を確認して投稿してください。無料版ではXのAPIを使いません。", limit: 280},
+    twitter: {name: "X", url: "https://x.com/", help: "記事タイトルとURLを入れたXの投稿画面が開きます。必要なら保存した画像を添付し、内容を確認して投稿してください。X APIや有料契約は使いません。", limit: 280},
     tiktok: {name: "TikTok", url: "https://www.tiktok.com/upload", help: "12秒の動画を保存し、紹介文をコピーしてアップロードしてください。公開範囲・AI生成・広告に関する表示は、TikTokの投稿画面で内容に合わせて設定してください。", limit: 2200},
     threads: {name: "Threads", url: "https://www.threads.net/", help: "紹介文を入れた投稿画面が開きます。画像を保存して添付し、内容を確認して投稿してください。", limit: 500},
     pinterest: {name: "Pinterest", url: "https://www.pinterest.com/", help: "保存先のボードを選び、画像・紹介文・記事リンクを確認してピンを公開してください。APIのStandard承認前も、この方法で投稿できます。", limit: 500}
@@ -97,7 +97,13 @@
   function shareURL() {
     const text = $("caption").value;
     if (locked()) return meta[platform].url;
-    if (platform === "twitter") return "https://twitter.com/intent/tweet?" + new URLSearchParams({text});
+    if (platform === "twitter") {
+      // Keep the article URL in Web Intent's dedicated field. This guarantees
+      // that edited drafts still include the canonical link without using X API.
+      const suffix = "\n" + selected.url;
+      const message = text.endsWith(suffix) ? text.slice(0, -suffix.length) : text;
+      return "https://twitter.com/intent/tweet?" + new URLSearchParams({text: message, url: selected.url});
+    }
     if (platform === "threads") return "https://www.threads.net/intent/post?" + new URLSearchParams({text});
     if (platform === "facebook") return "https://www.facebook.com/sharer/sharer.php?" + new URLSearchParams({u: selected.url});
     if (platform === "pinterest") return manifest.preview ? "https://www.pinterest.com/pin-creation-tool/" : "https://www.pinterest.com/pin/create/button/?" + new URLSearchParams({url: selected.url, media: manifest.site_url + "/assets/social/" + selected.id + "/pinterest.jpg", description: text});

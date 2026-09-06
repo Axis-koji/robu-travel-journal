@@ -185,7 +185,7 @@ class ProviderTests(unittest.TestCase):
         self.assertEqual(len(calls), 8)
         self.assertTrue(calls[0][0].startswith("https://graph.facebook.com/v26.0/"))
         self.assertEqual(calls[0][1]["access_token"], "test-fb")
-        self.assertEqual(calls[2][0], "https://graph.instagram.com/v26.0/123?fields=status_code")
+        self.assertEqual(calls[2][0], "https://graph.facebook.com/v26.0/123?fields=status_code")
         self.assertEqual(calls[3][1], {"creation_id": "123"})
         self.assertEqual(calls[6][1], {"creation_id": "123"})
         self.assertEqual(calls[7][1]["media_source"]["source_type"], "image_url")
@@ -247,6 +247,12 @@ class StudioTests(unittest.TestCase):
             with zipfile.ZipFile(out / "social-posting-app.zip") as archive:
                 self.assertIn("social-studio/index.html", archive.namelist())
                 self.assertIn("assets/social/new-article/tiktok.mp4", archive.namelist())
+
+    def test_x_web_intent_uses_text_and_canonical_url_without_api(self):
+        app = (Path(__file__).parents[2] / "social/studio/app.js").read_text(encoding="utf-8")
+        self.assertIn('https://twitter.com/intent/tweet?', app)
+        self.assertIn('new URLSearchParams({text: message, url: selected.url})', app)
+        self.assertNotIn('api.x.com', app)
 
 
 class ContentTests(unittest.TestCase):

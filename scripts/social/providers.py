@@ -73,7 +73,9 @@ class Direct:
     def call(self, platform, path, data=None, method=None):
         c = self.settings[platform]
         base = {"facebook": "https://graph.facebook.com/" + c["version"],
-                "instagram": "https://graph.instagram.com/" + c["version"],
+                # Instagram publishing authenticated via Facebook Login uses the
+                # Facebook Graph host. graph.instagram.com is for Instagram Login.
+                "instagram": "https://graph.facebook.com/" + c["version"],
                 "threads": "https://graph.threads.net/v1.0",
                 "pinterest": "https://api.pinterest.com/v5"}[platform]
         # Meta's Page publishing endpoints accept the Page token as a form

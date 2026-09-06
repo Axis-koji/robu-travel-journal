@@ -90,7 +90,7 @@ GitHubの投稿記録用トークンはActions標準の `GITHUB_TOKEN` を使い
 ### 各SNSで用意するもの
 
 - **Facebook：** Meta for Developersで用途に合うアプリを作り、ページに対する `pages_manage_posts` と `pages_read_engagement` 等の必要権限を取得します。ページ一覧を取得する操作には `pages_show_list` も必要です。ページを管理できるユーザーから発行したページトークンを使います。
-- **Instagram：** この実装は **Instagram API with Instagram Login** を使います。`instagram_business_basic` と `instagram_business_content_publish` を許可し、対応するプロアカウントのID・トークンを使ってください。Facebook Login方式のトークンとは混在させません。
+- **Instagram：** この実装は **Instagram API with Facebook Login** を使います。FacebookページにリンクしたInstagramプロアカウントについて、`instagram_basic`、`instagram_content_publish`、`pages_show_list`、`pages_read_engagement` 等を許可したユーザートークンとInstagramアカウントIDを使います。
 - **Threads：** Threads用アプリを作り、本人／テスターの承諾または必要な審査を済ませ、`threads_basic` と `threads_content_publish` を許可します。
 - **Pinterest：** ビジネスアカウントでアプリを作り、OAuthで `boards:read`、`pins:write` 等の必要権限を許可します。公開投稿にはStandard accessへの申請が必要です。本人だけの利用でもOAuthの動作を示す録画が求められます。
 
@@ -143,6 +143,10 @@ python -m scripts.social resolve --key 記事フォルダ名:threads --outcome r
 公開済み／旧方式で受付済みの記録は、retryへの変更を拒否します。台帳を削除してやり直す運用はしません。初期化・公開・投稿は同じ同時実行制御に入れ、公開コミットの照合後に送信します。
 
 ## 開発・ローカル確認
+
+### Xは無料のWeb Intentを使用
+
+投稿アプリの「X」タブから「投稿画面を開く」を選ぶと、記事タイトルとcanonical URLを入力したXの投稿画面が新しいタブで開きます。X API、アクセストークン、有料プランは使用しません。投稿内容と公開先を確認し、画像が必要な場合は投稿アプリから保存した画像を手動で添付してから投稿してください。
 
 Python 3.12、Pillow、ffmpeg、Noto Sans CJKが必要です。生成済みアプリの利用だけならPythonは不要です。
 
