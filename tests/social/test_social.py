@@ -184,6 +184,7 @@ class ProviderTests(unittest.TestCase):
         for platform in client.settings: self.assertEqual(client.create(ARTICLE, platform), "123")
         self.assertEqual(len(calls), 8)
         self.assertTrue(calls[0][0].startswith("https://graph.facebook.com/v26.0/"))
+        self.assertEqual(calls[0][1]["access_token"], "test-fb")
         self.assertEqual(calls[2][0], "https://graph.instagram.com/v26.0/123?fields=status_code")
         self.assertEqual(calls[3][1], {"creation_id": "123"})
         self.assertEqual(calls[6][1], {"creation_id": "123"})

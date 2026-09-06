@@ -76,6 +76,12 @@ class Direct:
                 "instagram": "https://graph.instagram.com/" + c["version"],
                 "threads": "https://graph.threads.net/v1.0",
                 "pinterest": "https://api.pinterest.com/v5"}[platform]
+        # Meta's Page publishing endpoints accept the Page token as a form
+        # parameter. Supplying it there mirrors Graph API Explorer and avoids
+        # deployments where the bearer header is accepted for reads but the
+        # same token is rejected for Page photo creation.
+        if platform == "facebook" and data is not None:
+            data = {**data, "access_token": c["token"]}
         try:
             result = self.transport(base + "/" + path, c["token"], data, method, form=platform != "pinterest")
         except urllib.error.HTTPError as e:
