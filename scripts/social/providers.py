@@ -80,7 +80,22 @@ class Direct:
             result = self.transport(base + "/" + path, c["token"], data, method, form=platform != "pinterest")
         except urllib.error.HTTPError as e:
             if 400 <= e.code < 500:
-                raise Rejected(f"{platform}: APIが拒否しました（HTTP {e.code}）。権限・期限・投稿条件を確認してください") from None
+                # Meta/Pinterest error messages may contain request details. Expose
+                # only numeric classification fields in public Actions logs.
+                api_code = api_subcode = None
+                try:
+                    payload = json.load(e)
+                    error = payload.get("error", {}) if isinstance(payload, dict) else {}
+                    api_code = error.get("code")
+                    api_subcode = error.get("error_subcode")
+                except Exception:
+                    pass
+                details = ""
+                if isinstance(api_code, int):
+                    details += f" / API {api_code}"
+                if isinstance(api_subcode, int):
+                    details += f" / subcode {api_subcode}"
+                raise Rejected(f"{platform}: APIが拒否しました（HTTP {e.code}{details}）。権限・期限・投稿条件を確認してください") from None
             raise DeliveryError(f"{platform}: API通信の結果が不明です") from None
         if not isinstance(result, dict):
             raise DeliveryError(f"{platform}: API応答が不明です")
