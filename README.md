@@ -12,3 +12,13 @@
 - `assets/images/` — 表紙、カテゴリー、記事、Coming soonの画像
 
 画像は外部サイトへ直接依存せず、原則として `assets/images/` に保存します。
+
+## SNS投稿アプリの記録
+
+Bufferを使わず無料で始める「Robu 投稿アプリ」を作成しています。2026年9月6日時点では、確認用アプリは作成済み、本番への適用とSNS接続は未実施です。
+
+- [使い方・保存場所・タスク引き継ぎ](docs/SNS_APP_HANDOFF.md)
+- [SNS接続・公開設定・復旧手順](docs/SNS_AUTOMATION.md)
+- [実装と変更履歴：PR #53](https://github.com/Axis-koji/robu-travel-journal/pull/53)
+
+別のタスクで続ける場合は、引き継ぎ記録とPRの最新状態を先に確認してください。
