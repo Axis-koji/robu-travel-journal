@@ -100,6 +100,49 @@
     else heading.parentNode.insertBefore(label, heading);
   }
 
+  function renderAmazonSearchLink() {
+    var products = {
+      '/articles/sony-ult-tower-7/': ['Sony ULT TOWER 7', 'Sony ULT TOWER 7'],
+      '/articles/garmin-fenix-9-pro-titanium-inreach/': ['Garmin fenix 9 Pro inReach', 'Garmin fēnix 9シリーズ'],
+      '/articles/seiko-prospex-hbc011j/': ['セイコー プロスペックス HBC011J', 'セイコー プロスペックス HBC011J'],
+      '/articles/seiko-presage-bonsai/': ['セイコー プレザージュ HCC011J', 'セイコー プレザージュ HCC011J'],
+      '/articles/gopro-mission-1-pro-ils/': ['GoPro MISSION 1 PRO ILS', 'GoPro MISSION 1 PRO ILS'],
+      '/articles/google-pixel-watch-5/': ['Google Pixel Watch 5', 'Google Pixel Watch 5'],
+      '/articles/breitling-navitimer-samurai-japan/': ['ブライトリング ナビタイマー GMT 41 侍ジャパン', 'ナビタイマー GMT 41 侍ジャパン'],
+      '/articles/breitling-navitimer-concorde/': ['Breitling AB01389C1C1P1', 'Breitling AB01389C1C1P1'],
+      '/articles/seiko-astron-hab005j/': ['セイコー アストロン HAB005J', 'セイコー アストロン HAB005J'],
+      '/articles/casio-gwr-b3000/': ['CASIO G-SHOCK GWR-B3000-1AJF', 'CASIO G-SHOCK GWR-B3000-1AJF']
+    };
+    var product = products[currentPath];
+    if (!product || document.querySelector('[data-amazon-search-link]')) return;
+
+    var section = document.createElement('section');
+    section.setAttribute('data-amazon-search-link', '');
+    var heading = document.createElement('h2');
+    heading.textContent = '購入先を確認する';
+    var disclosure = document.createElement('p');
+    disclosure.className = 'note';
+    disclosure.textContent = '本項にはアフィリエイトリンクが含まれます。リンクを通じた購入により、当サイトに報酬が発生する場合があります。';
+    var paragraph = document.createElement('p');
+    var link = document.createElement('a');
+    link.href = 'https://www.amazon.co.jp/s?' + new URLSearchParams({k: product[0], tag: 'womaster-22'});
+    link.target = '_blank';
+    link.rel = 'nofollow sponsored noopener noreferrer';
+    link.textContent = 'Amazonで' + product[1] + 'を検索する';
+    paragraph.appendChild(link);
+    section.append(heading, disclosure, paragraph);
+
+    var root = articleHeadingRoot();
+    if (!root) return;
+    var sourceHeading = Array.prototype.find.call(root.querySelectorAll('h2'), function (item) {
+      return /公式(?:出典|情報)|確認した公式情報/.test(item.textContent);
+    });
+    var sourceSection = sourceHeading && sourceHeading.closest('section');
+    if (sourceSection) sourceSection.parentNode.insertBefore(section, sourceSection);
+    else if (sourceHeading) sourceHeading.parentNode.insertBefore(section, sourceHeading);
+    else root.appendChild(section);
+  }
+
   function headerMarkup() {
     return '<header class="site-header robu-common-header" data-robu-common-header>' +
       '<a class="brand" href="/">ろぶーの<span>気になる事</span></a>' +
@@ -335,6 +378,7 @@
     ensureSelectionTheme();
     renderHeader();
     renderSelectionLabel();
+    renderAmazonSearchLink();
     renderFooter();
     renderArticleToc();
     if (storedConsent === 'granted') loadGoogleAnalytics();
