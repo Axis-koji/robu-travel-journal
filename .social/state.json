@@ -77,6 +77,42 @@
         "weekend-drive-preparation"
       ],
       "configured_at": "2026-09-07T03:17:34.796331+09:00"
+    },
+    "instagram": {
+      "target": "17841436549313497",
+      "excluded": [
+        "2026-08-08-travel-vietnam-hotel-digest",
+        "2026-08-09-spain-eclipse",
+        "ai-smartglasses-vietnam-travel",
+        "android-motion-assist-guided-vision",
+        "aoi-noen-fruit-cafe",
+        "breitling-navitimer-concorde",
+        "breitling-navitimer-samurai-japan",
+        "casio-gwr-b3000",
+        "europe-ees-etias-guide",
+        "garmin-fenix-9-pro-titanium-inreach",
+        "google-pixel-watch-5",
+        "gopro-mission-1-pro-ils",
+        "hong-kong-dim-sum-shiki",
+        "jr-east-midori-no-madoguchi-ai",
+        "meta-glasses",
+        "nasa-coffies-solar-ai",
+        "news-coffee-plus-20260826",
+        "openai-jalapeno-ai-chip",
+        "seiko-astron-hab005j",
+        "seiko-lukia-liberty-limited-2026",
+        "seiko-presage-bonsai",
+        "seiko-prospex-hbc011j",
+        "sharp-niah-ai-home",
+        "sony-ult-tower-7",
+        "suma-seaworld-hotel",
+        "travel-memory-notes",
+        "vietnam-coffee",
+        "vietnam-grab",
+        "vietnam-japan-travel-news",
+        "weekend-drive-preparation"
+      ],
+      "configured_at": "2026-09-06T21:50:09.732401+00:00"
     }
   }
 }
