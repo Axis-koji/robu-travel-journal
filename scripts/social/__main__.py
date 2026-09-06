@@ -4,6 +4,9 @@ import os
 import shutil
 import subprocess
 import sys
+import time
+import urllib.error
+import urllib.request
 from pathlib import Path
 from .content import PLATFORMS, caption, catalog
 from .media import render
@@ -39,6 +42,23 @@ def copy_site(root, out):
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, target)
     (out / ".nojekyll").touch()
+
+
+def wait_for_release(site_url, commit, attempts=12, delay=10):
+    """Wait for the just-deployed Pages artifact to reach the custom domain."""
+    last_error = None
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(site_url + "/social-release.json", timeout=30) as response:
+                release = json.load(response)
+            if release.get("commit") == commit:
+                return
+            last_error = DeliveryError("公開済みのコミットがまだ更新されていません")
+        except (urllib.error.URLError, json.JSONDecodeError, OSError) as error:
+            last_error = error
+        if attempt + 1 < attempts:
+            time.sleep(delay)
+    raise DeliveryError("公開内容の反映を確認できません。SNS送信は行っていません") from last_error
 
 
 def main():
@@ -95,12 +115,8 @@ def main():
                       config, state=state, preview=not args.ledger)
         print(f"{len(articles)}記事を検出、{len(plan)}記事分のSNS素材を用意しました。")
     elif args.command == "publish":
-        import urllib.request
         plan = json.loads(args.plan.read_text())
-        with urllib.request.urlopen(config["site_url"] + "/social-release.json", timeout=30) as response:
-            release = json.load(response)
-        if release.get("commit") != plan["commit"]:
-            raise DeliveryError("公開済みのコミットと投稿対象が一致しません。送信を停止しました")
+        wait_for_release(config["site_url"], plan["commit"])
         publish(plan["articles"], config, ledger_for(config), Direct())
     elif args.command == "resolve":
         if not args.key or not args.outcome:
