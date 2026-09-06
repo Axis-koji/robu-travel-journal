@@ -51,6 +51,11 @@
       "status": "rejected",
       "attempted_at": "2026-09-06T22:31:02.440901+00:00",
       "payload_hash": "70a34329ca537cdc639d70bed35a390a821cab2c6e157e0f25605e162cf24be8"
+    },
+    "soufuren-kyoto-shichijo-omiya:instagram": {
+      "status": "submitting",
+      "attempted_at": "2026-09-06T22:31:04.418280+00:00",
+      "payload_hash": "01bf28e62733e755c5354a6201378c5c048b9f5c3872fc2bed4cc6002eb05017"
     }
   },
   "channels": {
