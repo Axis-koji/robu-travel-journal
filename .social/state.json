@@ -33,7 +33,13 @@
     "vietnam-japan-travel-news",
     "weekend-drive-preparation"
   ],
-  "posts": {},
+  "posts": {
+    "seiko-lukia-liberty-limited-2026:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-06T19:33:18.425625+00:00",
+      "payload_hash": "166b024446ee12cb83f1cc31fc26880581fe7d515c18ecc1e6243fe9347bac86"
+    }
+  },
   "channels": {
     "facebook": {
       "target": "1324933827363335",
