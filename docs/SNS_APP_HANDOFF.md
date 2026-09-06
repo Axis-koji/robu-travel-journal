@@ -16,8 +16,8 @@
 | --- | --- | --- |
 | 確認用アプリ本体 | ChatGPTの保存ファイル `Robu-Posting-App.zip` | 作成・保存済み。ファイル名で検索して取得できる |
 | アプリのソースコード | [Axis-koji/robu-travel-journal](https://github.com/Axis-koji/robu-travel-journal) | 本番ブログに使っているリポジトリ |
-| 作業ブランチ | `codex/blog-social-automation` | 本アプリとドキュメントの保存先 |
-| 本番への取り込み候補 | [PR #53](https://github.com/Axis-koji/robu-travel-journal/pull/53) | 2026年9月6日にmainへマージ済み |
+| 作業ブランチ | `codex/blog-social-automation` | 実装時の作業ブランチ。最新の記録はmain |
+| 本番への取り込み | [PR #53](https://github.com/Axis-koji/robu-travel-journal/pull/53) | 2026年9月6日にmainへマージ済み |
 | アプリ実装の確定版 | [コミット 0367bb6](https://github.com/Axis-koji/robu-travel-journal/commit/0367bb6626e8752356cce0175d9dead1184af6c1) | Buffer不要の無料版。以後の記録追加とは区別する |
 | この引き継ぎMarkdown | [docs/SNS_APP_HANDOFF.md](https://github.com/Axis-koji/robu-travel-journal/blob/main/docs/SNS_APP_HANDOFF.md) | 別タスクで最初に読む記録 |
 | 詳しい設定・復旧手順 | [docs/SNS_AUTOMATION.md](https://github.com/Axis-koji/robu-travel-journal/blob/main/docs/SNS_AUTOMATION.md) | Secrets・Variables・Pages設定・接続・重複防止の説明 |
@@ -74,6 +74,22 @@ Instagram・TikTokの案内にある「プロフィールのブログリンク�
 - [PR #53をmainへ反映](https://github.com/Axis-koji/robu-travel-journal/commit/6351af7ddb8d06d3a25820fa6a7a2fabb3a83cd7)。
 - [main反映後のブログ公開処理が成功](https://github.com/Axis-koji/robu-travel-journal/actions/runs/34035751339)。
 - [main反映後のテストが成功](https://github.com/Axis-koji/robu-travel-journal/actions/runs/34035752200)。
+
+## Meta接続の進捗（2026年9月6日）
+
+- 本人によるFacebookログインを確認。
+- **Robu Posting App** をMeta開発者画面に作成済み。アプリIDは **4495512527387048**。
+- 管理画面：[Metaアプリのダッシュボード](https://developers.facebook.com/apps/4495512527387048/)。
+- Facebookページ管理・Instagramコンテンツ管理・Threads APIの3ユースケースを登録済み。
+- 元の「My Bot」（アプリID1597909025176446）は変更していない。
+- 新アプリは開発段階で、ビジネスポートフォリオは未割り当て。投稿先の所属を確認してから必要に応じてリンクする。
+- `pages_show_list` はアプリの初期権限一覧にあるが、ユーザー／ページの認可トークン取得とは別。
+- `pages_read_engagement` の追加確認と `pages_manage_posts` の追加操作は、**自動承認レビューによって拒否された**。内容参照権限がInstagramユースケースにも適用される点と、投稿の作成・編集・削除権限について、ユーザーによる明示承認が必要との理由。
+- 拒否後、確認ダイアログが残っており、`pages_manage_posts` が「追加」のままであることを確認。権限付与成功とは扱わない。回避や再試行は行っていない。
+- 再開箇所：[Facebookページ権限画面](https://developers.facebook.com/apps/4495512527387048/use_cases/customize/?use_case_enum=PAGES_API)。対象ページの一覧参照・内容参照・投稿管理、およびアプリ内のInstagramユースケースへの共通権限適用について承認を得てから続ける。
+- トークン発行・GitHubへの秘密情報登録・実SNS投稿はまだ行っていない。
+
+GitHubの現在の接続機能には、Secrets・Variables・Pages公開元の管理設定を変更する操作が含まれていない。アプリ接続に必要な設定は、利用可能な管理操作またはユーザー本人の設定で完了させる。管理権限の制限を迂回しない。
 
 ## 稼働開始に残っている設定
 
@@ -145,11 +161,11 @@ b88752fbf36550f74cb287e052ab95198675fe9476f7372278f634707474895c
 
 - GitHub：このMarkdownとREADMEの案内を保存し、PR #53をmainへマージ済み。
 - Notion：既存の「AI記事制作ワークフロー（公開前）」配下へ本文とアプリZIPを保存済み。
-- NotebookLM：Googleへのログインが必要なため、この時点では未保存。ログイン後、このMarkdownをソースに追加する。
+- NotebookLM：Google認証を試みたが、Google画面にパスワード不一致が表示されたため未保存。再試行やパスワード再設定は行っていない。認証完了後、このMarkdownをソースに追加する。
 - ChatGPT：配布ZIP `Robu-Posting-App.zip` と、引き継ぎMarkdown `Robu-Posting-App-Handoff.md` を保存。
 
 ## 他のタスクに渡す文
 
 ```text
-Robu 投稿アプリの続きです。GitHubのAxis-koji/robu-travel-journal、mainのdocs/SNS_APP_HANDOFF.mdとdocs/SNS_AUTOMATION.mdを先に読んでください。Buffer不要の無料版は実装済みで、確認用ZIPはRobu-Posting-App.zipです。PR #53はmainへ反映済みです。ユーザーは稼働開始を指示しています。SNS本人認可とGitHubの稼働設定が残っています。現在の状態を確認して、その続きから作業してください。
+Robu 投稿アプリの続きです。GitHubのAxis-koji/robu-travel-journal、mainのdocs/SNS_APP_HANDOFF.mdとdocs/SNS_AUTOMATION.mdを先に読んでください。Buffer不要の無料版は実装済みで、確認用ZIPはRobu-Posting-App.zipです。PR #53はmainへ反映済みです。ユーザーは稼働開始を指示しています。MetaにRobu Posting App（4495512527387048）を作成済みです。ページ内容参照・投稿管理権限の追加は自動承認レビューの拒否により明示承認待ちです。承認後のSNS本人認可とGitHubの稼働設定が残っています。現在の状態を確認して、その続きから作業してください。
 ```
