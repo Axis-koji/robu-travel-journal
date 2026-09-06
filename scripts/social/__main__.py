@@ -47,9 +47,15 @@ def copy_site(root, out):
 def wait_for_release(site_url, commit, attempts=12, delay=10):
     """Wait for the just-deployed Pages artifact to reach the custom domain."""
     last_error = None
+    marker_url = site_url + "/social-release.json?commit=" + commit
     for attempt in range(attempts):
         try:
-            with urllib.request.urlopen(site_url + "/social-release.json", timeout=30) as response:
+            request = urllib.request.Request(marker_url, headers={
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache",
+                "User-Agent": "robu-social/2",
+            })
+            with urllib.request.urlopen(request, timeout=30) as response:
                 release = json.load(response)
             if release.get("commit") == commit:
                 return
