@@ -4,7 +4,7 @@
 
 ## 最初に読む要点
 
-**Bufferを使わず、無料で始めるSNS投稿アプリを作成済み。確認用ZIPを保存済み。実際のSNSへの自動投稿は未稼働。**
+**ユーザーの追加指示を受け、稼働開始の作業を実施中。アプリと引き継ぎ記録はmainへ反映済み。SNSへの実送信は、本人認可と稼働設定の完了待ち。**
 
 目的は、ブログの記事制作に集中するため、新しい公開記事から6つのSNS向けの紹介文・画像・動画を用意し、接続条件を満たすSNSへ自動投稿すること。日々の想定は新しい記事から2〜3件。YouTubeは今回は対象外。
 
@@ -17,10 +17,10 @@
 | 確認用アプリ本体 | ChatGPTの保存ファイル `Robu-Posting-App.zip` | 作成・保存済み。ファイル名で検索して取得できる |
 | アプリのソースコード | [Axis-koji/robu-travel-journal](https://github.com/Axis-koji/robu-travel-journal) | 本番ブログに使っているリポジトリ |
 | 作業ブランチ | `codex/blog-social-automation` | 本アプリとドキュメントの保存先 |
-| 本番への取り込み候補 | [PR #53](https://github.com/Axis-koji/robu-travel-journal/pull/53) | 記録時点ではDraft・未マージ |
+| 本番への取り込み候補 | [PR #53](https://github.com/Axis-koji/robu-travel-journal/pull/53) | 2026年9月6日にmainへマージ済み |
 | アプリ実装の確定版 | [コミット 0367bb6](https://github.com/Axis-koji/robu-travel-journal/commit/0367bb6626e8752356cce0175d9dead1184af6c1) | Buffer不要の無料版。以後の記録追加とは区別する |
-| この引き継ぎMarkdown | [docs/SNS_APP_HANDOFF.md](https://github.com/Axis-koji/robu-travel-journal/blob/codex/blog-social-automation/docs/SNS_APP_HANDOFF.md) | 別タスクで最初に読む記録 |
-| 詳しい設定・復旧手順 | [docs/SNS_AUTOMATION.md](https://github.com/Axis-koji/robu-travel-journal/blob/codex/blog-social-automation/docs/SNS_AUTOMATION.md) | Secrets・Variables・Pages設定・接続・重複防止の説明 |
+| この引き継ぎMarkdown | [docs/SNS_APP_HANDOFF.md](https://github.com/Axis-koji/robu-travel-journal/blob/main/docs/SNS_APP_HANDOFF.md) | 別タスクで最初に読む記録 |
+| 詳しい設定・復旧手順 | [docs/SNS_AUTOMATION.md](https://github.com/Axis-koji/robu-travel-journal/blob/main/docs/SNS_AUTOMATION.md) | Secrets・Variables・Pages設定・接続・重複防止の説明 |
 | Notionの記録先 | [Robu 投稿アプリ｜使い方・保存場所・引き継ぎ（2026-09-06）](https://app.notion.com/p/3d36e74ea10f81a2b817f45d21fe8f41?pvs=204) | 「AI記事制作ワークフロー（公開前）」配下。本文とアプリZIPを保存済み |
 | NotebookLMへの登録 | このMarkdownをソースとして登録する | 保存結果は末尾に記録。登録前の状態と区別する |
 | 本番アプリの予定URL | `https://www.axis-jp.net/social-studio/` | **公開設定後に使うURL。記録時点で公開済みとは扱わない** |
@@ -68,14 +68,20 @@ Instagram・TikTokの案内にある「プロフィールのブログリンク�
 - 通信結果不明の場合は勝手に再送しない処理。
 - 新しいSNSを接続するとき、それ以前の記事をまとめて送らない処理。
 - 実記事から素材と確認用ZIPを生成。
+- `social-state` ブランチの投稿記録を初期化し、既存29記事を自動投稿から除外。SNSへの送信は行っていない。
 - ローカルの26項目のテスト成功。JavaScript構文、HTMLの操作要素・参照ファイル、ZIPの整合性確認。
 - [GitHub CI成功](https://github.com/Axis-koji/robu-travel-journal/actions/runs/34034265067)。
+- [PR #53をmainへ反映](https://github.com/Axis-koji/robu-travel-journal/commit/6351af7ddb8d06d3a25820fa6a7a2fabb3a83cd7)。
+- [main反映後のブログ公開処理が成功](https://github.com/Axis-koji/robu-travel-journal/actions/runs/34035751339)。
+- [main反映後のテストが成功](https://github.com/Axis-koji/robu-travel-journal/actions/runs/34035752200)。
 
-## まだ行っていないこと
+## 稼働開始に残っている設定
 
-- PR #53のmainへのマージ。
+自動投稿用ワークフローは、main反映時の実行で設定条件によりスキップされた。ブログの公開成功を、SNS自動投稿の稼働成功とは扱わない。
+
+
 - GitHub Pagesの公開元を従来のブランチ公開からGitHub Actionsへ切り替える作業。
-- 投稿記録の `initialize` とSNS接続の `connect`。
+- SNS接続の `connect`。投稿記録の初期化は完了済み。
 - SNSアカウントの開発者登録・本人認可・権限設定・トークン設定。
 - 実アカウントへの投稿と、各SNSでの表示・公開範囲の確認。
 - トークンの自動更新とOAuthログイン画面の実装。
@@ -87,8 +93,8 @@ Instagram・TikTokの案内にある「プロフィールのブログリンク�
 
 1. このMarkdownと `docs/SNS_AUTOMATION.md` を読む。PR #53の最新状態とブランチを確認し、作成済みアプリを一から作り直さない。
 2. 確認用ZIPを開き、必要なら画面・文言の調整を行う。
-3. 本番適用を進める段階でPRをmainへ取り込み、現在のPages・CNAME・HTTPS設定を確認する。
-4. 自動送信は `SOCIAL_PUBLISH_ENABLED=false` のまま、対象リポジトリを設定して `initialize` と `preview` を実行する。
+3. mainへの取り込みは完了済み。現在のPages・CNAME・HTTPS設定を確認する。
+4. 自動送信は `SOCIAL_PUBLISH_ENABLED=false` のまま、対象リポジトリを設定して `preview` を実行する。`social-state` は初期化済みなのでinitializeを繰り返さない。
 5. プレビュー成功後にPagesをGitHub Actions公開へ切り替え、SNS送信を停止したままブログ・アプリを公開する。ドメインは `www.axis-jp.net`、HTTPSを保持する。
 6. 接続するSNSを1つ選び、本人の認可を行う。必要な値をGitHub ActionsのSecretsとVariablesへ設定して `connect` を実行する。
 7. 接続条件を確認したうえで自動投稿を有効にし、その後に新しく公開する記事で投稿結果を確認する。順次ほかのSNSも追加する。
@@ -137,7 +143,7 @@ b88752fbf36550f74cb287e052ab95198675fe9476f7372278f634707474895c
 
 ## 記録の保存状況
 
-- GitHub：このMarkdownとREADMEの案内をPR #53のブランチに保存。本番mainへのマージとは別。
+- GitHub：このMarkdownとREADMEの案内を保存し、PR #53をmainへマージ済み。
 - Notion：既存の「AI記事制作ワークフロー（公開前）」配下へ本文とアプリZIPを保存済み。
 - NotebookLM：Googleへのログインが必要なため、この時点では未保存。ログイン後、このMarkdownをソースに追加する。
 - ChatGPT：配布ZIP `Robu-Posting-App.zip` と、引き継ぎMarkdown `Robu-Posting-App-Handoff.md` を保存。
@@ -145,5 +151,5 @@ b88752fbf36550f74cb287e052ab95198675fe9476f7372278f634707474895c
 ## 他のタスクに渡す文
 
 ```text
-Robu 投稿アプリの続きです。GitHubのAxis-koji/robu-travel-journal、PR #53、ブランチcodex/blog-social-automationのdocs/SNS_APP_HANDOFF.mdとdocs/SNS_AUTOMATION.mdを先に読んでください。Buffer不要の無料版は実装済みで、確認用ZIPはRobu-Posting-App.zipです。記録時点では本番未適用・SNS未接続・自動投稿未稼働です。現在の状態を確認して、その続きから作業してください。
+Robu 投稿アプリの続きです。GitHubのAxis-koji/robu-travel-journal、mainのdocs/SNS_APP_HANDOFF.mdとdocs/SNS_AUTOMATION.mdを先に読んでください。Buffer不要の無料版は実装済みで、確認用ZIPはRobu-Posting-App.zipです。PR #53はmainへ反映済みです。ユーザーは稼働開始を指示しています。SNS本人認可とGitHubの稼働設定が残っています。現在の状態を確認して、その続きから作業してください。
 ```
