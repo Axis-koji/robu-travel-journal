@@ -1,8 +1,4 @@
-"""Buffer API client and GitHub-backed write-ahead delivery ledger.
-
-Ambiguous responses are never automatically retried, including a runner dying
-after Buffer accepts a request but before the result can be recorded.
-"""
+"""Direct publishing with a durable write-ahead record; uncertain sends never retry."""
 import base64
 import hashlib
 import json
@@ -10,20 +6,8 @@ import os
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
-from .content import payload
-
-
-class DeliveryError(RuntimeError):
-    pass
-
-
-def request(url, token, data=None, method=None):
-    body = None if data is None else json.dumps(data).encode()
-    req = urllib.request.Request(url, body, headers={
-        "Authorization": "Bearer " + token, "Content-Type": "application/json",
-        "Accept": "application/json", "User-Agent": "robu-social/1"}, method=method)
-    with urllib.request.urlopen(req, timeout=45) as response:
-        return json.load(response)
+from .content import caption
+from .providers import DeliveryError, Rejected, request
 
 
 class Ledger:
@@ -77,128 +61,108 @@ class Ledger:
         self.sha = result["content"]["sha"]
 
 
-class Buffer:
-    def __init__(self, token):
-        if not token:
-            raise DeliveryError("BUFFER_API_KEYが未設定です")
-        self.token = token
-
-    def graphql(self, query, variables=None):
-        return request("https://api.buffer.com", self.token, {"query": query, "variables": variables or {}})
-
-    def channels(self):
-        result = self.graphql("query { account { organizations { id name } } }")
-        if result.get("errors") or not result.get("data", {}).get("account"):
-            raise DeliveryError("Bufferアカウントの取得に失敗しました")
-        channels = []
-        for org in result["data"]["account"]["organizations"]:
-            result = self.graphql("query($org: OrganizationId!) { channels(input: {organizationId: $org}) { id name service isDisconnected isLocked isQueuePaused metadata { ... on PinterestMetadata { boards { serviceId } } } } }", {"org": org["id"]})
-            if result.get("errors") or "channels" not in result.get("data", {}):
-                raise DeliveryError("Bufferチャンネルの取得に失敗しました")
-            channels.extend(result["data"]["channels"])
-        return channels
-
-    def create(self, post):
-        return self.graphql("mutation($input: CreatePostInput!) { createPost(input: $input) { __typename ... on PostActionSuccess { post { id } } ... on MutationError { message } } }", {"input": post})
-
-
-def connections(config, client, env=os.environ):
-    configured = {p: env.get("BUFFER_CHANNEL_" + p.upper(), "") for p in config["platforms"]}
-    if any(not v for v in configured.values()) or not env.get("PINTEREST_BOARD_ID"):
-        raise DeliveryError("6つのBUFFER_CHANNEL_*とPINTEREST_BOARD_IDを設定してください")
-    if len(set(configured.values())) != len(configured):
-        raise DeliveryError("同じBufferチャンネルIDが重複しています")
-    available = {c["id"]: c for c in client.channels()}
-    for platform, channel_id in configured.items():
-        c = available.get(channel_id)
-        if not c or c["service"] != platform or c["isDisconnected"] or c["isLocked"]:
-            raise DeliveryError(f"{platform}: 接続・契約プラン・チャンネルIDを確認してください")
-        if platform == "pinterest":
-            boards = [b["serviceId"] for b in (c.get("metadata") or {}).get("boards", [])]
-            if env["PINTEREST_BOARD_ID"] not in boards:
-                raise DeliveryError("PinterestのボードIDが接続先に存在しません")
-    return configured
+def configure(ledger, articles, client, exclude_current=False):
+    """Activate targets at an explicit boundary; never backfill manual history."""
+    targets = client.check()
+    data = ledger.load()
+    channels = data.setdefault("channels", {})
+    for platform, target in targets.items():
+        old = channels.get(platform, {})
+        if old.get("target") and old["target"] != target["target"]:
+            raise DeliveryError(f"{platform}: 既存の投稿先と違います。記録を確認してから接続先を変更してください")
+        if not old:
+            channels[platform] = {"target": target["target"], "excluded": sorted(a["id"] for a in articles),
+                                  "configured_at": datetime.now(timezone.utc).isoformat()}
+        elif exclude_current:
+            old["excluded"] = sorted(set(old.get("excluded", [])) | {a["id"] for a in articles})
+            old["configured_at"] = datetime.now(timezone.utc).isoformat()
+    ledger.save()
+    print("接続を記録しました。現在ある記事は各接続先への自動投稿から除外しました。")
 
 
 def verify_public(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "robu-social/1"})
+    req = urllib.request.Request(url, headers={"User-Agent": "robu-social/2"})
     with urllib.request.urlopen(req, timeout=30) as response:
         content_type = response.headers.get("Content-Type", "")
         if response.status != 200:
             raise DeliveryError("公開ページまたは素材が未反映です")
-        if url.endswith(".mp4") and not content_type.startswith("video/"):
-            raise DeliveryError("動画が公開されていません")
         if url.endswith(".jpg") and not content_type.startswith("image/"):
             raise DeliveryError("画像が公開されていません")
         response.read(1024)
+
+
+def eligible(data, article, platform):
+    return (article["id"] not in data["excluded"]
+            and article["id"] not in data.get("channels", {}).get(platform, {}).get("excluded", []))
 
 
 def publish(plan, config, ledger, client, env=os.environ, verify=verify_public):
     if env.get("SOCIAL_PUBLISH_ENABLED") != "true":
         raise DeliveryError("SOCIAL_PUBLISH_ENABLED=trueが必要です")
     data = ledger.load()
-    channel_ids = connections(config, client, env)
-    errors = [key + ": 前回の結果が不明です。Bufferで確認してresolveしてください"
+    platforms = list(client.settings)
+    if not platforms:
+        print("自動投稿先はありません。投稿アプリから無料の手動投稿を利用できます。")
+        return
+    targets = client.check()
+    for platform, target in targets.items():
+        if data.get("channels", {}).get(platform, {}).get("target") != target["target"]:
+            raise DeliveryError(f"{platform}: 先にconnectで接続を初期化してください。過去記事の一斉投稿を防止します")
+    errors = [key + ": 前回の結果が不明です。SNSで確認してresolveしてください"
               for key, record in data["posts"].items()
               if record.get("status") in {"submitting", "uncertain"}]
-    candidates = [a for a in plan if a["id"] not in data["excluded"]
-                  and any(data["posts"].get(a["id"] + ":" + p, {}).get("status")
-                          not in {"accepted", "submitting", "uncertain"} for p in config["platforms"])]
+    pending = lambda a, p: eligible(data, a, p) and data["posts"].get(a["id"] + ":" + p, {}).get("status") not in {
+        "published", "accepted", "submitting", "uncertain", "manual_done"}
+    candidates = [a for a in plan if any(pending(a, p) for p in platforms)]
+    candidates.sort(key=lambda a: (a.get("published", ""), a["id"]))
     for article in candidates[:config["max_articles_per_run"]]:
-        try:
-            for key in ("url", "image_url", "pin_url", "video_url"):
-                verify(article[key])
-        except Exception:
-            errors.append(article["id"] + ": 公開URL／素材の確認に失敗。未送信です")
-            continue
-        for platform in config["platforms"]:
+        for platform in platforms:
+            if not pending(article, platform):
+                continue
             key = article["id"] + ":" + platform
-            previous = data["posts"].get(key, {})
-            if previous.get("status") == "accepted":
-                continue
-            if previous.get("status") in {"submitting", "uncertain"}:
-                errors.append(key + ": 前回の結果が不明です。Bufferで確認してresolveしてください")
-                continue
-            post = payload(article, platform, channel_ids[platform], env.get("PINTEREST_BOARD_ID", ""))
-            record = {"status": "submitting", "attempted_at": datetime.now(timezone.utc).isoformat(),
-                      "payload_hash": hashlib.sha256(json.dumps(post, sort_keys=True).encode()).hexdigest()}
-            data["posts"][key] = record
-            ledger.save()
             try:
-                response = client.create(post)
+                verify(article["url"])
+                verify(article["pin_url"] if platform == "pinterest" else article["image_url"])
+            except Exception:
+                errors.append(key + ": 公開URL／画像の確認に失敗。未送信です")
+                continue
+            record = {"status": "submitting", "attempted_at": datetime.now(timezone.utc).isoformat(),
+                      "payload_hash": hashlib.sha256((caption(article, platform) + article["media_hash"]).encode()).hexdigest()}
+            data["posts"][key] = record
+            ledger.save()  # Must succeed BEFORE any external write.
+            try:
+                post_id = client.create(article, platform)
+                if not post_id:
+                    raise DeliveryError("投稿IDなし")
+            except Rejected as e:
+                record["status"] = "rejected"
+                errors.append(key + ": " + str(e))
             except Exception:
                 record["status"] = "uncertain"
-                errors.append(key + ": 通信結果が不明です。自動再送を停止しました")
+                errors.append(key + ": 投稿結果が不明です。自動再送を停止しました")
             else:
-                action = (response.get("data") or {}).get("createPost") or {}
-                if not response.get("errors") and action.get("__typename") == "PostActionSuccess" and (action.get("post") or {}).get("id"):
-                    record.update(status="accepted", buffer_post_id=action["post"]["id"])
-                    print(key + ": Buffer受付済み（各SNSへの配信結果はBufferで確認）")
-                elif not response.get("errors") and action.get("__typename") != "PostActionSuccess" and action.get("message"):
-                    record["status"] = "rejected"
-                    errors.append(key + ": Bufferが拒否しました。投稿条件と契約プランを確認してください")
-                else:
-                    record["status"] = "uncertain"
-                    errors.append(key + ": API応答が不明です。自動再送を停止しました")
+                record.update(status="published", post_id=post_id)
+                print(key + ": SNSから投稿IDを受信しました")
             ledger.save()
+    if len(candidates) > config["max_articles_per_run"]:
+        errors.append(f"上限に達しました。残り{len(candidates) - config['max_articles_per_run']}記事はpublishを再実行してください")
     if errors:
         raise DeliveryError("\n".join(errors))
-    remaining = len(candidates) - config["max_articles_per_run"]
-    if remaining > 0:
-        raise DeliveryError(f"一度に送る上限に達しました。残り{remaining}記事はpublishを再実行してください")
 
 
 def resolve(ledger, key, outcome, post_id=""):
     data = ledger.load()
     record = data["posts"].get(key)
-    if not record or record.get("status") not in {"submitting", "uncertain", "accepted"}:
+    if not record or record.get("status") not in {"submitting", "uncertain", "accepted", "published"}:
         raise DeliveryError("解決対象の投稿記録がありません")
-    if outcome == "accepted":
+    if outcome == "published":
         if not post_id:
-            raise DeliveryError("Bufferで確認した投稿IDが必要です")
-        record.update(status="accepted", buffer_post_id=post_id)
+            raise DeliveryError("SNSで確認した投稿IDが必要です")
+        record.update(status="published", post_id=post_id)
     elif outcome == "retry":
+        if record.get("status") in {"published", "accepted"}:
+            raise DeliveryError("投稿済み／受付済みの記録は再送できません")
         record["status"] = "rejected"
     else:
-        raise DeliveryError("outcomeはacceptedまたはretryです")
+        raise DeliveryError("outcomeはpublishedまたはretryです")
     ledger.save()

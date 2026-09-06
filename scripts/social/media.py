@@ -3,6 +3,7 @@ import hashlib
 import json
 import os
 import subprocess
+import shutil
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 from .content import clip, local_image
@@ -70,9 +71,18 @@ def card(source, title, description, size, brand, ai_image=False):
 def render(root, article, out, config):
     image = local_image(root, Path(article["path"]), article["image_ref"], config["site_url"])
     source_bytes = image.read_bytes()
-    digest = hashlib.sha256(source_bytes + json.dumps(article, ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:16]
+    digest = hashlib.sha256(source_bytes + json.dumps({"article": article, "brand": config["site_name"], "renderer": 2}, ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:16]
     folder = out / "assets" / "social" / article["id"]
     folder.mkdir(parents=True, exist_ok=True)
+    base = config["site_url"].rstrip("/") + "/assets/social/" + article["id"]
+    result = {**article, "image_url": base + "/instagram.jpg", "pin_url": base + "/pinterest.jpg",
+              "video_url": base + "/tiktok.mp4", "media_hash": digest}
+    cache = root / "_social_media" / article["id"] / digest
+    outputs = ("instagram.jpg", "pinterest.jpg", "video-cover.jpg", "video-end.jpg", "tiktok.mp4")
+    if all((cache / name).is_file() for name in outputs):
+        for name in outputs:
+            shutil.copy2(cache / name, folder / name)
+        return result
     with Image.open(image) as opened:
         source = ImageOps.exif_transpose(opened).convert("RGB")
     for name, size in (("instagram.jpg", (1080, 1350)), ("pinterest.jpg", (1000, 1500)), ("video-cover.jpg", (1080, 1920))):
@@ -88,6 +98,7 @@ def render(root, article, out, config):
                     "-map", "[v]", "-map", "2:a", "-t", "12", "-c:v", "libx264", "-preset", "fast",
                     "-threads", "2", "-crf", "23", "-c:a", "aac", "-movflags", "+faststart",
                     str(folder / "tiktok.mp4")], check=True, timeout=180)
-    base = config["site_url"].rstrip("/") + "/assets/social/" + article["id"]
-    return {**article, "image_url": base + "/instagram.jpg", "pin_url": base + "/pinterest.jpg",
-            "video_url": base + "/tiktok.mp4", "media_hash": digest}
+    cache.mkdir(parents=True, exist_ok=True)
+    for name in outputs:
+        shutil.copy2(folder / name, cache / name)
+    return result

@@ -7,7 +7,9 @@ import sys
 from pathlib import Path
 from .content import PLATFORMS, caption, catalog
 from .media import render
-from .publish import Buffer, DeliveryError, Ledger, publish, resolve
+from .publish import Ledger, configure, publish, resolve
+from .providers import Direct, DeliveryError
+from .studio import export_studio
 
 
 def config_for(root):
@@ -24,7 +26,7 @@ def ledger_for(config):
 
 
 def copy_site(root, out):
-    excluded = {".git", ".github", ".openai", ".social", "scripts", "tests", "docs", "records", "social"}
+    excluded = {".git", ".github", ".openai", ".social", "scripts", "tests", "docs", "records", "social", "_social_media"}
     names = subprocess.check_output(["git", "ls-files", "-z"], cwd=root).decode().split("\0")
     for name in names:
         if not name or Path(name).parts[0] in excluded or name.endswith((".md", ".py", ".ps1")):
@@ -40,15 +42,16 @@ def copy_site(root, out):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="ブログ公開・6SNS自動投稿")
-    parser.add_argument("command", choices=["catalog", "build", "initialize", "check", "publish", "resolve"])
+    parser = argparse.ArgumentParser(description="Robu 投稿アプリ — 無料の投稿準備と公式APIでの直接投稿")
+    parser.add_argument("command", choices=["catalog", "build", "initialize", "connect", "check", "publish", "resolve"])
     parser.add_argument("--root", type=Path, default=Path("."))
     parser.add_argument("--out", type=Path, default=Path("_site"))
     parser.add_argument("--plan", type=Path, default=Path("_social/plan.json"))
     parser.add_argument("--preview-article", help="プレビュー用。既存記事を1本指定（送信しません）")
     parser.add_argument("--ledger", action="store_true", help="GitHubの初期化済み投稿記録を使用")
+    parser.add_argument("--exclude-current", action="store_true", help="connect時、既存の接続先も現在の記事を除外して再開")
     parser.add_argument("--key")
-    parser.add_argument("--outcome", choices=["accepted", "retry"])
+    parser.add_argument("--outcome", choices=["published", "retry"])
     parser.add_argument("--post-id", default="")
     args = parser.parse_args()
     root = args.root.resolve()
@@ -60,18 +63,16 @@ def main():
         head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root).decode().strip()
         ledger_for(config).initialize([a["id"] for a in articles], head)
         print(f"{len(articles)}本の既存記事を対象外として初期化しました。SNSへの投稿はありません。")
+    elif args.command == "connect":
+        configure(ledger_for(config), catalog(root, config), Direct(), args.exclude_current)
     elif args.command == "check":
-        token = os.environ.get("BUFFER_API_KEY")
-        if not token and sys.stdin.isatty():
-            import getpass
-            token = getpass.getpass("Buffer API key（画面には表示されません）: ")
-        client = Buffer(token)
-        # IDs are shown only during an explicitly requested setup check.
-        print(json.dumps(client.channels(), ensure_ascii=False, indent=2))
+        print(json.dumps(Direct().check(), ensure_ascii=False, indent=2))
     elif args.command == "build":
         articles = catalog(root, config)
+        state = None
         if args.ledger:
-            excluded = set(ledger_for(config).load()["excluded"])
+            state = ledger_for(config).load()
+            excluded = set(state["excluded"])
         else:
             excluded = set(json.loads((root / "social/baseline.json").read_text())["excluded"])
         selected = [a for a in articles if a["id"] not in excluded or a["id"] == args.preview_article]
@@ -90,6 +91,8 @@ def main():
         args.plan.write_text(json.dumps({"commit": head, "articles": plan}, ensure_ascii=False, indent=2), encoding="utf-8")
         previews = [{"article": a["id"], "posts": {p: caption(a, p) for p in PLATFORMS}} for a in plan]
         (args.plan.parent / "captions.json").write_text(json.dumps(previews, ensure_ascii=False, indent=2), encoding="utf-8")
+        export_studio(root, out, sorted(plan, key=lambda a: (a.get("published", ""), a["id"]), reverse=True)[:30],
+                      config, state=state, preview=not args.ledger)
         print(f"{len(articles)}記事を検出、{len(plan)}記事分のSNS素材を用意しました。")
     elif args.command == "publish":
         import urllib.request
@@ -98,7 +101,7 @@ def main():
             release = json.load(response)
         if release.get("commit") != plan["commit"]:
             raise DeliveryError("公開済みのコミットと投稿対象が一致しません。送信を停止しました")
-        publish(plan["articles"], config, ledger_for(config), Buffer(os.environ.get("BUFFER_API_KEY")))
+        publish(plan["articles"], config, ledger_for(config), Direct())
     elif args.command == "resolve":
         if not args.key or not args.outcome:
             raise ValueError("--keyと--outcomeが必要です")

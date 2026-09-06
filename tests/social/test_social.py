@@ -1,12 +1,16 @@
 import copy
+import urllib.error
+import zipfile
 import json
 import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
-from scripts.social.content import PLATFORMS, caption, catalog, local_image, payload
-from scripts.social.publish import DeliveryError, publish
+from scripts.social.content import PLATFORMS, caption, catalog, local_image
+from scripts.social.publish import DeliveryError, configure, publish, resolve
+from scripts.social.providers import Direct, Rejected, automatic_platforms, connection_settings
+from scripts.social.studio import export_studio
 
 
 CONFIG = {"site_url": "https://www.axis-jp.net", "site_name": "ろぶーの気になる事",
@@ -15,14 +19,16 @@ ARTICLE = {"id": "new-article", "title": "新しい旅の記事", "description":
            "url": "https://www.axis-jp.net/articles/new-article/", "ai_image": True, "disclosure": "",
            "image_url": "https://www.axis-jp.net/assets/social/new-article/instagram.jpg",
            "pin_url": "https://www.axis-jp.net/assets/social/new-article/pinterest.jpg",
-           "video_url": "https://www.axis-jp.net/assets/social/new-article/tiktok.mp4"}
-ENV = {"SOCIAL_PUBLISH_ENABLED": "true", "PINTEREST_BOARD_ID": "board",
-       **{"BUFFER_CHANNEL_" + p.upper(): "channel-" + p for p in PLATFORMS}}
-
+           "video_url": "https://www.axis-jp.net/assets/social/new-article/tiktok.mp4", "media_hash": "abc", "published": "2026-09-06"}
+ENV = {"SOCIAL_PUBLISH_ENABLED": "true", "SOCIAL_AUTO_PLATFORMS": "facebook,instagram,threads,pinterest",
+       "PINTEREST_STANDARD_ACCESS": "true", "PINTEREST_BOARD_ID": "400", "PINTEREST_ACCESS_TOKEN": "test-pin",
+       "FACEBOOK_PAGE_ID": "100", "FACEBOOK_PAGE_ACCESS_TOKEN": "test-fb",
+       "INSTAGRAM_USER_ID": "200", "INSTAGRAM_ACCESS_TOKEN": "test-ig",
+       "THREADS_USER_ID": "300", "THREADS_ACCESS_TOKEN": "test-th"}
 
 class MemoryLedger:
     def __init__(self, excluded=()):
-        self.data = {"excluded": list(excluded), "posts": {}}
+        self.data = {"excluded": list(excluded), "posts": {}, "channels": {p: {"target": c["target"], "excluded": []} for p, c in connection_settings(ENV).items()}}
         self.persisted = copy.deepcopy(self.data)
         self.saves = 0
         self.fail_at = None
@@ -38,97 +44,186 @@ class MemoryLedger:
         self.persisted = copy.deepcopy(self.data)
 
 
-class FakeBuffer:
-    def __init__(self, ledger):
+class FakeDirect:
+    def __init__(self, ledger, env=ENV):
         self.sent = []
         self.ledger = ledger
+        self.settings = connection_settings(env)
         self.timeout_for = None
         self.reject_for = None
 
-    def channels(self):
-        return [{"id": "channel-" + p, "service": p, "isDisconnected": False, "isLocked": False,
-                 "metadata": {"boards": [{"serviceId": "board"}]}} for p in PLATFORMS]
+    def check(self):
+        return {p: {"target": c["target"]} for p, c in self.settings.items()}
 
-    def create(self, post):
-        platform = post["channelId"].removeprefix("channel-")
-        # The write-ahead record must exist remotely before an external send.
-        assert self.ledger.persisted["posts"][ARTICLE["id"] + ":" + platform]["status"] == "submitting"
-        self.sent.append(post)
+    def create(self, article, platform):
+        assert self.ledger.persisted["posts"][article["id"] + ":" + platform]["status"] == "submitting"
+        self.sent.append((article["id"], platform))
         if platform == self.timeout_for:
             raise TimeoutError()
         if platform == self.reject_for:
-            return {"data": {"createPost": {"__typename": "ValidationError", "message": "invalid"}}}
-        return {"data": {"createPost": {"__typename": "PostActionSuccess", "post": {"id": str(len(self.sent))}}}}
+            raise Rejected("invalid")
+        return str(len(self.sent))
 
 
 class DeliveryTests(unittest.TestCase):
     def setUp(self):
         self.ledger = MemoryLedger()
-        self.client = FakeBuffer(self.ledger)
+        self.client = FakeDirect(self.ledger)
 
-    def run_publish(self, **kwargs):
-        publish([copy.deepcopy(ARTICLE)], CONFIG, self.ledger, self.client, env=ENV, verify=lambda url: None, **kwargs)
+    def run_publish(self):
+        publish([copy.deepcopy(ARTICLE)], CONFIG, self.ledger, self.client, env=ENV, verify=lambda url: None)
 
-    def test_six_platforms_and_rerun_or_edit_does_not_duplicate(self):
+    def test_only_four_free_platforms_and_edits_do_not_duplicate(self):
         self.run_publish()
-        modified = {**ARTICLE, "title": "修正後のタイトル"}
-        publish([modified], CONFIG, self.ledger, self.client, env=ENV, verify=lambda url: None)
-        self.assertEqual(len(self.client.sent), 6)
+        publish([{**ARTICLE, "title": "変更後"}], CONFIG, self.ledger, self.client, env=ENV, verify=lambda url: None)
+        self.assertEqual({p for _, p in self.client.sent}, {"facebook", "instagram", "threads", "pinterest"})
+        self.assertEqual(len(self.client.sent), 4)
 
     def test_existing_articles_are_excluded(self):
-        self.ledger = MemoryLedger([ARTICLE["id"]])
+        self.ledger.persisted["excluded"] = [ARTICLE["id"]]
         self.run_publish()
-        self.assertEqual(self.client.sent, [])
+        self.assertFalse(self.client.sent)
 
-    def test_ambiguous_delivery_is_not_retried_but_other_channels_finish(self):
+    def test_unknown_send_is_not_retried_but_others_finish(self):
         self.client.timeout_for = "facebook"
-        with self.assertRaises(DeliveryError):
-            self.run_publish()
-        self.assertEqual(len(self.client.sent), 6)
+        with self.assertRaises(DeliveryError): self.run_publish()
         self.client.timeout_for = None
-        with self.assertRaises(DeliveryError):
-            self.run_publish()
-        self.assertEqual(len(self.client.sent), 6)
+        with self.assertRaises(DeliveryError): self.run_publish()
+        self.assertEqual(len(self.client.sent), 4)
 
     def test_failed_write_ahead_prevents_sending(self):
         self.ledger.fail_at = 1
-        with self.assertRaises(DeliveryError):
-            self.run_publish()
+        with self.assertRaises(DeliveryError): self.run_publish()
         self.assertFalse(self.client.sent)
 
-    def test_failed_success_record_preserves_pending_on_next_run(self):
+    def test_failed_success_save_cannot_duplicate(self):
         self.ledger.fail_at = 2
-        with self.assertRaises(DeliveryError):
-            self.run_publish()
+        with self.assertRaises(DeliveryError): self.run_publish()
         self.ledger.fail_at = None
-        with self.assertRaises(DeliveryError):
-            self.run_publish()
-        self.assertEqual(sum(p["channelId"] == "channel-facebook" for p in self.client.sent), 1)
+        with self.assertRaises(DeliveryError): self.run_publish()
+        self.assertEqual(sum(p == "facebook" for _, p in self.client.sent), 1)
 
-    def test_explicit_rejection_can_retry_without_resending_successes(self):
+    def test_explicit_rejection_retries_only_failed_target(self):
         self.client.reject_for = "pinterest"
-        with self.assertRaises(DeliveryError):
-            self.run_publish()
+        with self.assertRaises(DeliveryError): self.run_publish()
         self.client.reject_for = None
         self.run_publish()
-        self.assertEqual(len(self.client.sent), 7)
-
-    def test_missing_channel_prevents_any_post(self):
-        with self.assertRaises(DeliveryError):
-            publish([ARTICLE], CONFIG, self.ledger, self.client, env={"SOCIAL_PUBLISH_ENABLED": "true"})
-        self.assertFalse(self.client.sent)
+        self.assertEqual(len(self.client.sent), 5)
 
     def test_disabled_prevents_any_post(self):
-        with self.assertRaises(DeliveryError):
-            publish([ARTICLE], CONFIG, self.ledger, self.client, env={})
+        with self.assertRaises(DeliveryError): publish([ARTICLE], CONFIG, self.ledger, self.client, env={})
         self.assertFalse(self.client.sent)
 
-    def test_unpublished_assets_prevent_any_post(self):
-        def fail(url):
-            raise OSError()
-        with self.assertRaises(DeliveryError):
-            publish([ARTICLE], CONFIG, self.ledger, self.client, env=ENV, verify=fail)
+    def test_no_connections_needs_no_credentials(self):
+        client = FakeDirect(self.ledger, {})
+        publish([ARTICLE], CONFIG, self.ledger, client, env=ENV)
+        self.assertFalse(client.sent)
+
+    def test_missing_credentials_or_paid_platform_rejected(self):
+        for env in ({"SOCIAL_AUTO_PLATFORMS": "instagram"}, {"SOCIAL_AUTO_PLATFORMS": "twitter"}, {"SOCIAL_AUTO_PLATFORMS": "tiktok"}):
+            with self.assertRaises(DeliveryError): Direct(env)
+
+    def test_pinterest_trial_cannot_publish(self):
+        with self.assertRaises(DeliveryError): Direct({**ENV, "PINTEREST_STANDARD_ACCESS": "false"})
+
+    def test_one_connected_platform_can_run_independently(self):
+        client = FakeDirect(self.ledger, {**ENV, "SOCIAL_AUTO_PLATFORMS": "threads"})
+        publish([ARTICLE], CONFIG, self.ledger, client, env=ENV, verify=lambda _: None)
+        self.assertEqual(client.sent, [(ARTICLE["id"], "threads")])
+
+    def test_missing_target_initialization_prevents_backfill(self):
+        self.ledger.persisted["channels"] = {}
+        with self.assertRaises(DeliveryError): self.run_publish()
         self.assertFalse(self.client.sent)
+        configure(self.ledger, [ARTICLE], self.client)
+        self.run_publish()
+        self.assertFalse(self.client.sent)
+
+    def test_adding_target_excludes_manual_history(self):
+        del self.ledger.persisted["channels"]["pinterest"]
+        configure(self.ledger, [ARTICLE], self.client)
+        self.run_publish()
+        self.assertEqual(len(self.client.sent), 3)
+
+    def test_explicit_resume_boundary_excludes_manual_posts(self):
+        configure(self.ledger, [ARTICLE], self.client, exclude_current=True)
+        self.run_publish()
+        self.assertFalse(self.client.sent)
+
+    def test_bad_image_does_not_block_other_image_types(self):
+        def verify(url):
+            if url.endswith("pinterest.jpg"): raise OSError()
+        with self.assertRaises(DeliveryError):
+            publish([ARTICLE], CONFIG, self.ledger, self.client, env=ENV, verify=verify)
+        self.assertEqual(len(self.client.sent), 3)
+
+    def test_uncertain_old_articles_do_not_starve_new_ones(self):
+        articles = [{**ARTICLE, "id": "article-" + str(i)} for i in range(4)]
+        for article in articles[:3]:
+            for p in self.client.settings:
+                self.ledger.persisted["posts"][article["id"] + ":" + p] = {"status": "uncertain"}
+        with self.assertRaises(DeliveryError):
+            publish(articles, CONFIG, self.ledger, self.client, env=ENV, verify=lambda _: None)
+        self.assertEqual(len(self.client.sent), 4)
+
+    def test_published_record_cannot_be_reset_to_retry(self):
+        self.run_publish()
+        with self.assertRaises(DeliveryError): resolve(self.ledger, ARTICLE["id"] + ":facebook", "retry")
+
+
+class ProviderTests(unittest.TestCase):
+    def test_official_payloads_and_container_publish_sequence(self):
+        calls = []
+        def transport(url, token, data, method, form=False):
+            calls.append((url, data, form))
+            if "?fields=status_code" in url: return {"status_code": "FINISHED"}
+            if "?fields=status" in url: return {"status": "FINISHED"}
+            return {"id": "123"}
+        client = Direct(ENV, transport=transport, sleep=lambda _: None)
+        for platform in client.settings: self.assertEqual(client.create(ARTICLE, platform), "123")
+        self.assertEqual(len(calls), 8)
+        self.assertTrue(calls[0][0].startswith("https://graph.facebook.com/v26.0/"))
+        self.assertEqual(calls[2][0], "https://graph.instagram.com/v26.0/123?fields=status_code")
+        self.assertEqual(calls[3][1], {"creation_id": "123"})
+        self.assertEqual(calls[6][1], {"creation_id": "123"})
+        self.assertEqual(calls[7][1]["media_source"]["source_type"], "image_url")
+        self.assertFalse(calls[7][2])
+        self.assertTrue(all("test-" not in url for url, _, _ in calls))
+
+    def test_error_bodies_never_leak_tokens(self):
+        def transport(*args, **kwargs): return {"error": {"message": "SECRET"}}
+        with self.assertRaises(Rejected) as caught: Direct(ENV, transport=transport).create(ARTICLE, "facebook")
+        self.assertNotIn("SECRET", str(caught.exception))
+
+    def test_unfinished_container_is_never_published(self):
+        calls = []
+        def transport(url, *args, **kwargs):
+            calls.append(url)
+            return {"status_code": "IN_PROGRESS"} if "?fields" in url else {"id": "123"}
+        with self.assertRaises(DeliveryError):
+            Direct(ENV, transport=transport, sleep=lambda _: None).create(ARTICLE, "instagram")
+        self.assertFalse(any("media_publish" in url for url in calls))
+
+
+class StudioTests(unittest.TestCase):
+    def test_portable_app_keeps_secrets_out_and_escapes_script_data(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "social/studio").mkdir(parents=True)
+            (root / "social/studio/index.html").write_text("<!doctype html>")
+            out = root / "out"
+            media = out / "assets/social/new-article"
+            media.mkdir(parents=True)
+            for name in ("instagram.jpg", "pinterest.jpg", "tiktok.mp4"): (media / name).write_bytes(b"fixture")
+            data = export_studio(root, out, [{**ARTICLE, "title": "</script><script>alert(1)</script>"}], CONFIG,
+                                 state={"posts": {}, "token": "SECRET"}, env={**ENV, "FAKE_SECRET": "SECRET"})
+            output = (out / "social-studio/data.js").read_text()
+            self.assertNotIn("SECRET", output)
+            self.assertNotIn("</script>", output)
+            self.assertEqual(len(data["articles"][0]["posts"]), 6)
+            with zipfile.ZipFile(out / "social-posting-app.zip") as archive:
+                self.assertIn("social-studio/index.html", archive.namelist())
+                self.assertIn("assets/social/new-article/tiktok.mp4", archive.namelist())
 
 
 class ContentTests(unittest.TestCase):
@@ -137,20 +232,6 @@ class ContentTests(unittest.TestCase):
         text = caption(article, "twitter")
         self.assertTrue(text.endswith(article["url"]))
         self.assertLessEqual(len(text.removesuffix(article["url"])) * 2 + 23, 280)
-
-    def test_payloads_have_media_and_platform_metadata(self):
-        for platform in PLATFORMS:
-            post = payload(ARTICLE, platform, "id", "board")
-            self.assertEqual(post["schedulingType"], "automatic")
-            self.assertFalse(post["needsApproval"])
-            self.assertTrue(post["assets"])
-        self.assertIn("video", payload(ARTICLE, "tiktok", "id")["assets"][0])
-        self.assertEqual(payload(ARTICLE, "pinterest", "id", "board")["metadata"]["pinterest"]["url"], ARTICLE["url"])
-        self.assertTrue(payload(ARTICLE, "instagram", "id")["metadata"]["instagram"]["isAiGenerated"])
-
-    def test_pinterest_requires_board(self):
-        with self.assertRaises(ValueError):
-            payload(ARTICLE, "pinterest", "id")
 
     def test_social_caption_limits(self):
         article = {**ARTICLE, "title": "長い" * 100, "description": "説明です。" * 500}

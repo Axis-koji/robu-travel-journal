@@ -125,23 +125,3 @@ def caption(article, platform):
     fixed = "\n\n".join(x for x in (notice, clip(article["title"], 100), image_notice, end) if x)
     description = clip(article["description"], max(0, limit - len(fixed) - 2))
     return "\n\n".join(x for x in (notice, clip(article["title"], 100), description, image_notice, end) if x)
-
-
-def payload(article, platform, channel, board_id="", mode="shareNow"):
-    post = {"channelId": channel, "text": caption(article, platform), "assets": [],
-            "schedulingType": "automatic", "mode": mode, "needsApproval": False}
-    if platform == "tiktok":
-        post["assets"] = [{"video": {"url": article["video_url"]}}]
-        post["metadata"] = {"tiktok": {"isAiGenerated": article["ai_image"]}}
-    else:
-        image = article["pin_url"] if platform == "pinterest" else article["image_url"]
-        post["assets"] = [{"image": {"url": image}}]
-        if platform == "instagram":
-            post["metadata"] = {"instagram": {"type": "post", "shouldShareToFeed": True,
-                                                  "isAiGenerated": article["ai_image"]}}
-        if platform == "pinterest":
-            if not board_id:
-                raise ValueError("PinterestのボードIDが未設定です")
-            post["metadata"] = {"pinterest": {"boardServiceId": board_id,
-                                               "title": clip(article["title"], 100), "url": article["url"]}}
-    return post

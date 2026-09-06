@@ -1,186 +1,167 @@
-# ブログ公開から6つのSNSへ自動投稿
+# Robu 投稿アプリ — Buffer不要・無料で始める
 
-## 追加した機能
+ブログの新しい記事から6つのSNS用の紹介文・画像・短い動画を用意する、PythonとHTMLのアプリです。Buffer・有料の文章生成API・X APIへの接続はありません。
 
-対象は **Axis-koji/robu-travel-journal**、公開URLは **https://www.axis-jp.net** です。
-KojiMorimoto側は古いフォークで、2026年9月6日に確認した実際の公開元と異なります。
+## 最初にできること
 
-1. mainに追加された articles/記事名/index.html のOGメタタグから紹介内容を用意します。
-2. 記事画像からInstagram画像、Pinterest画像、TikTok用の12秒縦型スライド動画を作ります。
-3. 記事と素材をGitHub Pagesに公開します。
-4. 公開成功後、公開コミットと素材URLを確認してからBuffer APIへ6件の投稿を送ります。
+- 記事を選び、Instagram／Facebook／X／TikTok／Threads／Pinterestの紹介文を見る。
+- 紹介文を調整してコピーする。画像または12秒のスライド動画を保存する。
+- 各SNSの投稿画面を開く。投稿が終わったら端末内の完了メモを付ける。
+- 自動投稿の接続後は、新しい記事を公開すると接続済みSNSへ直接送信する。
 
-YouTubeは対象外です。動画は画像と文章の紹介スライドで、ナレーションやBGMはありません。
-自動要約AIは呼ばず、元記事にない体験談や仕様を生成しません。
-画像内の製品を描き直さず、元画像の全体が見えるように配置します。
-SNSからの流入先はアフィリエイト直リンクではなくブログ記事です。
+**アプリの作成と、SNSアカウントの接続・公開設定は別の作業です。初期状態では自動送信しません。**
 
-**導入しただけでは実投稿しません。接続・初期化・有効化が必要です。**
-本番アカウントへのAPI接続・実投稿は、アカウント未接続のため未検証です。
+## 無料運用の範囲（2026年9月6日確認）
 
-## Bufferの準備
+| SNS | このアプリの対応 | 接続条件 |
+| --- | --- | --- |
+| Instagram | 画像＋紹介文を公式APIで直接投稿。未接続時は手動 | プロアカウント（ビジネス／クリエイター）、Metaアプリ、投稿権限、アクセストークン |
+| Facebook | Facebookページへ画像＋紹介文を直接投稿。未接続時は手動 | ページ管理権限、Metaアプリ、ページトークン。個人プロフィールへのAPI投稿は対象外 |
+| Threads | 画像＋紹介文を直接投稿。未接続時は手動 | Threadsアプリ、テスター／公開利用に応じた権限とトークン |
+| Pinterest | 画像・紹介文・記事リンクをピンとして直接投稿。未承認時は手動 | ビジネスアカウント、APIアプリのStandard access承認、ボード、トークン |
+| X | 紹介文を入れた投稿画面を開く。画像は保存して添付 | API不要。最後の投稿操作は本人が行う |
+| TikTok | 画像から縦型動画を作成し、アップロード画面を開く | API不要。最後の投稿操作と公開範囲等の設定は本人が行う |
 
-[Buffer](https://buffer.com/)で次の6アカウントを接続してください。
+Metaの権限やアプリ審査の要否は、本人・テスターだけの利用か、外部ユーザーに提供するかで異なります。アプリを作るだけで審査や認可がなくなるわけではありません。
 
-| SNS | 接続先 |
-|---|---|
-| Facebook | 「ろぶーの気になる事」のFacebookページ |
-| Instagram | ビジネスまたはクリエイターのプロアカウント |
-| X | 仕事用アカウント |
-| TikTok | 仕事用アカウント。Bufferで自動公開可能な接続にする |
-| Threads | 投稿先アカウント |
-| Pinterest | 投稿先アカウントと保存先ボード |
+PinterestのTrialで作ったピンは作成者にだけ見えるテスト用です。公開投稿の承認を確認するまで、自動投稿を有効にしない仕組みです。Standard accessはAPIの利用承認であり、Bufferの有料契約ではありません。Xは公式APIが従量課金なので呼び出しません。TikTokのDirect Post APIは自分用の投稿ユーティリティを認めない条件があるため実装していません。
 
-Instagram・TikTokのプロフィールにはブログのリンクを設定してください。
-アカウントがクリックできるプロフィールリンクに対応していることも確認してください。
-紹介文は「プロフィールのブログリンクから」と案内します。
-TikTok側でリンクを設定できない場合は、案内をアカウントに合う文面に変更してから有効化します。
+現在の公開GitHubリポジトリでは、通常のGitHub Actions実行環境を無料で利用できます。追加サーバーは借りません。既存ドメイン等の費用は従来どおりです。リポジトリを非公開にする場合は無料枠と料金が変わります。素材にはキャッシュを使い、ダウンロード用の実行成果物は3日で削除します。GitHubの有料利用枠を増やす設定は行いません。
 
-Buffer無料プランは3チャンネルまでです。6アカウントを1つのBufferで扱うには有料プランが必要です。
-料金・上限は[契約時の料金ページ](https://buffer.com/pricing)で確認してください。
-この変更は契約・課金・SNS連携を申し込みません。Zapierの契約は不要です。
+## まずアプリを開く
 
-BufferのSettings → APIで個人APIキーを作り、GitHub Secretに登録します。
-キーをHTML・設定JSON・チャットに書かないでください。
+生成される `social-posting-app.zip` をWindowsのEドライブの任意のフォルダに「すべて展開」してください。中の `social-studio/index.html` をChromeで開きます。Pythonのインストールは不要です。ZIP内から直接開かず、展開してください。
 
-チャンネルIDとPinterestボードIDは、手元のリポジトリで次のコマンドから取得できます。
-APIキーを求められたら入力します（画面には表示されません）。
+左の記事を選び、SNSのタブを切り替えます。「画像を保存／動画を保存」「紹介文をコピー」「投稿画面を開く」の順で使います。投稿先のアカウントはSNSの画面で確認してください。ボタンを押しても、勝手に投稿はされません。
 
-    python -m pip install -r scripts/social/requirements.txt
-    python -m scripts.social check
+確認用アプリのPinterestでは、画像を保存してピン作成画面にアップロードします。記事リンクは紹介文の末尾から設定してください。Instagram・TikTokの紹介文にある「プロフィールのブログリンク」を使うには、プロフィールにもブログURLを登録してください。生成画像／広告等の表示は各SNSで投稿内容に合わせて設定します。
 
-表示されたnameとserviceをアカウントと照合し、idを下のVariablesに登録します。
-Pinterestボードは metadata.boards の serviceId を使います。チャンネルIDとは別です。
+編集文章と完了チェックは、開いたChrome・端末だけの記録です。別の端末との同期やSNSでの投稿確認は行いません。ブラウザのデータ削除で消える場合があります。自動投稿に使う文章はブログのメタ情報から生成し、端末内の編集文章とは連動しません。
 
-## GitHub設定
+公開設定後のアプリURLは `https://www.axis-jp.net/social-studio/` です。公開済み記事・素材だけを表示し、パスワードやトークンの入力画面は置きません。検索対象外の指定はしますが、このURLや投稿記録は秘密の管理画面ではありません。設定変更や自動投稿の操作にはGitHubの権限が必要です。
 
-対象リポジトリの Settings → Secrets and variables → Actions に登録します。
+## GitHubで無料の素材生成を開始する
 
-| 種別 | 名前 | 値 |
-|---|---|---|
-| Secret | BUFFER_API_KEY | Bufferの個人APIキー |
-| Variable | BUFFER_CHANNEL_FACEBOOK | FacebookのBufferチャンネルID |
-| Variable | BUFFER_CHANNEL_INSTAGRAM | InstagramのBufferチャンネルID |
-| Variable | BUFFER_CHANNEL_TWITTER | XのBufferチャンネルID（名前はTWITTER） |
-| Variable | BUFFER_CHANNEL_TIKTOK | TikTokのBufferチャンネルID |
-| Variable | BUFFER_CHANNEL_THREADS | ThreadsのBufferチャンネルID |
-| Variable | BUFFER_CHANNEL_PINTEREST | PinterestのBufferチャンネルID |
-| Variable | PINTEREST_BOARD_ID | PinterestのボードserviceId |
-| Variable | SOCIAL_SITE_REPOSITORY | Axis-koji/robu-travel-journal |
-| Variable | SOCIAL_PUBLISH_ENABLED | 接続確認後にtrue。準備中はfalse |
+対象は **Axis-koji/robu-travel-journal** です。古いKojiMorimoto側のリポジトリでは有効にしません。
 
-GITHUB_TOKENはGitHub Actionsが自動発行します。個人アクセストークンは不要です。
-記録用social-stateブランチへ書き込むジョブには contents: write が必要です。
-組織ポリシーやブランチルールで禁止されている場合は初期化時に停止します。
+1. この変更をmainに取り込みます。現在のサイト公開方式・CNAME・HTTPS設定を控えてください。
+2. GitHub → Settings → Secrets and variables → Actions → Variablesで、`SOCIAL_SITE_REPOSITORY` を `Axis-koji/robu-travel-journal`、`SOCIAL_PUBLISH_ENABLED` を `false` に設定します。`SOCIAL_AUTO_PLATFORMS` は未設定で始められます。
+3. Actions → **Robu free posting app** → Run workflow → main → `initialize` を1回実行します。現在ある公開記事を除外して投稿記録を作ります。SNSへの送信はありません。再初期化は拒否されます。
+4. 同じ画面で `preview` を実行します。記事フォルダ名は既定の `vietnam-coffee` など、存在する記事を指定してください。Artifactsの `social-preview-and-plan` を保存・展開し、その中の `_site/social-posting-app.zip` をさらに展開して確認できます。この実行ではブログを公開しません。
+5. プレビューが成功したら、Settings → Pages → Build and deployment → Sourceを **GitHub Actions** に変更します。これは従来の「Deploy from a branch」からの切り替えです。Custom domainの `www.axis-jp.net` とEnforce HTTPSを保持してください。
+6. Actionsから `publish` を実行します。ブログとアプリを公開しますが、`SOCIAL_PUBLISH_ENABLED=false` なのでSNSには送信しません。Pagesの公開成功と既存記事の表示を確認してください。
+7. 以後、mainへ新しい記事を追加すると、アプリに紹介文と素材が届きます。PCを閉じていてもGitHub側で実行します。
 
-## 有効化の順番
+初期化直後の本番アプリは、過去記事を除外するため空です。確認用アプリだけに指定した既存記事を表示できます。本番アプリには初期化後の記事を新しい順に最大30件表示します。それ以前の投稿記録は保持されます。素材・投稿対象は記事のHTMLから判定するため、記事一覧だけを更新しても新規記事にはなりません。
 
-1. 変更をmainへ反映します。変数未設定なら新しい公開・投稿処理は動きません。
-2. Actions → **Blog publish and social** → Run workflow で **preview** を実行します。
-   確認用の記事名の初期値はvietnam-coffeeです。SNSには送信されません。
-   実行結果のsocial-preview-and-planをダウンロードし、画像・動画・captions.jsonを確認します。
-3. 上記のSecretとVariablesを登録します。SOCIAL_PUBLISH_ENABLEDはまずfalseにします。
-4. 同じワークフローをmainで **initialize** にして1回だけ実行します。
-   現時点の既存記事はすべて除外され、過去記事の大量投稿を防ぎます。
-   初期化後から、まだ公開していない新しい記事を追加してください。
-5. Settings → Pages → Build and deployment → Source を **GitHub Actions** に変更します。
-   従来のブランチ公開からの切り替えです。Custom domainのwww.axis-jp.netとHTTPS設定を維持します。
-6. **publish** を手動実行します。SNS送信はfalseのままなのでサイトと素材の公開だけを確認できます。
-7. Bufferの接続先と生成例を確認できたら、SOCIAL_PUBLISH_ENABLEDをtrueにします。
-   次の新着記事のmainへのpushから、自動公開と6SNSへの送信が動きます。
+## 自動投稿の接続
 
-記事より先にSNS投稿が出ないよう、このワークフローがGitHub Pages公開も担当します。
-現在の公開経路と同時稼働させず、手順5で切り替えてください。
-ブログを更新する手元のPythonスクリプトは変更する必要がありません。
+最初は1つだけ接続して動作確認し、必要に応じて追加できます。6つの接続を揃える必要はありません。
 
-## 記事ごとの設定
+### GitHub ActionsのSecrets（非公開）
 
-基本情報はog:title、og:description、og:imageから読み取ります。
-古いaxis-jp.netの記事も、SNSに渡すURLはwww.axis-jp.netに統一します。
-画像は同じリポジトリ内のPNG/JPEG/WebPが必要です。外部画像は取得しません。
+接続するSNSのものだけ設定します。値をGitのファイル、公開アプリ、チャット、ログに貼り付けないでください。
 
-投稿対象外にするにはHTMLに次のタグを追加します。
+| Secret | 内容 |
+| --- | --- |
+| `FACEBOOK_PAGE_ACCESS_TOKEN` | 対象Facebookページのアクセストークン |
+| `INSTAGRAM_ACCESS_TOKEN` | Instagram Loginで取得した対象プロアカウントのトークン |
+| `THREADS_ACCESS_TOKEN` | 対象Threadsユーザーのトークン |
+| `PINTEREST_ACCESS_TOKEN` | Standard承認済みアプリから、対象ボードへ書き込めるトークン |
 
-    <meta name="social:publish" content="false">
+GitHubの投稿記録用トークンはActions標準の `GITHUB_TOKEN` を使います。PATの購入やBuffer APIキーは不要です。
 
-robots=noindex、article:status=draft、未来のarticle:published_timeも対象外です。
-日付のみ・時差指定なしの公開日は日本時間として扱います。
-未来日になった記事は、その日以降のpushまたはpublish実行時に検出されます。
-公開日時ぴったりに起動する予約投稿機能ではありません。
+### Variables（非秘密）
 
-SNS向けに調整する場合はsocial/config.jsonのoverridesに記事フォルダ名を追加できます。
-次の例は設定の一部分です。site_url等の既存キーは残してください。
+| Variable | 内容 |
+| --- | --- |
+| `SOCIAL_AUTO_PLATFORMS` | 自動化するSNSだけをカンマ区切り。例：`facebook,instagram,threads`。最初は空 |
+| `FACEBOOK_PAGE_ID` | Facebookページの数値ID |
+| `INSTAGRAM_USER_ID` | Instagram LoginのAPIで取得したユーザーID。ユーザー名ではない |
+| `THREADS_USER_ID` | Threads APIのユーザーID |
+| `PINTEREST_BOARD_ID` | 投稿先ボードの数値ID |
+| `PINTEREST_STANDARD_ACCESS` | PinterestのStandard承認後だけ `true` |
+| `META_GRAPH_VERSION` | 任意。既定は `v26.0` |
+| `SOCIAL_SITE_REPOSITORY` | `Axis-koji/robu-travel-journal` |
+| `SOCIAL_PUBLISH_ENABLED` | 初期は `false`、接続確認後に `true` |
 
-    "overrides": {
-      "記事フォルダ名": {
-        "title": "SNS向けの見出し",
-        "description": "記事に書かれている内容の紹介",
-        "image": "/articles/記事フォルダ名/hero.jpg",
-        "ai_image": false,
-        "disclosure": "PR：この記事にはアフィリエイトリンクが含まれます。"
-      }
-    }
+### 各SNSで用意するもの
 
-disclosureは各SNS紹介文の冒頭に表示します。
-HTMLのmeta name="social:disclosure"でも指定できます。
-生成画像の自動判定が誤っている場合はai_imageを明示してください。
-生成画像は画像・紹介文に注記し、Instagram/TikTokのAPIフラグも設定します。
+- **Facebook：** Meta for Developersで用途に合うアプリを作り、ページに対する `pages_manage_posts` と `pages_read_engagement` 等の必要権限を取得します。ページ一覧を取得する操作には `pages_show_list` も必要です。ページを管理できるユーザーから発行したページトークンを使います。
+- **Instagram：** この実装は **Instagram API with Instagram Login** を使います。`instagram_business_basic` と `instagram_business_content_publish` を許可し、対応するプロアカウントのID・トークンを使ってください。Facebook Login方式のトークンとは混在させません。
+- **Threads：** Threads用アプリを作り、本人／テスターの承諾または必要な審査を済ませ、`threads_basic` と `threads_content_publish` を許可します。
+- **Pinterest：** ビジネスアカウントでアプリを作り、OAuthで `boards:read`、`pins:write` 等の必要権限を許可します。公開投稿にはStandard accessへの申請が必要です。本人だけの利用でもOAuthの動作を示す録画が求められます。
 
-## 重複防止・エラー対応
+トークンには期限や失効条件があります。可能な場合は長期トークンを使い、失効時は再認可してSecretを更新します。この版はトークンの自動更新・OAuthログイン画面を備えていません。アカウント作成・開発者登録・認可は本人の操作が必要です。
 
-- 投稿記録はmainと分離したsocial-stateブランチの.social/state.jsonに残します。
-- 同じ記事フォルダ名とSNSの組み合わせは、受付済みなら再送しません。本文修正も再投稿しません。
-- 一部のSNSだけ成功した場合、成功済みを飛ばして残りを処理します。
-- API送信前にsubmittingを永続保存します。
-  通信切断・応答不明・送信後の保存失敗は、重複防止を優先して自動再送を止めます。
-- acceptedは**Buffer受付済み**です。SNS側の最終公開成功とは別です。
-  Bufferの配信エラーや再認証通知も確認してください。
-- 1回の実行で新着記事を最大3本扱います。残りがあるとジョブに表示します。
-  publishを再実行すると、成功済みを飛ばして残りを処理します。
-- 初期化した投稿記録を削除したり、initializeを繰り返したりしないでください。
+### 接続を有効にする順序
 
-送信結果が不明な場合は、Bufferの送信済み・キュー・失敗一覧で記事を確認します。
-resolveはその確認結果を記録する管理コマンドで、SNSへの送信自体はしません。
-GitHub書込権限のある環境でGITHUB_TOKENとGITHUB_REPOSITORYを設定して実行します。
+1. `SOCIAL_PUBLISH_ENABLED=false` のまま、接続先のSecretsとVariablesを設定します。
+2. Actionsでmainの `connect` を実行します。アカウント／ボードのIDを読み取り確認し、新しい接続先についてその時点の既存記事を除外します。SNSへの投稿はありません。読み取り成功だけでは、投稿権限や公開審査の完了までは保証できません。
+3. `SOCIAL_PUBLISH_ENABLED=true` にし、`publish` を実行してアプリ表示を更新します。connect以前の記事は自動投稿しません。
+4. 次に公開する記事で実際の投稿を確認します。アプリの「投稿状況を更新」とGitHub Actionsの実行履歴を確認し、各SNSでも画像・リンク・公開範囲を確認してください。
+5. 追加のSNSも同じ手順で接続できます。追加先には、それ以前の記事をまとめて送りません。
 
-Bufferに存在する投稿を受付済みとして記録する例：
+自動投稿を一時停止する場合は `SOCIAL_PUBLISH_ENABLED=false` にしてください。停止中に手動で投稿した記事は、再開後の自動投稿と重複する可能性があります。**自動対象の記事は停止中も手動投稿しない**でください。停止期間にすでに手動投稿した場合は、停止したままActionsの `connect` で `exclude_current` にチェックを付けて実行します。現在ある記事を自動投稿から除外した後に再開できます。通常の接続追加時にはこのチェックを付けません。
 
-    python -m scripts.social resolve --key "記事フォルダ名:facebook" --outcome accepted --post-id "確認したBuffer投稿ID"
+## 記事の情報と投稿素材
 
-Bufferに存在しないこと、または配信が失敗したことを確認して再送可能に戻す例：
+対象は `articles/<記事フォルダ名>/index.html`。`<article>` または `og:type=article` を含み、タイトルとdescriptionを設定してください。
 
-    python -m scripts.social resolve --key "記事フォルダ名:facebook" --outcome retry
+- `og:title` / `og:description` / `og:image` を優先します。元記事にない事実は生成しません。
+- 画像はリポジトリ内のPNG/JPEG/WebP。外部サイトの画像を自動取得しません。
+- 下書き、`noindex`、`social:publish=false`、未来の公開日時の記事は対象外です。
+- 日付のみは日本時間で扱います。未来日時になった瞬間のタイマー実行はありません。日時経過後のmain更新または `publish` 実行で検出します。
+- 生成画像は紹介文と素材に表記します。誤判定は `social:ai-image` または `social/config.json` のoverrideで調整します。明示的に無効にする場合はoverrideの `ai_image: false` を使ってください。
+- 広告等の補足は `social:disclosure` に設定すると各SNSの紹介文にも入ります。
+- 商品画像は縦横比を保ち、全体を収めます。架空の部品や商品描写を加えません。
+- TikTok用は元の静止画から作る12秒の縦型スライド動画です。実際に撮影した映像や音声ではありません。
+- 自動投稿は各SNSにつき記事1本を1投稿にします。同じ記事の編集で再投稿はしません。1回の実行上限は新規記事3本です。超えた場合は `publish` を再実行します。
 
-その後publishを再実行します。Buffer側から同じ投稿が再配信されないことを確認してください。
-GitHubの投稿記録への書き込みが失敗した場合は、API送信せず停止します。
+## エラーと重複投稿防止
 
-## 停止・切り戻し
+投稿履歴はGitHubの `social-state` ブランチに記録します。送信前に記録を書き、SNSから投稿IDを受け取った後で投稿済みにします。保存できない場合は次の送信を止めます。
 
-SNSだけ止める場合はSOCIAL_PUBLISH_ENABLED=falseにします。サイト公開は継続できます。
-公開も従来方式へ戻す場合はSOCIAL_SITE_REPOSITORYを空にし、
-PagesのSourceを元のブランチ公開（main / root）へ戻します。
-すでにBufferが受け付けた投稿は、この変数では取り消されません。Bufferで個別に確認します。
+- `published`：SNS APIから投稿IDを受信。実際の表示やSNSのその後の審査までは保証しません。
+- `rejected`：APIが明示的に拒否。設定修正後に再実行できます。
+- `submitting` / `uncertain`：結果不明。再送による二重投稿を避けるため自動再送しません。他のSNSへの投稿は続けます。
+- `accepted`：旧方式の受付記録がある場合。移行時も再送しません。
 
-## 開発・確認
+画像の処理待ちは最大5回確認します。ネットワークや応答が不明なときは、勝手に同じ投稿を繰り返しません。GitHubの実行通知はご自身の通知設定に従います。このアプリ自体からメール・DMは送りません。
 
-    python -m unittest discover -s tests/social -v
-    python -m scripts.social catalog
+結果不明の復旧は、そのSNSで投稿の有無を確認した後に行います。ローカルで `GITHUB_REPOSITORY` と記録を書き込める `GITHUB_TOKEN` を安全に設定して実行します。
 
-画像・動画にはPillow、日本語のNoto Sans CJK、FFmpegが必要です。Actionsでは自動で用意します。
-ローカルではSOCIAL_FONTに日本語フォントファイルのパスを指定できます。
-出力をリポジトリの外へ保存する例：
+```bash
+# 投稿を確認できたとき
+python -m scripts.social resolve --key 記事フォルダ名:threads --outcome published --post-id 確認した投稿ID
+# 投稿が存在しないと確認できたときだけ
+python -m scripts.social resolve --key 記事フォルダ名:threads --outcome retry
+```
 
-    python -m scripts.social build --preview-article vietnam-coffee --out ../social-preview --plan ../social-preview-plan/plan.json
+公開済み／旧方式で受付済みの記録は、retryへの変更を拒否します。台帳を削除してやり直す運用はしません。初期化・公開・投稿は同じ同時実行制御に入れ、公開コミットの照合後に送信します。
 
-## 確認した公式仕様
+## 開発・ローカル確認
 
-- [Buffer API開始手順](https://developers.buffer.com/guides/getting-started.html)
-- [CreatePostInput](https://developers.buffer.com/types/CreatePostInput.html)
-- [Instagram投稿メタデータ](https://developers.buffer.com/types/InstagramPostMetadataInput.html)
-- [TikTok投稿メタデータ](https://developers.buffer.com/types/TikTokPostMetadataInput.html)
-- [Pinterest投稿メタデータ](https://developers.buffer.com/types/PinterestPostMetadataInput.html)
+Python 3.12、Pillow、ffmpeg、Noto Sans CJKが必要です。生成済みアプリの利用だけならPythonは不要です。
+
+```bash
+python -m pip install -r scripts/social/requirements.txt
+python -m unittest discover -s tests/social -v
+node --check social/studio/app.js
+python -m scripts.social build --preview-article vietnam-coffee
+```
+
+Windowsで生成する場合は `SOCIAL_FONT` に日本語フォントの絶対パスを設定し、ffmpegをPATHに置いてください。生成先は `_site/social-posting-app.zip` です。プレビューの生成にはSNSの秘密情報は不要です。
+
+この版の検証は、記事抽出・文字数・無料の投稿先制限・台帳保存失敗・通信結果不明・重複防止・公式APIの要求形式・ZIPの内容を対象としたローカルテストです。本人のSNSへの実投稿は、認可情報がないため未検証です。
+
+## 公式資料
+
+- [Instagramの投稿](https://developers.facebook.com/documentation/instagram-platform/content-publishing)
+- [Facebookページの投稿](https://developers.facebook.com/documentation/pages-api/posts)
+- [Threadsの投稿](https://developers.facebook.com/documentation/threads/posts)
+- [Pinterestのアクセス区分と申請](https://developers.pinterest.com/docs/key-concepts/access-tiers/)
+- [X API料金](https://docs.x.com/x-api/getting-started/pricing)
+- [TikTokのContent Sharing Guidelines](https://developers.tiktok.com/doc/content-sharing-guidelines)
+- [GitHub Actionsの利用料金](https://docs.github.com/en/billing/concepts/product-billing/github-actions)
 - [GitHub Pagesのカスタムワークフロー](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
-
-API型は2026年9月6日時点で照合しました。
-TikTokはAPI型に掲載されていますが、ガイドの対応SNS一覧には記載がなく、
-実アカウントでの自動投稿可否は接続後の検証が必要です。
