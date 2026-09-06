@@ -48,9 +48,10 @@
       "updated_at": "2026-09-06T21:52:33.8084497Z"
     },
     "soufuren-kyoto-shichijo-omiya:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-06T22:36:40.031231+00:00",
-      "payload_hash": "70a34329ca537cdc639d70bed35a390a821cab2c6e157e0f25605e162cf24be8"
+      "payload_hash": "70a34329ca537cdc639d70bed35a390a821cab2c6e157e0f25605e162cf24be8",
+      "post_id": "1324933827363335_122103248829463588"
     },
     "soufuren-kyoto-shichijo-omiya:instagram": {
       "status": "published",
