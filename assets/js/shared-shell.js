@@ -104,7 +104,7 @@
     var products = {
       '/articles/sony-ult-tower-7/': ['Sony ULT TOWER 7', 'Sony ULT TOWER 7'],
       '/articles/garmin-fenix-9-pro-titanium-inreach/': ['Garmin fenix 9 Pro inReach', 'Garmin fēnix 9シリーズ'],
-      '/articles/seiko-prospex-hbc011j/': ['セイコー プロスペックス HBC011J', 'セイコー プロスペックス HBC011J'],
+      '/articles/seiko-prospex-hbc011j/': ['セイコー プロスペックス HBC011J', 'セイコー プロスペックス HBC011J', 'https://room.rakuten.co.jp/room_4b003bc175/1700392030842251'],
       '/articles/seiko-presage-bonsai/': ['セイコー プレザージュ HCC011J', 'セイコー プレザージュ HCC011J'],
       '/articles/gopro-mission-1-pro-ils/': ['GoPro MISSION 1 PRO ILS', 'GoPro MISSION 1 PRO ILS'],
       '/articles/google-pixel-watch-5/': ['Google Pixel Watch 5', 'Google Pixel Watch 5'],
@@ -131,6 +131,16 @@
     link.textContent = 'Amazonで' + product[1] + 'を検索する';
     paragraph.appendChild(link);
     section.append(heading, disclosure, paragraph);
+    if (product[2]) {
+      var rakutenParagraph = document.createElement('p');
+      var rakutenLink = document.createElement('a');
+      rakutenLink.href = product[2];
+      rakutenLink.target = '_blank';
+      rakutenLink.rel = 'nofollow sponsored noopener noreferrer';
+      rakutenLink.textContent = '楽天ROOMで' + product[1] + 'を見る';
+      rakutenParagraph.appendChild(rakutenLink);
+      section.appendChild(rakutenParagraph);
+    }
 
     var root = articleHeadingRoot();
     if (!root) return;

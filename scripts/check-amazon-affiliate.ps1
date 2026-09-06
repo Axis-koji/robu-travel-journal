@@ -13,6 +13,8 @@ foreach ($slug in $expected) {
 if ($shell -match [regex]::Escape("'/articles/garmin-cirqa-smart-band/':")) { Write-Error 'Noindex Garmin CIRQA must not have an Amazon mapping.' }
 if ($shell -notmatch "link\.rel = 'nofollow sponsored noopener noreferrer'") { Write-Error 'Amazon links are missing required rel attributes.' }
 if ($shell -notmatch "disclosure\.className = 'note'") { Write-Error 'Per-article disclosure is missing.' }
+if ($shell -notmatch [regex]::Escape("https://room.rakuten.co.jp/room_4b003bc175/1700392030842251")) { Write-Error 'Verified HBC011J Rakuten ROOM link is missing.' }
+if ($shell -notmatch "rakutenLink\.rel = 'nofollow sponsored noopener noreferrer'") { Write-Error 'Rakuten ROOM links are missing required rel attributes.' }
 
 $legal = Get-Content (Join-Path $root 'advertising-disclaimer\index.html') -Raw -Encoding utf8
 if (([regex]::Matches($legal, 'amazon-associates-disclosure:start')).Count -ne 1 -or
