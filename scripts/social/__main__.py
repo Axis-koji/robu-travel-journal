@@ -67,6 +67,37 @@ def wait_for_release(site_url, commit, attempts=12, delay=10):
     raise DeliveryError("公開内容の反映を確認できません。SNS送信は行っていません") from last_error
 
 
+def wait_for_media(articles, attempts=12, delay=10):
+    """Wait for freshly deployed social images and give remote fetchers a unique URL."""
+    for article in articles:
+        image_url = article.get("image_url", "")
+        media_hash = article.get("media_hash", "")
+        if not image_url or not media_hash:
+            raise DeliveryError("SNS画像の公開情報が不足しています。SNS送信は行っていません")
+        separator = "&" if "?" in image_url else "?"
+        article["image_url"] = f"{image_url}{separator}v={media_hash}"
+        last_error = None
+        for attempt in range(attempts):
+            try:
+                request = urllib.request.Request(article["image_url"], headers={
+                    "Cache-Control": "no-cache",
+                    "Pragma": "no-cache",
+                    "User-Agent": "robu-social/2",
+                })
+                with urllib.request.urlopen(request, timeout=30) as response:
+                    content_type = response.headers.get_content_type()
+                    response.read(1)
+                if content_type.startswith("image/"):
+                    break
+                last_error = DeliveryError("SNS画像がまだ公開されていません")
+            except (urllib.error.URLError, OSError) as error:
+                last_error = error
+            if attempt + 1 < attempts:
+                time.sleep(delay)
+        else:
+            raise DeliveryError("SNS画像の反映を確認できません。SNS送信は行っていません") from last_error
+
+
 def main():
     parser = argparse.ArgumentParser(description="Robu 投稿アプリ — 無料の投稿準備と公式APIでの直接投稿")
     parser.add_argument("command", choices=["catalog", "build", "initialize", "connect", "check", "publish", "resolve"])
@@ -123,6 +154,7 @@ def main():
     elif args.command == "publish":
         plan = json.loads(args.plan.read_text())
         wait_for_release(config["site_url"], plan["commit"])
+        wait_for_media(plan["articles"])
         publish(plan["articles"], config, ledger_for(config), Direct())
     elif args.command == "resolve":
         if not args.key or not args.outcome:

@@ -35,7 +35,9 @@
   var cssHref = '/assets/css/shared-shell.css?v=20260828-1';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
-  var selectionArticlePaths = [
+  // Older Selection pages predate article:section metadata. Keep them as a
+  // compatibility fallback, while new pages are detected from their category.
+  var legacySelectionArticlePaths = [
     '/articles/seiko-prospex-hbc011j/',
     '/articles/google-pixel-watch-5/',
     '/articles/garmin-cirqa-smart-band/',
@@ -46,7 +48,23 @@
     '/articles/casio-gwr-b3000/'
   ];
   var currentPath = window.location.pathname.replace(/index\.html$/, '');
-  var selectionArticle = selectionArticlePaths.indexOf(currentPath) !== -1;
+
+  function isSelectionLabel(value) {
+    return /robu[\u2018\u2019'\-\s]*s?\s*selection/i.test(value || '');
+  }
+
+  function isSelectionArticle() {
+    if (!articlePath) return false;
+    if (document.body.classList.contains('robus-selection-page')) return true;
+
+    var section = document.querySelector('meta[property="article:section"], meta[name="article:section"]');
+    if (section && isSelectionLabel(section.getAttribute('content'))) return true;
+
+    var category = document.querySelector('[data-article-category], .robu-selection-label, .badge, .kicker');
+    if (category && isSelectionLabel(category.textContent)) return true;
+
+    return legacySelectionArticlePaths.indexOf(currentPath) !== -1;
+  }
 
   function ensureStyle() {
     if (document.querySelector('link[data-robu-shared-shell]')) return;
@@ -58,7 +76,7 @@
   }
 
   function ensureSelectionTheme() {
-    if (!selectionArticle) return;
+    if (!isSelectionArticle()) return;
     document.body.classList.add('robus-selection-page');
     if (document.querySelector('link[data-robu-selection-theme]')) return;
     var link = document.createElement('link');
@@ -69,7 +87,7 @@
   }
 
   function renderSelectionLabel() {
-    if (!selectionArticle) return;
+    if (!isSelectionArticle()) return;
     var heading = document.querySelector('body > main h1, body > article h1, body > header:not(.site-header) h1, body h1');
     if (!heading) return;
 

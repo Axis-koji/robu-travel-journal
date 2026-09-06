@@ -7,6 +7,7 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
+from scripts.social.__main__ import wait_for_media
 from scripts.social.content import PLATFORMS, caption, catalog, local_image
 from scripts.social.publish import DeliveryError, configure, publish, resolve
 from scripts.social.providers import Direct, Rejected, automatic_platforms, connection_settings
@@ -203,6 +204,27 @@ class ProviderTests(unittest.TestCase):
         with self.assertRaises(DeliveryError):
             Direct(ENV, transport=transport, sleep=lambda _: None).create(ARTICLE, "instagram")
         self.assertFalse(any("media_publish" in url for url in calls))
+
+
+class ReleaseTests(unittest.TestCase):
+    def test_social_image_is_verified_with_cache_busting_url(self):
+        class Headers:
+            @staticmethod
+            def get_content_type():
+                return "image/jpeg"
+
+        class Response:
+            headers = Headers()
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            @staticmethod
+            def read(_): return b"x"
+
+        article = copy.deepcopy(ARTICLE)
+        with patch("scripts.social.__main__.urllib.request.urlopen", return_value=Response()) as opened:
+            wait_for_media([article], attempts=1, delay=0)
+        self.assertEqual(article["image_url"], ARTICLE["image_url"] + "?v=abc")
+        self.assertEqual(opened.call_args.args[0].full_url, article["image_url"])
 
 
 class StudioTests(unittest.TestCase):
