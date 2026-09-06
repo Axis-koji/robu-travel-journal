@@ -68,7 +68,7 @@ PinterestのTrialで作ったピンは作成者にだけ見えるテスト用で
 | --- | --- |
 | `FACEBOOK_PAGE_ACCESS_TOKEN` | 対象Facebookページのアクセストークン |
 | `INSTAGRAM_ACCESS_TOKEN` | Instagram Loginで取得した対象プロアカウントのトークン |
-| `THREADS_ACCESS_TOKEN` | 対象Threadsユーザーのトークン |
+| `THREADS_ACCESS_TOKEN` | Threads専用OAuthで取得し、可能なら長期化した対象ユーザーのトークン |
 | `PINTEREST_ACCESS_TOKEN` | Standard承認済みアプリから、対象ボードへ書き込めるトークン |
 
 GitHubの投稿記録用トークンはActions標準の `GITHUB_TOKEN` を使います。PATの購入やBuffer APIキーは不要です。
@@ -91,10 +91,12 @@ GitHubの投稿記録用トークンはActions標準の `GITHUB_TOKEN` を使い
 
 - **Facebook：** Meta for Developersで用途に合うアプリを作り、ページに対する `pages_manage_posts` と `pages_read_engagement` 等の必要権限を取得します。ページ一覧を取得する操作には `pages_show_list` も必要です。ページを管理できるユーザーから発行したページトークンを使います。
 - **Instagram：** この実装は **Instagram API with Facebook Login** を使います。FacebookページにリンクしたInstagramプロアカウントについて、`instagram_basic`、`instagram_content_publish`、`pages_show_list`、`pages_read_engagement` 等を許可したユーザートークンとInstagramアカウントIDを使います。
-- **Threads：** Threads用アプリを作り、本人／テスターの承諾または必要な審査を済ませ、`threads_basic` と `threads_content_publish` を許可します。
+- **Threads：** MetaアプリにThreads APIのユースケースを追加し、Threads専用OAuthで `threads_basic` と `threads_content_publish` を許可します。Facebook／Instagramのトークンは流用できません。認可コードを `graph.threads.net/oauth/access_token` で交換した応答の `user_id` を `THREADS_USER_ID` に設定し、取得したThreadsユーザートークンをSecretへ保存します。短期トークンは長期トークンへ交換してから使ってください。
 - **Pinterest：** ビジネスアカウントでアプリを作り、OAuthで `boards:read`、`pins:write` 等の必要権限を許可します。公開投稿にはStandard accessへの申請が必要です。本人だけの利用でもOAuthの動作を示す録画が求められます。
 
-トークンには期限や失効条件があります。可能な場合は長期トークンを使い、失効時は再認可してSecretを更新します。この版はトークンの自動更新・OAuthログイン画面を備えていません。アカウント作成・開発者登録・認可は本人の操作が必要です。
+トークンには期限や失効条件があります。Threadsの長期トークンは通常60日で、期限内ならThreads APIの更新エンドポイントで更新できます。期限切れ後は再認可が必要です。更新で新しいトークン値が返った場合は `THREADS_ACCESS_TOKEN` も差し替えます。この版はトークンの自動更新・OAuthログイン画面を備えていないため、完全な無期限運転ではありません。アカウント作成・開発者登録・認可は本人の操作が必要です。
+
+Threads APIの通常投稿には広告購入や有料API契約を使いません。ただし、Meta側の利用条件・投稿上限と、GitHub Actions側の無料利用枠は別に適用されます。
 
 ### 接続を有効にする順序
 

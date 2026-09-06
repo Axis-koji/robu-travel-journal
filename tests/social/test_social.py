@@ -173,6 +173,28 @@ class DeliveryTests(unittest.TestCase):
 
 
 class ProviderTests(unittest.TestCase):
+    def test_threads_uses_threads_oauth_host_and_two_phase_publish(self):
+        calls = []
+        def transport(url, token, data, method, form=False):
+            calls.append((url, token, data, form))
+            if "?fields=status" in url:
+                return {"status": "FINISHED"}
+            return {"id": "123"}
+
+        env = {**ENV, "SOCIAL_AUTO_PLATFORMS": "threads"}
+        client = Direct(env, transport=transport, sleep=lambda _: None)
+        self.assertEqual(client.create(ARTICLE, "threads"), "123")
+        self.assertEqual([call[0] for call in calls], [
+            "https://graph.threads.net/v1.0/300/threads",
+            "https://graph.threads.net/v1.0/123?fields=status",
+            "https://graph.threads.net/v1.0/300/threads_publish",
+        ])
+        self.assertEqual(calls[0][1], "test-th")
+        self.assertEqual(calls[0][2]["media_type"], "IMAGE")
+        self.assertEqual(calls[0][2]["image_url"], ARTICLE["image_url"])
+        self.assertEqual(calls[2][2], {"creation_id": "123"})
+        self.assertTrue(all(call[3] for call in calls))
+
     def test_official_payloads_and_container_publish_sequence(self):
         calls = []
         def transport(url, token, data, method, form=False):
