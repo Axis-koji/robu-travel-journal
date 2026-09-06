@@ -1,0 +1,134 @@
+name: Blog publish and social
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "preview=確認のみ / initialize=過去記事を除外 / publish=公開とSNS投稿"
+        type: choice
+        options: [preview, initialize, publish]
+        default: preview
+      preview_article:
+        description: "確認用の記事フォルダ名（previewのみ使用）"
+        type: string
+        default: vietnam-coffee
+
+# Serializes initialization, deployments and delivery state writes together.
+concurrency:
+  group: blog-publish-social
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  initialize:
+    if: >-
+      github.event_name == 'workflow_dispatch' && inputs.mode == 'initialize' &&
+      github.ref == 'refs/heads/main' && vars.SOCIAL_SITE_REPOSITORY == github.repository
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r scripts/social/requirements.txt
+      - name: Exclude existing articles without posting
+        run: python -m scripts.social initialize
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.mode == 'preview') ||
+      (github.ref == 'refs/heads/main' && vars.SOCIAL_SITE_REPOSITORY == github.repository &&
+       (github.event_name == 'push' || inputs.mode == 'publish'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r scripts/social/requirements.txt
+      - name: Install Japanese fonts and video encoder
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-cjk ffmpeg
+      - run: python -m unittest discover -s tests/social -v
+      - name: Build preview only
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preview'
+        run: python -m scripts.social build --preview-article "$PREVIEW_ARTICLE"
+        env:
+          PREVIEW_ARTICLE: ${{ inputs.preview_article }}
+      - name: Build site and social media
+        if: github.event_name != 'workflow_dispatch' || inputs.mode != 'preview'
+        run: python -m scripts.social build --ledger
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: social-preview-and-plan
+          path: |
+            _social/
+            _site/assets/social/
+          retention-days: 14
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'workflow_dispatch' || inputs.mode != 'preview'
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: github.event_name != 'workflow_dispatch' || inputs.mode != 'preview'
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
+
+  social:
+    needs: deploy
+    if: vars.SOCIAL_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r scripts/social/requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          name: social-preview-and-plan
+          path: _download
+      - name: Send new articles after successful deployment
+        run: python -m scripts.social publish --plan _download/_social/plan.json
+        env:
+          SOCIAL_PUBLISH_ENABLED: ${{ vars.SOCIAL_PUBLISH_ENABLED }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_FACEBOOK: ${{ vars.BUFFER_CHANNEL_FACEBOOK }}
+          BUFFER_CHANNEL_INSTAGRAM: ${{ vars.BUFFER_CHANNEL_INSTAGRAM }}
+          BUFFER_CHANNEL_TWITTER: ${{ vars.BUFFER_CHANNEL_TWITTER }}
+          BUFFER_CHANNEL_TIKTOK: ${{ vars.BUFFER_CHANNEL_TIKTOK }}
+          BUFFER_CHANNEL_THREADS: ${{ vars.BUFFER_CHANNEL_THREADS }}
+          BUFFER_CHANNEL_PINTEREST: ${{ vars.BUFFER_CHANNEL_PINTEREST }}
+          PINTEREST_BOARD_ID: ${{ vars.PINTEREST_BOARD_ID }}
