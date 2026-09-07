@@ -58,6 +58,11 @@
       "attempted_at": "2026-09-06T22:31:04.418280+00:00",
       "payload_hash": "01bf28e62733e755c5354a6201378c5c048b9f5c3872fc2bed4cc6002eb05017",
       "post_id": "18051775595587442"
+    },
+    "kyoto-favorite-unagi-day:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-07T01:41:38.227003+00:00",
+      "payload_hash": "b2cb453fe43bb8430ac81cd452ef01128679c57e90b8410efb6b1838deabc3fc"
     }
   },
   "channels": {
