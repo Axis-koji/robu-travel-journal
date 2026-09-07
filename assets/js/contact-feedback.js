@@ -72,7 +72,7 @@
     if(!host) return;
     host.insertAdjacentHTML('beforeend',template(articleTitle));
     var section=host.querySelector('.contact-feedback');
-    if(host.hasAttribute('data-contact-page')) section.querySelector('details').open=true;
+    section.querySelector('details').open=false;
     bindForm(section);
   }
 
