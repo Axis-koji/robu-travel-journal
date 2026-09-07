@@ -9,7 +9,7 @@ if (-not $jsonBlock.Success) { Write-Error 'JSON-LD block is missing.' }
 $null = $jsonBlock.Groups[1].Value | ConvertFrom-Json
 
 [xml](Get-Content -LiteralPath (Join-Path $root 'sitemap.xml') -Raw -Encoding utf8) | Out-Null
-foreach ($name in @('soufuren-storefront.jpg','soufuren-menu.jpg','soufuren-counter-kitchen.jpg','soufuren-cooking-philosophy.jpg','soufuren-noodles-on-griddle.jpg','soufuren-noodles-browning.jpg','soufuren-yakisoba-finishing.jpg','soufuren-takeout-yakisoba.jpg')) {
+foreach ($name in @('soufuren-storefront.jpg','soufuren-menu.jpg','soufuren-counter-kitchen.jpg','soufuren-cooking-philosophy.jpg','soufuren-noodles-on-griddle.jpg','soufuren-noodles-browning.jpg','soufuren-yakisoba-finishing.jpg','soufuren-yakisoba-cooking.mp4','soufuren-takeout-yakisoba.jpg')) {
   if (-not (Test-Path -LiteralPath (Join-Path $articleDir $name))) { Write-Error "Missing media: $name" }
   if ($html -notmatch [regex]::Escape($name)) { Write-Error "Unreferenced media: $name" }
 }
