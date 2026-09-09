@@ -149,6 +149,12 @@ body.robus-selection-page .contact-status.contact-success {
   color: #d6ad68;
 }
 
+body.robus-selection-page .required-note,
+body.robus-selection-page .contact-error,
+body.robus-selection-page .contact-status.contact-failure {
+  color: #ffb4ab;
+}
+
 body.robus-selection-page .contact-panel {
   border-top: 1px solid var(--contact-line);
   background: #0d2931;
@@ -196,6 +202,16 @@ body.robus-selection-page .contact-submit:hover {
 
 body.robus-selection-page .contact-privacy {
   border-top-color: var(--contact-line);
+}
+
+/* The consent banner intentionally stays light. Restore its native dark text
+   after the Selection article typography rules have been applied. */
+body.robus-selection-page .robu-consent-copy p {
+  color: #36545c;
+}
+
+body.robus-selection-page .robu-consent-copy a {
+  color: var(--robu-shell-accent);
 }
 
 body.robus-selection-page .robu-article-layout > main,

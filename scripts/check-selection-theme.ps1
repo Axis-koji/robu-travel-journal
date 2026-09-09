@@ -3,6 +3,8 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $shellPath = Join-Path $root 'assets\js\shared-shell.js'
 $shell = Get-Content -LiteralPath $shellPath -Raw -Encoding utf8
+$themePath = Join-Path $root 'assets\css\robus-selection-theme.css'
+$theme = Get-Content -LiteralPath $themePath -Raw -Encoding utf8
 
 if ($shell -notmatch 'meta\[property="article:section"\]') {
     Write-Error 'Shared shell does not detect Selection articles from article:section metadata.'
@@ -10,6 +12,19 @@ if ($shell -notmatch 'meta\[property="article:section"\]') {
 
 if ($shell -notmatch 'legacySelectionArticlePaths') {
     Write-Error 'Shared shell is missing the legacy Selection compatibility fallback.'
+}
+
+$sharedUiContrastGuards = @(
+    'body.robus-selection-page .required-note',
+    'body.robus-selection-page .contact-status.contact-failure',
+    'body.robus-selection-page .robu-consent-copy p',
+    'body.robus-selection-page .robu-consent-copy a'
+)
+
+foreach ($guard in $sharedUiContrastGuards) {
+    if (-not $theme.Contains($guard)) {
+        Write-Error "Selection theme is missing a shared UI contrast guard: $guard"
+    }
 }
 
 $selectionPages = @()
@@ -22,6 +37,29 @@ $expectedSelectionSlugs = @(
     'meta-glasses', 'breitling-navitimer-samurai-japan', 'breitling-navitimer-concorde',
     'seiko-astron-hab005j', 'casio-gwr-b3000'
 )
+
+$contrastGuardRules = @{
+    'seiko-lukia-liberty-limited-2026' = @(
+        'body.robus-selection-page .summary{background:#0c2029',
+        'body.robus-selection-page table{background:#0c2029}',
+        'body.robus-selection-page th{background:var(--robu-selection-panel);color:#d6ad68}',
+        'body.robus-selection-page td{background:#0c2029}'
+    )
+    'sharp-niah-ai-home' = @(
+        'body.robus-selection-page .example{background:#0c2029'
+    )
+    'openai-jalapeno-ai-chip' = @(
+        'body.robus-selection-page .notice,body.robus-selection-page .contact-box{background:#0c2029',
+        'body.robus-selection-page .fact span{color:#d6ad68}',
+        'body.robus-selection-page .fact small{color:var(--robu-selection-muted)}',
+        'body.robus-selection-page .contact-box strong{color:#d6ad68}'
+    )
+    'ai-smartglasses-vietnam-travel' = @(
+        'body.robus-selection-page .notice,body.robus-selection-page .contact-box{background:#0c2029',
+        'body.robus-selection-page .checklist{background:var(--robu-selection-panel)',
+        'body.robus-selection-page .contact-box strong{color:#d6ad68}'
+    )
+}
 
 Get-ChildItem -Path (Join-Path $root 'articles') -Recurse -Filter index.html | ForEach-Object {
     $html = Get-Content -LiteralPath $_.FullName -Raw -Encoding utf8
@@ -62,6 +100,14 @@ foreach ($slug in $expectedSelectionSlugs) {
     $isLegacyFallback = $shell -match [regex]::Escape("/articles/$slug/")
     if (-not ($hasMetadata -or $hasCategoryLabel -or $isLegacyFallback)) {
         $problems += "${slug}: Selection category cannot be detected"
+    }
+
+    if ($contrastGuardRules.ContainsKey($slug)) {
+        foreach ($rule in $contrastGuardRules[$slug]) {
+            if (-not $html.Contains($rule)) {
+                $problems += "${slug}: missing Selection contrast guard: $rule"
+            }
+        }
     }
 }
 
