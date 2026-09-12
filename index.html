@@ -350,7 +350,7 @@
       .coming-soon { min-height: 430px; background-position: center bottom; }
     }
   </style>
-<script defer src="/assets/js/shared-shell.js?v=20260816-5"></script></head>
+<script defer src="/assets/js/shared-shell.js?v=20260913-formal-3"></script></head>
 <body>
   <div id="apiConsentBanner" class="api-consent" role="dialog" aria-live="polite">
     <small>外部APIを利用する前に確認します。この操作を許可しますか？</small>
@@ -371,12 +371,12 @@
           </div>
         </div>
         <nav class="nav" aria-label="カテゴリ">
-          <a href="#articles" data-filter="all" aria-current="page">ホーム</a>
-          <a href="#articles" data-filter="gourmet">グルメ</a>
-          <a href="#articles" data-filter="vehicles">乗り物</a>
-          <a href="#articles" data-filter="travel">旅行</a>
-          <a href="#articles" data-filter="hotel">ホテル</a>
-          <a href="#articles" data-filter="selection">Robu's Selection</a>
+          <a href="/" data-filter="all" aria-current="page">ホーム</a>
+          <a href="/#gourmet" data-filter="gourmet">グルメ</a>
+          <a href="/#vehicles" data-filter="vehicles">乗り物</a>
+          <a href="/#travel" data-filter="travel">旅行</a>
+          <a href="/#hotel" data-filter="hotel">ホテル</a>
+          <a href="/#selection" data-filter="selection">Robu’s Selection</a>
           <a href="/about/">運営者</a>
         </nav>
       </div>
@@ -401,17 +401,17 @@
 
   <script>
     const localeText = {
-      ja:{ code:'ja', label:'日本語', aliases:'japanese', nav:['ホーム','グルメ','乗り物','旅行','ホテル','Robu-\'s Selection'], lead:'今日の話題、街の空気感、暮らしの知恵を、ひと目で見てすぐ読める形で並べました。', section:'最新記事', read:'記事を読む', latest:'最新の記事ダイジェスト', close:'ダイジェストを閉じる', operator:'運営者', privacy:'プライバシーポリシー', search:'言語を検索', choose:'言語を選択', soon:'準備中です。ごめんなさい、もう少しお待ちください。', site:'ろぶーの気になる事', titleKey:'title', excerptKey:'excerpt' },
-      en:{ code:'en', label:'English', aliases:'english', nav:['Home','Gourmet','Cars','Travel','Hotel','Robu-\'s Selection'], lead:'Life, travel and practical notes from everyday moments, arranged so you can read quickly.', section:'Latest posts', read:'Read article', latest:'Read latest digest', close:'Close digest', operator:'Editor', privacy:'Privacy policy', search:'Search languages', choose:'Choose a language', soon:'We are getting this section ready. Please check back soon.', site:'Robu’s Curiosities', titleKey:'enTitle', excerptKey:'enExcerpt' },
-      fr:{ code:'fr', label:'Français', aliases:'french', nav:['Accueil','Gastronomie','Véhicules','Voyages','Hôtels','Robu-\'s Selection'], lead:'Cuisine, conduite et découvertes du quotidien, présentées pour une lecture rapide.', section:'Derniers articles', read:'Lire l’article', latest:'Voir le dernier résumé', close:'Fermer le résumé', operator:'Éditeur', privacy:'Politique de confidentialité', search:'Rechercher une langue', choose:'Choisir une langue', soon:'Cette rubrique est en préparation. Revenez bientôt.', site:'Les curiosités de Robu', titleKey:'frTitle', excerptKey:'frExcerpt' },
-      es:{ code:'es', label:'Español', aliases:'spanish', nav:['Inicio','Gastronomía','Vehículos','Viajes','Hoteles','Robu-\'s Selection'], lead:'Comida, conducción y hallazgos del día a día para leer de un vistazo.', section:'Últimos artículos', read:'Leer artículo', latest:'Ver resumen más reciente', close:'Cerrar resumen', operator:'Editor', privacy:'Política de privacidad', search:'Buscar idiomas', choose:'Elegir un idioma', soon:'Estamos preparando esta sección. Vuelve pronto.', site:'Curiosidades de Robu', titleKey:'esTitle', excerptKey:'esExcerpt' },
-      vi:{ code:'vi', label:'Tiếng Việt', aliases:'vietnamese', nav:['Trang chủ','Ẩm thực','Xe cộ','Du lịch','Khách sạn','Robu-\'s Selection'], lead:'Những điều về cuộc sống, du lịch và kinh nghiệm hàng ngày, được trình bày dễ đọc ngay.', section:'Bài viết mới nhất', read:'Đọc bài', latest:'Xem tóm tắt mới nhất', close:'Đóng tóm tắt', operator:'Biên tập viên', privacy:'Chính sách quyền riêng tư', search:'Tìm ngôn ngữ', choose:'Chọn ngôn ngữ', soon:'Mục này đang được chuẩn bị. Vui lòng quay lại sớm.', site:'Điều Robu quan tâm', titleKey:'viTitle', excerptKey:'viExcerpt' },
-      it:{ code:'it', label:'Italiano', aliases:'italian', nav:['Home','Gastronomia','Veicoli','Viaggi','Hotel','Robu-\'s Selection'], lead:'Cibo, guida e scoperte della vita quotidiana in modo rapido da leggere.', section:'Articoli recenti', read:'Leggi l’articolo', latest:'Leggi il riepilogo più recente', close:'Chiudi riepilogo', operator:'Editore', privacy:'Informativa sulla privacy', search:'Cerca lingue', choose:'Scegli una lingua', soon:'Questa sezione è in preparazione. Torna presto.', site:'Le curiosità di Robu', titleKey:'itTitle', excerptKey:'itExcerpt' },
-      az:{ code:'az', label:'Azərbaycanca', aliases:'azerbaijani', nav:['Ana səhifə','Qastronomiya','Nəqliyyat','Səyahət','Otellər','Robu-\'s Selection'], lead:'Müasir həyat və səyahətə dair mövzular, tez oxunaq formada.', section:'Ən son məqalələr', read:'Məqaləni oxu', latest:'Ən son xülasə', close:'Xülasəni bağla', operator:'Redaktor', privacy:'Məxfilik siyasəti', search:'Dil axtar', choose:'Dil seçin', soon:'Bu bölmə hazırlanır. Tezliklə yenidən baxın.', site:'Robunun maraq dairəsi', titleKey:'azTitle', excerptKey:'azExcerpt' },
-      uk:{ code:'uk', label:'Українська', aliases:'ukrainian', nav:['Головна','Гастрономія','Транспорт','Подорожі','Готелі','Robu-\'s Selection'], lead:'Життєві поради та подорожі в форматі, який легко прочитати одразу.', section:'Останні статті', read:'Читати статтю', latest:'Переглянути останній дайджест', close:'Закрити дайджест', operator:'Редактор', privacy:'Політика конфіденційності', search:'Пошук мов', choose:'Виберіть мову', soon:'Цей розділ готується. Завітайте незабаром.', site:'Цікавинки Робу', titleKey:'ukTitle', excerptKey:'ukExcerpt' },
-      yue:{ code:'yue', label:'粵語', aliases:'cantonese', nav:['主頁','美食','交通','旅行','酒店','Robu-\'s Selection'], lead:'生活同埋旅行小貼士，整理成一眼就睇到嘅內容。', section:'最新文章', read:'閱讀文章', latest:'睇最新摘要', close:'收起摘要', operator:'編輯', privacy:'私隱政策', search:'搜尋語言', choose:'選擇語言', soon:'呢個部分準備緊，請遲啲再嚟。', site:'Robu 感興趣嘅事', titleKey:'zhTWTitle', excerptKey:'zhTWExcerpt' },
-      zhTW:{ code:'zh-Hant', label:'繁体中文', aliases:'traditional chinese', nav:['首頁','美食','交通','旅行','飯店','Robu-\'s Selection'], lead:'以生活、旅遊和實用知識為主題，快速閱讀。', section:'最新文章', read:'閱讀文章', latest:'閱讀最新摘要', close:'關閉摘要', operator:'編輯', privacy:'隱私權政策', search:'搜尋語言', choose:'選擇語言', soon:'此區正在準備中，敬請稍後再來。', site:'Robu 感興趣的事', titleKey:'zhTWTitle', excerptKey:'zhTWExcerpt' },
-      zhCN:{ code:'zh-Hans', label:'简体中文', aliases:'simplified chinese', nav:['首页','美食','出行','旅行','酒店','Robu-\'s Selection'], lead:'汇总生活、旅行和实用内容，方便快速阅读。', section:'最新文章', read:'阅读文章', latest:'查看最新摘要', close:'关闭摘要', operator:'编辑', privacy:'隐私政策', search:'搜索语言', choose:'选择语言', soon:'此栏目正在准备中，请稍后再来。', site:'Robu 感兴趣的事', titleKey:'zhCNTitle', excerptKey:'zhCNExcerpt' }
+      ja:{ code:'ja', label:'日本語', aliases:'japanese', nav:['ホーム','グルメ','乗り物','旅行','ホテル','Robu’s Selection'], lead:'今日の話題、街の空気感、暮らしの知恵を、ひと目で見てすぐ読める形で並べました。', section:'最新記事', read:'記事を読む', latest:'最新の記事ダイジェスト', close:'ダイジェストを閉じる', operator:'運営者', privacy:'プライバシーポリシー', search:'言語を検索', choose:'言語を選択', soon:'準備中です。ごめんなさい、もう少しお待ちください。', site:'ろぶーの気になる事', titleKey:'title', excerptKey:'excerpt' },
+      en:{ code:'en', label:'English', aliases:'english', nav:['Home','Gourmet','Cars','Travel','Hotel','Robu’s Selection'], lead:'Life, travel and practical notes from everyday moments, arranged so you can read quickly.', section:'Latest posts', read:'Read article', latest:'Read latest digest', close:'Close digest', operator:'Editor', privacy:'Privacy policy', search:'Search languages', choose:'Choose a language', soon:'We are getting this section ready. Please check back soon.', site:'Robu’s Curiosities', titleKey:'enTitle', excerptKey:'enExcerpt' },
+      fr:{ code:'fr', label:'Français', aliases:'french', nav:['Accueil','Gastronomie','Véhicules','Voyages','Hôtels','Robu’s Selection'], lead:'Cuisine, conduite et découvertes du quotidien, présentées pour une lecture rapide.', section:'Derniers articles', read:'Lire l’article', latest:'Voir le dernier résumé', close:'Fermer le résumé', operator:'Éditeur', privacy:'Politique de confidentialité', search:'Rechercher une langue', choose:'Choisir une langue', soon:'Cette rubrique est en préparation. Revenez bientôt.', site:'Les curiosités de Robu', titleKey:'frTitle', excerptKey:'frExcerpt' },
+      es:{ code:'es', label:'Español', aliases:'spanish', nav:['Inicio','Gastronomía','Vehículos','Viajes','Hoteles','Robu’s Selection'], lead:'Comida, conducción y hallazgos del día a día para leer de un vistazo.', section:'Últimos artículos', read:'Leer artículo', latest:'Ver resumen más reciente', close:'Cerrar resumen', operator:'Editor', privacy:'Política de privacidad', search:'Buscar idiomas', choose:'Elegir un idioma', soon:'Estamos preparando esta sección. Vuelve pronto.', site:'Curiosidades de Robu', titleKey:'esTitle', excerptKey:'esExcerpt' },
+      vi:{ code:'vi', label:'Tiếng Việt', aliases:'vietnamese', nav:['Trang chủ','Ẩm thực','Xe cộ','Du lịch','Khách sạn','Robu’s Selection'], lead:'Những điều về cuộc sống, du lịch và kinh nghiệm hàng ngày, được trình bày dễ đọc ngay.', section:'Bài viết mới nhất', read:'Đọc bài', latest:'Xem tóm tắt mới nhất', close:'Đóng tóm tắt', operator:'Biên tập viên', privacy:'Chính sách quyền riêng tư', search:'Tìm ngôn ngữ', choose:'Chọn ngôn ngữ', soon:'Mục này đang được chuẩn bị. Vui lòng quay lại sớm.', site:'Điều Robu quan tâm', titleKey:'viTitle', excerptKey:'viExcerpt' },
+      it:{ code:'it', label:'Italiano', aliases:'italian', nav:['Home','Gastronomia','Veicoli','Viaggi','Hotel','Robu’s Selection'], lead:'Cibo, guida e scoperte della vita quotidiana in modo rapido da leggere.', section:'Articoli recenti', read:'Leggi l’articolo', latest:'Leggi il riepilogo più recente', close:'Chiudi riepilogo', operator:'Editore', privacy:'Informativa sulla privacy', search:'Cerca lingue', choose:'Scegli una lingua', soon:'Questa sezione è in preparazione. Torna presto.', site:'Le curiosità di Robu', titleKey:'itTitle', excerptKey:'itExcerpt' },
+      az:{ code:'az', label:'Azərbaycanca', aliases:'azerbaijani', nav:['Ana səhifə','Qastronomiya','Nəqliyyat','Səyahət','Otellər','Robu’s Selection'], lead:'Müasir həyat və səyahətə dair mövzular, tez oxunaq formada.', section:'Ən son məqalələr', read:'Məqaləni oxu', latest:'Ən son xülasə', close:'Xülasəni bağla', operator:'Redaktor', privacy:'Məxfilik siyasəti', search:'Dil axtar', choose:'Dil seçin', soon:'Bu bölmə hazırlanır. Tezliklə yenidən baxın.', site:'Robunun maraq dairəsi', titleKey:'azTitle', excerptKey:'azExcerpt' },
+      uk:{ code:'uk', label:'Українська', aliases:'ukrainian', nav:['Головна','Гастрономія','Транспорт','Подорожі','Готелі','Robu’s Selection'], lead:'Життєві поради та подорожі в форматі, який легко прочитати одразу.', section:'Останні статті', read:'Читати статтю', latest:'Переглянути останній дайджест', close:'Закрити дайджест', operator:'Редактор', privacy:'Політика конфіденційності', search:'Пошук мов', choose:'Виберіть мову', soon:'Цей розділ готується. Завітайте незабаром.', site:'Цікавинки Робу', titleKey:'ukTitle', excerptKey:'ukExcerpt' },
+      yue:{ code:'yue', label:'粵語', aliases:'cantonese', nav:['主頁','美食','交通','旅行','酒店','Robu’s Selection'], lead:'生活同埋旅行小貼士，整理成一眼就睇到嘅內容。', section:'最新文章', read:'閱讀文章', latest:'睇最新摘要', close:'收起摘要', operator:'編輯', privacy:'私隱政策', search:'搜尋語言', choose:'選擇語言', soon:'呢個部分準備緊，請遲啲再嚟。', site:'Robu 感興趣嘅事', titleKey:'zhTWTitle', excerptKey:'zhTWExcerpt' },
+      zhTW:{ code:'zh-Hant', label:'繁体中文', aliases:'traditional chinese', nav:['首頁','美食','交通','旅行','飯店','Robu’s Selection'], lead:'以生活、旅遊和實用知識為主題，快速閱讀。', section:'最新文章', read:'閱讀文章', latest:'閱讀最新摘要', close:'關閉摘要', operator:'編輯', privacy:'隱私權政策', search:'搜尋語言', choose:'選擇語言', soon:'此區正在準備中，敬請稍後再來。', site:'Robu 感興趣的事', titleKey:'zhTWTitle', excerptKey:'zhTWExcerpt' },
+      zhCN:{ code:'zh-Hans', label:'简体中文', aliases:'simplified chinese', nav:['首页','美食','出行','旅行','酒店','Robu’s Selection'], lead:'汇总生活、旅行和实用内容，方便快速阅读。', section:'最新文章', read:'阅读文章', latest:'查看最新摘要', close:'关闭摘要', operator:'编辑', privacy:'隐私政策', search:'搜索语言', choose:'选择语言', soon:'此栏目正在准备中，请稍后再来。', site:'Robu 感兴趣的事', titleKey:'zhCNTitle', excerptKey:'zhCNExcerpt' }
     };
 
     const articles = [
@@ -934,6 +934,7 @@
     ];
 
     const articleFilters = {
+      'kyoto-favorite-unagi-day-2026-09-07': ['gourmet'],
       'soufuren-kyoto-shichijo-omiya-2026-09-07': ['gourmet'],
       'seiko-lukia-liberty-limited-2026-2026-09-07': ['selection'],
       'sony-ult-tower-7-2026-09-05': ['selection'],
@@ -949,6 +950,7 @@
       'gopro-mission-1-pro-ils-2026-08-27': ['selection'],
       'google-pixel-watch-5-2026-08-26': ['selection'],
       'news-coffee-plus-20260826': ['gourmet'],
+      'vietnam-japan-travel-news-2026-08-28': ['travel'],
       'nasa-coffies-solar-ai-2026-08-15': ['travel'],
       'garmin-cirqa-smart-band-2026-08-15': ['selection'],
       'meta-glasses-2026-08-15': ['selection'],
@@ -1167,6 +1169,24 @@
       ).sort((a,b)=>b.date.localeCompare(a.date));
     }
 
+    function applyCategoryFilterFromLocation({ scroll = false } = {}) {
+      const filterFromHash = window.location.hash.slice(1).toLowerCase();
+      const categoryLink = [...document.querySelectorAll('.nav a[data-filter]')]
+        .find((link) => link.dataset.filter === filterFromHash)
+        || document.querySelector('.nav a[data-filter="all"]');
+
+      activeFilter = categoryLink?.dataset.filter || 'all';
+      selectedDigestDate = '';
+      document.querySelectorAll('.nav a[data-filter]').forEach((link) => {
+        if (link === categoryLink) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      });
+      applyLanguage(currentLanguage);
+      if (scroll && filterFromHash && categoryLink) {
+        document.querySelector('#articles')?.scrollIntoView({ block: 'start' });
+      }
+    }
+
     function previewHref(article) {
       return article.url || '#latestDigest';
     }
@@ -1205,7 +1225,9 @@
       currentLanguage = localeText[language] ? language : 'ja';
       const locale = localeText[currentLanguage];
       document.documentElement.lang = locale.code;
-      document.querySelectorAll('.nav a').forEach((item, index) => item.textContent = locale.nav[index]);
+      document.querySelectorAll('.nav a[data-filter]').forEach((item, index) => item.textContent = locale.nav[index]);
+      const operatorLink = document.querySelector('.nav a:not([data-filter])');
+      if (operatorLink) operatorLink.textContent = locale.operator;
       document.querySelector('.lead').innerHTML = locale.lead;
       document.querySelector('.section h2').textContent = locale.section;
       button.textContent = digest.classList.contains('open') ? locale.close : locale.latest;
@@ -1278,17 +1300,16 @@
         if (first) first.click();
       });
 
-      document.querySelector('.nav').addEventListener('click', async (event) => {
+      document.querySelector('.nav').addEventListener('click', (event) => {
         const categoryLink = event.target.closest('a[data-filter]');
-        if (!categoryLink) return;
-        event.preventDefault();
-        activeFilter = categoryLink.dataset.filter;
-        selectedDigestDate = '';
-        document.querySelectorAll('.nav a[data-filter]').forEach((el) =>
-          el.toggleAttribute('aria-current', el === categoryLink)
-        );
-        applyLanguage(currentLanguage);
+        if (!categoryLink || event.defaultPrevented || event.button !== 0
+          || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        const targetHash = new URL(categoryLink.href, window.location.href).hash.toLowerCase();
+        if (window.location.hash.toLowerCase() === targetHash) {
+          applyCategoryFilterFromLocation({ scroll: true });
+        }
       });
+      window.addEventListener('hashchange', () => applyCategoryFilterFromLocation({ scroll: true }));
 
       document.addEventListener('click', async (event) => {
         const pronunciation = event.target.closest('.vietnamese-phrase');
@@ -1354,7 +1375,7 @@
 
     bindEvents();
     syncApiConsentUI();
-    applyLanguage(currentLanguage);
+    applyCategoryFilterFromLocation({ scroll: true });
     if (!isPreview) {
       consentBanner.style.display = 'none';
     }

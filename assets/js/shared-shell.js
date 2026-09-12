@@ -32,7 +32,8 @@
     wait_for_update: 500
   });
 
-  var cssHref = '/assets/css/shared-shell.css?v=20260828-1';
+  var cssHref = '/assets/css/shared-shell.css?v=20260913-formal-2';
+  var selectionCssHref = '/assets/css/robus-selection-theme.css?v=20260913-formal-2';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
   // Older Selection pages predate article:section metadata. Keep them as a
@@ -47,6 +48,26 @@
     '/articles/seiko-astron-hab005j/',
     '/articles/casio-gwr-b3000/'
   ];
+  var regularArticleNavigation = {
+    '/articles/kyoto-favorite-unagi-day/': 'gourmet',
+    '/articles/soufuren-kyoto-shichijo-omiya/': 'gourmet',
+    '/articles/android-motion-assist-guided-vision/': 'vehicles',
+    '/articles/aoi-noen-fruit-cafe/': 'gourmet',
+    '/articles/jr-east-midori-no-madoguchi-ai/': 'vehicles',
+    '/articles/vietnam-japan-travel-news/': 'travel',
+    '/articles/news-coffee-plus-20260826/': 'gourmet',
+    '/articles/nasa-coffies-solar-ai/': 'travel',
+    '/articles/europe-ees-etias-guide/': 'travel',
+    '/articles/2026-08-09-spain-eclipse/': 'travel',
+    '/articles/2026-08-08-travel-vietnam-hotel-digest/': 'travel',
+    '/articles/suma-seaworld-hotel/': 'hotel',
+    '/articles/hong-kong-dim-sum-shiki/': 'gourmet',
+    '/articles/vietnam-coffee/': 'travel',
+    '/articles/vietnam-grab/': 'vehicles',
+    '/articles/weekend-drive-preparation/': 'vehicles',
+    '/articles/travel-memory-notes/': 'travel',
+    '/articles/boso-train-replacement/': 'vehicles'
+  };
   var currentPath = window.location.pathname.replace(/index\.html$/, '');
 
   function isSelectionLabel(value) {
@@ -67,43 +88,53 @@
   }
 
   function ensureStyle() {
-    if (document.querySelector('link[data-robu-shared-shell]')) return;
-    var link = document.createElement('link');
+    var link = document.querySelector('link[data-robu-shared-shell]');
+    if (link) {
+      link.href = cssHref;
+      return;
+    }
+    link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = cssHref;
     link.setAttribute('data-robu-shared-shell', '');
     document.head.appendChild(link);
   }
 
-  function ensureSelectionTheme() {
-    if (!isSelectionArticle()) return;
+  function ensureSelectionTheme(shellTheme) {
+    if (shellTheme !== 'selection') return;
     document.body.classList.add('robus-selection-page');
-    if (document.querySelector('link[data-robu-selection-theme]')) return;
-    var link = document.createElement('link');
+    var link = document.querySelector('link[data-robu-selection-theme]');
+    if (link) {
+      link.href = selectionCssHref;
+      return;
+    }
+    link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = '/assets/css/robus-selection-theme.css?v=20260816-2';
+    link.href = selectionCssHref;
     link.setAttribute('data-robu-selection-theme', '');
     document.head.appendChild(link);
   }
 
-  function renderSelectionLabel() {
-    if (!isSelectionArticle()) return;
+  function renderSelectionLabel(shellTheme) {
+    if (shellTheme !== 'selection') return;
     var heading = document.querySelector('body > main h1, body > article h1, body > header:not(.site-header) h1, body h1');
     if (!heading) return;
 
     var label = document.createElement('div');
     label.className = 'robu-selection-label';
-    label.textContent = "Robu's Selection";
+    label.textContent = 'Robu’s Selection';
 
     var existing = document.querySelector('.robu-selection-label, .badge, .draft, .status');
     if (existing && !existing.closest('.contact-feedback')) existing.replaceWith(label);
     else heading.parentNode.insertBefore(label, heading);
   }
 
-  function renderAmazonSearchLink() {
+  function renderMarketplaceLinks() {
     var products = {
       '/articles/sony-ult-tower-7/': ['Sony ULT TOWER 7', 'Sony ULT TOWER 7'],
       '/articles/garmin-fenix-9-pro-titanium-inreach/': ['Garmin fenix 9 Pro inReach', 'Garmin fēnix 9シリーズ'],
+      '/articles/garmin-cirqa-smart-band/': ['Garmin CIRQA Smart Band', 'Garmin CIRQA'],
+      '/articles/meta-glasses/': ['Meta AI Glasses', 'Meta AI Glasses'],
       '/articles/seiko-prospex-hbc011j/': ['セイコー プロスペックス HBC011J', 'セイコー プロスペックス HBC011J', 'https://room.rakuten.co.jp/room_4b003bc175/1700392030842251'],
       '/articles/seiko-presage-bonsai/': ['セイコー プレザージュ HCC011J', 'セイコー プレザージュ HCC011J'],
       '/articles/gopro-mission-1-pro-ils/': ['GoPro MISSION 1 PRO ILS', 'GoPro MISSION 1 PRO ILS'],
@@ -114,33 +145,33 @@
       '/articles/casio-gwr-b3000/': ['CASIO G-SHOCK GWR-B3000-1AJF', 'CASIO G-SHOCK GWR-B3000-1AJF']
     };
     var product = products[currentPath];
-    if (!product || document.querySelector('[data-amazon-search-link]')) return;
+    if (!product || document.querySelector('[data-marketplace-links], .purchase-buttons')) return;
 
     var section = document.createElement('section');
-    section.setAttribute('data-amazon-search-link', '');
+    section.className = 'robu-marketplace-section';
+    section.setAttribute('data-marketplace-links', '');
     var heading = document.createElement('h2');
     heading.textContent = '購入先を確認する';
     var disclosure = document.createElement('p');
     disclosure.className = 'note';
-    disclosure.textContent = '本項にはアフィリエイトリンクが含まれます。リンクを通じた購入により、当サイトに報酬が発生する場合があります。';
-    var paragraph = document.createElement('p');
-    var link = document.createElement('a');
-    link.href = 'https://www.amazon.co.jp/s?' + new URLSearchParams({k: product[0], tag: 'womaster-22'});
-    link.target = '_blank';
-    link.rel = 'nofollow sponsored noopener noreferrer';
-    link.textContent = 'Amazonで' + product[1] + 'を検索する';
-    paragraph.appendChild(link);
-    section.append(heading, disclosure, paragraph);
-    if (product[2]) {
-      var rakutenParagraph = document.createElement('p');
-      var rakutenLink = document.createElement('a');
-      rakutenLink.href = product[2];
-      rakutenLink.target = '_blank';
-      rakutenLink.rel = 'nofollow sponsored noopener noreferrer';
-      rakutenLink.textContent = '楽天ROOMで' + product[1] + 'を見る';
-      rakutenParagraph.appendChild(rakutenLink);
-      section.appendChild(rakutenParagraph);
-    }
+    disclosure.textContent = 'Amazonのリンクはアフィリエイトリンクです。楽天ROOMが表示される記事では、そのリンクもアフィリエイトリンクです。価格・在庫・販売元は各ページでご確認ください。';
+    var buttons = document.createElement('div');
+    buttons.className = 'robu-marketplace-buttons';
+    var destinations = [
+      { className: 'amazon', href: 'https://www.amazon.co.jp/s?' + new URLSearchParams({k: product[0], tag: 'womaster-22'}), rel: 'nofollow sponsored noopener noreferrer', text: 'Amazonで詳細を見る' },
+      { className: 'rakuten', href: product[2] || 'https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(product[0]) + '/', rel: product[2] ? 'nofollow sponsored noopener noreferrer' : 'noopener noreferrer', text: product[2] ? '楽天市場で詳細を見る' : '楽天市場で探す' },
+      { className: 'yahoo', href: 'https://shopping.yahoo.co.jp/search?p=' + encodeURIComponent(product[0]), rel: 'noopener noreferrer', text: 'Yahoo!ショッピングで探す' }
+    ];
+    destinations.forEach(function (destination) {
+      var link = document.createElement('a');
+      link.className = 'robu-marketplace-button ' + destination.className;
+      link.href = destination.href;
+      link.target = '_blank';
+      link.rel = destination.rel;
+      link.textContent = destination.text;
+      buttons.appendChild(link);
+    });
+    section.append(heading, disclosure, buttons);
 
     var root = articleHeadingRoot();
     if (!root) return;
@@ -153,18 +184,34 @@
     else root.appendChild(section);
   }
 
-  function headerMarkup() {
-    return '<header class="site-header robu-common-header" data-robu-common-header>' +
-      '<a class="brand" href="/">ろぶーの<span>気になる事</span></a>' +
+  function currentNavigationKey(shellTheme) {
+    if (shellTheme === 'selection') return 'selection';
+    if (/^\/about\/?$/.test(currentPath)) return 'about';
+    return regularArticleNavigation[currentPath] || 'home';
+  }
+
+  function headerMarkup(shellTheme, currentNavKey) {
+    var selection = shellTheme === 'selection';
+    var brand = selection ? 'Robu’s Selection' : 'ろぶーの<span>気になる事</span>';
+    var navigationItems = [
+      ['home', '/', 'ホーム'],
+      ['gourmet', '/#gourmet', 'グルメ'],
+      ['vehicles', '/#vehicles', '乗り物'],
+      ['travel', '/#travel', '旅行'],
+      ['hotel', '/#hotel', 'ホテル'],
+      ['selection', '/#selection', 'Robu’s Selection'],
+      ['about', '/about/', '運営者']
+    ];
+    var navigation = navigationItems.map(function (item) {
+      var current = item[0] === currentNavKey ? ' aria-current="page"' : '';
+      return '<a href="' + item[1] + '"' + current + '>' + item[2] + '</a>';
+    }).join('');
+
+    return '<header class="site-header robu-common-header" id="robuCommonHeader" data-robu-common-header data-shell-theme="' + shellTheme + '">' +
+      '<a class="brand" href="/">' + brand + '</a>' +
       '<button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="robuCommonNavigation">☰</button>' +
       '<nav class="main-nav" id="robuCommonNavigation" aria-label="メインナビゲーション">' +
-      '<a href="/">ホーム</a>' +
-      '<a href="/#gourmet">グルメ</a>' +
-      '<a href="/#vehicles">乗り物</a>' +
-      '<a href="/#travel">旅行</a>' +
-      '<a href="/#hotel">ホテル</a>' +
-      '<a href="/#selection">Robu\'s Selection</a>' +
-      '<a href="/about/">運営者</a>' +
+      navigation +
       '</nav></header>';
   }
 
@@ -181,9 +228,11 @@
       '<button type="button" class="privacy-settings" data-robu-consent-settings>Cookie設定 / Cookie settings</button>' +
       '</div>' +
       '<div class="social-links" aria-label="SNSリンク">' +
-      '<a class="social-link social-facebook" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebookを開く">Facebook</a>' +
-      '<a class="social-link social-instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagramを開く">Instagram</a>' +
-      '<a class="social-link social-x" href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="Xを開く">X</a>' +
+      '<a class="social-link social-facebook" href="https://www.facebook.com/profile.php?id=61593907652973" target="_blank" rel="noopener noreferrer" aria-label="Facebookを開く">Facebook</a>' +
+      '<a class="social-link social-instagram" href="https://www.instagram.com/robusandesu/" target="_blank" rel="noopener noreferrer" aria-label="Instagramを開く">Instagram</a>' +
+      '<a class="social-link social-x" href="https://x.com/Robusandesu" target="_blank" rel="noopener noreferrer" aria-label="Xを開く">X</a>' +
+      '<a class="social-link social-reddit" href="https://www.reddit.com/user/No-Dinner-6194/" target="_blank" rel="noopener noreferrer" aria-label="Redditを開く">Reddit</a>' +
+      '<a class="social-link social-tiktok" href="https://www.tiktok.com/@user7868731611087" target="_blank" rel="noopener noreferrer" aria-label="TikTokを開く">TikTok</a>' +
       '</div>' +
       '<small>© 2026 ろぶーの気になる事. All rights reserved.</small>' +
       '</footer>';
@@ -195,21 +244,68 @@
     return template.content.firstElementChild;
   }
 
-  function renderHeader() {
-    if (homePath) return;
-    var header = elementFrom(headerMarkup());
-    var current = document.querySelector('body > header.site-header');
-    if (current) current.replaceWith(header);
-    else document.body.insertBefore(header, document.body.firstChild);
+  function isReplaceableSiteHeader(header) {
+    if (header.parentNode !== document.body) return false;
+    if (header.hasAttribute('data-robu-common-header')) return true;
+    if (header.querySelector('h1, h2, h3, article, section')) return false;
 
+    var children = Array.prototype.slice.call(header.children);
+    var shellOnly = children.length && children.every(function (child) {
+      return child.matches('a[href="/"], a[href="/index.html"], button.menu-toggle, nav.main-nav');
+    });
+
+    if (header.classList.contains('site-header')) return shellOnly;
+    return children.length === 1 && children[0].matches('a.brand[href="/"], a.brand[href="/index.html"]');
+  }
+
+  function bindHeaderMenu(header) {
     var toggle = header.querySelector('.menu-toggle');
     var nav = header.querySelector('.main-nav');
-    toggle.addEventListener('click', function () {
-      var open = toggle.getAttribute('aria-expanded') !== 'true';
+
+    function setMenuOpen(open) {
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
       nav.classList.toggle('is-open', open);
+    }
+
+    setMenuOpen(false);
+    toggle.addEventListener('click', function (event) {
+      // Some older pages still load site.js. Keep this shared control as the
+      // single owner of the replacement header's menu state.
+      event.stopImmediatePropagation();
+      setMenuOpen(toggle.getAttribute('aria-expanded') !== 'true');
     });
+    nav.addEventListener('click', function (event) {
+      if (event.target.closest('a')) setMenuOpen(false);
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape' || toggle.getAttribute('aria-expanded') !== 'true') return;
+      setMenuOpen(false);
+      toggle.focus();
+    });
+
+    var desktopQuery = window.matchMedia('(min-width: 981px)');
+    function closeDesktopMenu(event) {
+      if (event.matches) setMenuOpen(false);
+    }
+    if (desktopQuery.addEventListener) desktopQuery.addEventListener('change', closeDesktopMenu);
+  }
+
+  function renderHeader(shellTheme, currentNavKey) {
+    if (homePath) return;
+    var header = elementFrom(headerMarkup(shellTheme, currentNavKey));
+    var replaceableHeaders = Array.prototype.filter.call(document.body.children, function (child) {
+      return child.tagName === 'HEADER' && isReplaceableSiteHeader(child);
+    });
+
+    if (replaceableHeaders.length) {
+      replaceableHeaders[0].replaceWith(header);
+      replaceableHeaders.slice(1).forEach(function (legacyHeader) { legacyHeader.remove(); });
+    } else {
+      document.body.insertBefore(header, document.body.firstChild);
+    }
+
+    bindHeaderMenu(header);
   }
 
   function renderFooter() {
@@ -384,11 +480,15 @@
   }
 
   function init() {
+    var shellTheme = isSelectionArticle() ? 'selection' : 'regular';
+    var currentNavKey = currentNavigationKey(shellTheme);
+    document.body.setAttribute('data-shell-theme', shellTheme);
+    if (articlePath && shellTheme === 'regular') document.body.classList.add('robu-regular-article-page');
     ensureStyle();
-    ensureSelectionTheme();
-    renderHeader();
-    renderSelectionLabel();
-    renderAmazonSearchLink();
+    ensureSelectionTheme(shellTheme);
+    renderHeader(shellTheme, currentNavKey);
+    renderSelectionLabel(shellTheme);
+    renderMarketplaceLinks();
     renderFooter();
     renderArticleToc();
     if (storedConsent === 'granted') loadGoogleAnalytics();
