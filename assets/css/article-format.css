@@ -1,0 +1,383 @@
+/*
+ * Opt-in article format for local authoring.
+ *
+ * Nothing in this file applies unless the page body has
+ * `class="robu-article-format"`. The shared header, seven-item navigation,
+ * footer, consent panel and TOC behavior remain owned by shared-shell.css
+ * and shared-shell.js.
+ */
+
+body.robu-article-format {
+  --robu-format-page: var(--paper, #fffaf2);
+  --robu-format-surface: var(--soft, #fff0dc);
+  --robu-format-surface-strong: var(--soft, var(--paper, #fffaf2));
+  --robu-format-image-surface: #fffdf8;
+  --robu-format-ink: var(--ink, #35251c);
+  --robu-format-muted: var(--muted, #75665e);
+  --robu-format-line: var(--line, #ead8ca);
+  --robu-format-accent: var(--red, var(--sea, #087681));
+  --robu-format-accent-ink: #fff;
+  --robu-format-toc-surface: var(--soft, #eef8f7);
+  --robu-format-cta-surface: var(--soft, #fff0dc);
+  --robu-format-cta-ink: var(--red, var(--sea, #087681));
+  --robu-format-cta-hover-surface: var(--red, var(--sea, #087681));
+  --robu-format-cta-hover-ink: #fff;
+  margin: 0;
+  background: var(--robu-format-page);
+  color: var(--robu-format-ink);
+  font-family: "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+body.robu-article-format,
+body.robu-article-format * {
+  box-sizing: border-box;
+}
+
+body.robu-article-format.robus-selection-page {
+  --robu-format-page: var(--robu-selection-navy, #071821);
+  --robu-format-surface: #0c2029;
+  --robu-format-surface-strong: var(--robu-selection-panel, #102d35);
+  --robu-format-image-surface: var(--robu-selection-ivory, #f4ebdd);
+  --robu-format-ink: var(--robu-selection-ivory, #f4ebdd);
+  --robu-format-muted: var(--robu-selection-muted, #c9c0b2);
+  --robu-format-line: rgba(169, 120, 50, 0.5);
+  --robu-format-accent: var(--robu-selection-bronze, #a97832);
+  --robu-format-accent-ink: var(--robu-selection-deep, #030910);
+  --robu-format-toc-surface: var(--robu-selection-panel, #102d35);
+  --robu-format-cta-surface: var(--robu-selection-navy, #071821);
+  --robu-format-cta-ink: var(--robu-selection-ivory, #f4ebdd);
+  --robu-format-cta-hover-surface: var(--robu-selection-bronze, #a97832);
+  --robu-format-cta-hover-ink: var(--robu-selection-deep, #030910);
+}
+
+/* Selection purchase cards keep the verified product image legible on desktop
+ * and stack the three shop actions in a predictable vertical order. */
+body.robu-article-format.robus-selection-page .purchase-model-body {
+  grid-template-columns: minmax(200px, 220px) minmax(0, 1fr);
+}
+
+body.robu-article-format.robus-selection-page .affiliate-actions {
+  grid-template-columns: 1fr;
+}
+
+body.robu-article-format.robus-selection-page .purchase-model-image-crop-left,
+body.robu-article-format.robus-selection-page .purchase-model-image-crop-center,
+body.robu-article-format.robus-selection-page .purchase-model-image-crop-right {
+  object-fit: cover;
+}
+
+body.robu-article-format.robus-selection-page .purchase-model-image-crop-left { object-position: 5% center; }
+body.robu-article-format.robus-selection-page .purchase-model-image-crop-center { object-position: 60% center; }
+body.robu-article-format.robus-selection-page .purchase-model-image-crop-right { object-position: 96% center; }
+
+body.robu-article-format.robus-selection-page .purchase-model-visual {
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+}
+
+body.robu-article-format.robus-selection-page .purchase-model-image-crop-left,
+body.robu-article-format.robus-selection-page .purchase-model-image-crop-center,
+body.robu-article-format.robus-selection-page .purchase-model-image-crop-right {
+  transform: scale(3.3);
+}
+
+body.robu-article-format .purchase-model-body-no-image {
+  display: block;
+}
+
+body.robu-article-format .purchase-model-body-no-image .purchase-image-status {
+  margin: 0 0 10px;
+  color: var(--robu-format-muted);
+  font-size: 13px;
+}
+
+body.robu-article-format main.robu-article-main {
+  width: min(940px, calc(100% - 32px));
+  min-width: 0;
+  margin: 0 auto;
+  padding: 30px 0 68px;
+}
+
+body.robu-article-format .robu-article-heading {
+  min-width: 0;
+}
+
+body.robu-article-format .article-title {
+  margin: 24px 0;
+  color: var(--robu-format-ink);
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+body.robu-article-format .article-content {
+  min-width: 0;
+  color: var(--robu-format-ink);
+}
+
+body.robu-article-format .article-content h2 {
+  margin: 52px 0 14px;
+  padding: 0 0 8px 15px;
+  border-bottom: 1px solid var(--robu-format-line);
+  border-left: 5px solid var(--robu-format-accent);
+  color: var(--robu-format-ink);
+  font-size: clamp(23px, 3vw, 31px);
+  line-height: 1.45;
+}
+
+body.robu-article-format .article-content h3 {
+  color: var(--robu-format-accent);
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+body.robu-article-format .article-content a {
+  color: var(--robu-format-accent);
+  text-underline-offset: 3px;
+}
+
+body.robu-article-format .robu-article-hero,
+body.robu-article-format .article-content figure {
+  max-width: 100%;
+  margin: 26px 0 12px;
+}
+
+body.robu-article-format .robu-article-hero img,
+body.robu-article-format .article-content figure > img,
+body.robu-article-format .article-content figure > video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--robu-format-line);
+  border-radius: 16px;
+}
+
+body.robu-article-format figcaption,
+body.robu-article-format .note {
+  color: var(--robu-format-muted);
+  font-size: 14px;
+}
+
+/*
+ * Introductory copy deliberately uses the page's soft tone. It never reads
+ * from a legacy `--panel: #fff`, which avoids a stark white slab on regular
+ * cream-toned articles while the Selection override stays dark.
+ */
+body.robu-article-format .robu-article-intro,
+body.robu-article-format .article-content > .lead {
+  margin: 28px 0;
+  padding: 24px;
+  border: 1px solid var(--robu-format-line);
+  border-radius: 14px;
+  background: var(--robu-format-surface);
+  color: var(--robu-format-ink);
+}
+
+body.robu-article-format.robus-selection-page .robu-article-intro,
+body.robu-article-format.robus-selection-page .article-content > .lead {
+  color: var(--robu-format-muted);
+}
+
+/* The generated TOC remains structurally controlled by shared-shell.css. */
+body.robu-article-format .robu-article-toc {
+  border-top-color: var(--robu-format-accent);
+  background: var(--robu-format-toc-surface);
+  color: var(--robu-format-ink);
+}
+
+body.robu-article-format .robu-article-toc summary,
+body.robu-article-format .robu-article-toc a {
+  color: var(--robu-format-ink);
+}
+
+body.robu-article-format .robu-article-toc li,
+body.robu-article-format .robu-article-toc li::marker,
+body.robu-article-format .robu-article-toc summary::after {
+  color: var(--robu-format-accent);
+}
+
+body.robu-article-format .robu-article-toc a:hover,
+body.robu-article-format .robu-article-toc a:focus-visible,
+body.robu-article-format .robu-article-toc a.is-current {
+  color: var(--robu-format-accent);
+}
+
+/*
+ * Optional verified purchase card. The matching image and all three links
+ * are content, so this stylesheet does not generate or guess any of them.
+ */
+body.robu-article-format .purchase-model-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+body.robu-article-format .purchase-model {
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--robu-format-line);
+  border-radius: 14px;
+  background: var(--robu-format-surface-strong);
+}
+
+body.robu-article-format .purchase-model > h3 {
+  margin: 0 0 12px;
+  color: var(--robu-format-ink);
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+body.robu-article-format .purchase-model-body {
+  display: grid;
+  grid-template-columns: minmax(140px, 180px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+
+body.robu-article-format .purchase-model-visual {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.robu-article-format .purchase-model-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0;
+  border: 1px solid var(--robu-format-line);
+  border-radius: 10px;
+  background: var(--robu-format-image-surface);
+  object-fit: contain;
+}
+
+body.robu-article-format .purchase-model-caption {
+  margin-top: 7px;
+  color: var(--robu-format-muted);
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+body.robu-article-format .purchase-model-purchase {
+  min-width: 0;
+}
+
+body.robu-article-format .purchase-model-meta {
+  margin: 10px 0 0;
+  color: var(--robu-format-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+body.robu-article-format .purchase-link-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body.robu-article-format .purchase-link-list li {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+body.robu-article-format .affiliate-actions {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+body.robu-article-format .affiliate-actions a.purchase-cta {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  border: 1px solid var(--robu-format-accent);
+  border-radius: 10px;
+  background: var(--robu-format-cta-surface);
+  color: var(--robu-format-cta-ink);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+body.robu-article-format .affiliate-actions a.purchase-cta:hover,
+body.robu-article-format .affiliate-actions a.purchase-cta:focus-visible {
+  border-color: var(--robu-format-accent);
+  background: var(--robu-format-cta-hover-surface);
+  color: var(--robu-format-cta-hover-ink);
+}
+
+body.robu-article-format .affiliate-actions a.purchase-cta:focus-visible {
+  outline: 2px solid var(--robu-format-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  body.robu-article-format.robus-selection-page .purchase-model-body {
+    grid-template-columns: 1fr;
+  }
+
+  body.robu-article-format .purchase-model-body {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  body.robu-article-format .purchase-model-visual {
+    width: min(200px, 100%);
+    justify-self: center;
+  }
+
+  body.robu-article-format.robus-selection-page .purchase-model-visual {
+    width: min(180px, 100%);
+    height: 180px;
+  }
+
+  body.robu-article-format .affiliate-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  body.robu-article-format {
+    font-size: 16px;
+  }
+
+  body.robu-article-format main.robu-article-main {
+    width: min(940px, calc(100% - 22px));
+  }
+
+  body.robu-article-format .robu-article-intro,
+  body.robu-article-format .article-content > .lead {
+    padding: 18px;
+  }
+
+  body.robu-article-format .purchase-model {
+    padding: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.robu-article-format .affiliate-actions a.purchase-cta {
+    transition: none;
+  }
+}
