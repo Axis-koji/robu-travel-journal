@@ -32,7 +32,7 @@
     wait_for_update: 500
   });
 
-  var cssHref = '/assets/css/shared-shell.css?v=20260913-formal-2';
+  var cssHref = '/assets/css/shared-shell.css?v=20260913-formal-3';
   var selectionCssHref = '/assets/css/robus-selection-theme.css?v=20260913-formal-2';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
@@ -69,6 +69,15 @@
     '/articles/boso-train-replacement/': 'vehicles'
   };
   var currentPath = window.location.pathname.replace(/index\.html$/, '');
+  var translationStorageKey = 'robu_translation_language_v1';
+  var translationLanguages = [
+    { code: 'ja', label: '日本語' },
+    { code: 'en', label: 'English' },
+    { code: 'zh-CN', label: '简体中文' },
+    { code: 'zh-TW', label: '繁體中文' },
+    { code: 'yue', label: '粵語' },
+    { code: 'vi', label: 'Tiếng Việt' }
+  ];
 
   function isSelectionLabel(value) {
     return /robu[\u2018\u2019'\-\s]*s?\s*selection/i.test(value || '');
@@ -190,6 +199,29 @@
     return regularArticleNavigation[currentPath] || 'home';
   }
 
+  function googleTranslateHref(languageCode) {
+    if (languageCode === 'ja') return window.location.href;
+    return 'https://translate.google.com/translate?' + new URLSearchParams({
+      sl: 'ja',
+      tl: languageCode,
+      u: window.location.href
+    }).toString();
+  }
+
+  function languagePickerMarkup() {
+    var links = translationLanguages.map(function (language) {
+      var current = language.code === 'ja' ? ' aria-current="page"' : '';
+      var external = language.code === 'ja' ? '' : ' rel="noopener noreferrer"';
+      return '<a href="' + googleTranslateHref(language.code) + '" lang="' + language.code + '" data-robu-translation-language="' + language.code + '"' + current + external + '>' + language.label + '</a>';
+    }).join('');
+
+    return '<details class="robu-language-picker" data-robu-language-picker>' +
+      '<summary aria-label="表示言語を選ぶ">言語</summary>' +
+      '<div class="robu-language-menu" role="group" aria-label="表示言語">' +
+      '<span>Google翻訳で開きます</span>' + links +
+      '</div></details>';
+  }
+
   function headerMarkup(shellTheme, currentNavKey) {
     var selection = shellTheme === 'selection';
     var brand = selection ? 'Robu’s Selection' : 'ろぶーの<span>気になる事</span>';
@@ -209,10 +241,12 @@
 
     return '<header class="site-header robu-common-header" id="robuCommonHeader" data-robu-common-header data-shell-theme="' + shellTheme + '">' +
       '<a class="brand" href="/">' + brand + '</a>' +
-      '<button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="robuCommonNavigation">☰</button>' +
       '<nav class="main-nav" id="robuCommonNavigation" aria-label="メインナビゲーション">' +
       navigation +
-      '</nav></header>';
+      '</nav>' +
+      '<div class="robu-header-tools">' + languagePickerMarkup() +
+      '<button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="robuCommonNavigation">☰</button>' +
+      '</div></header>';
   }
 
   function footerMarkup() {
@@ -291,6 +325,30 @@
     if (desktopQuery.addEventListener) desktopQuery.addEventListener('change', closeDesktopMenu);
   }
 
+  function bindLanguagePicker(header) {
+    var picker = header.querySelector('[data-robu-language-picker]');
+    if (!picker) return;
+
+    picker.querySelectorAll('[data-robu-translation-language]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        try {
+          window.localStorage.setItem(translationStorageKey, link.getAttribute('data-robu-translation-language'));
+        } catch (error) {
+          // Translation still works when storage is unavailable.
+        }
+      });
+    });
+
+    document.addEventListener('click', function (event) {
+      if (picker.open && !picker.contains(event.target)) picker.open = false;
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape' || !picker.open) return;
+      picker.open = false;
+      picker.querySelector('summary').focus();
+    });
+  }
+
   function renderHeader(shellTheme, currentNavKey) {
     if (homePath) return;
     var header = elementFrom(headerMarkup(shellTheme, currentNavKey));
@@ -306,6 +364,7 @@
     }
 
     bindHeaderMenu(header);
+    bindLanguagePicker(header);
   }
 
   function renderFooter() {

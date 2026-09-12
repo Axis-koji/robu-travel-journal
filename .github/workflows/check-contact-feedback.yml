@@ -6,7 +6,10 @@ on:
       - "articles/**"
       - "assets/js/contact-feedback.js"
       - "assets/js/site.js"
+      - "assets/js/shared-shell.js"
+      - "assets/css/shared-shell.css"
       - "scripts/check-contact-feedback.ps1"
+      - "scripts/check-article-shell.ps1"
       - ".github/workflows/check-contact-feedback.yml"
   workflow_dispatch:
 
@@ -21,3 +24,6 @@ jobs:
       - name: Verify every article loads the shared contact form
         shell: pwsh
         run: ./scripts/check-contact-feedback.ps1
+      - name: Verify the formal article shell and translation menu
+        shell: pwsh
+        run: ./scripts/check-article-shell.ps1
