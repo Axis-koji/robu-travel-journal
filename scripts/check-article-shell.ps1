@@ -13,6 +13,21 @@ foreach ($page in $articlePages) {
     if ($html -notmatch '/assets/js/shared-shell\.js') {
         $problems += "$($page.FullName): missing shared-shell.js"
     }
+
+    if ($html -match 'Content-Security-Policy') {
+        $requiredCspText = @(
+            'https://www.axis-jp.net',
+            'https://www.gstatic.com',
+            'https://translate.googleapis.com',
+            'https://translate-pa.googleapis.com'
+        )
+
+        foreach ($required in $requiredCspText) {
+            if (-not $html.Contains($required)) {
+                $problems += "$($page.FullName): CSP blocks Google website translation dependency: $required"
+            }
+        }
+    }
 }
 
 $requiredShellText = @(
