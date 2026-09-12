@@ -13,8 +13,22 @@ body.robus-selection-page {
   color: var(--robu-selection-ivory) !important;
 }
 
-body.robus-selection-page .site-header.robu-common-header {
-  border-bottom: 1px solid var(--robu-selection-bronze);
+.site-header.robu-common-header[data-shell-theme="selection"] {
+  --robu-header-surface: var(--robu-selection-navy);
+  --robu-header-panel: var(--robu-selection-panel);
+  --robu-header-ink: var(--robu-selection-ivory);
+  --robu-header-border: var(--robu-selection-bronze);
+  --robu-header-accent: #d8b676;
+  --robu-header-focus: var(--robu-selection-blue);
+  --robu-header-tab-ink: var(--robu-selection-ivory);
+  --robu-header-tab-border: var(--robu-selection-bronze);
+  --robu-header-tab-state-border: var(--robu-selection-bronze);
+  --robu-header-tab-overlay: rgba(3, 9, 16, 0.72);
+  --robu-header-tab-state-surface: rgba(216, 182, 118, 0.2);
+  --robu-header-tab-state-ink: #d8b676;
+  --robu-header-tab-fallback: var(--robu-selection-panel);
+  --robu-header-shadow: rgba(0, 0, 0, 0.42);
+  --robu-header-tab-shadow: rgba(0, 0, 0, 0.38);
 }
 
 body.robus-selection-page .robu-selection-label {
