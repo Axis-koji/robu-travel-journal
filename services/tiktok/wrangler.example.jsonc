@@ -1,0 +1,9 @@
+{
+  "name": "robu-tiktok-connection",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-12",
+  "workers_dev": true,
+  "observability": { "enabled": false },
+  "vars": { "APP_ORIGIN": "https://REPLACE-WITH-DEPLOYED-HOST" },
+  "d1_databases": [{ "binding": "DB", "database_name": "robu-tiktok", "database_id": "REPLACE-WITH-CREATED-D1-ID" }]
+}
