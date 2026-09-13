@@ -77,9 +77,10 @@
       "payload_hash": "c0964a83ced9f4f645157323595b2631b3648264282e7731b508d707e72bfa46"
     },
     "boso-train-replacement:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-13T04:01:49.446685+00:00",
-      "payload_hash": "3c774160caa3635305fd50585542f5eb22d892cd6048d7a37d5cf09dd199495d"
+      "payload_hash": "3c774160caa3635305fd50585542f5eb22d892cd6048d7a37d5cf09dd199495d",
+      "post_id": "18124971988841973"
     }
   },
   "channels": {
