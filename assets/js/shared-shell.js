@@ -467,6 +467,7 @@
     document.body.classList.add('has-robu-article-toc');
 
     var desktopQuery = window.matchMedia('(min-width: 1101px)');
+    details.open = desktopQuery.matches;
     function keepDesktopTocOpen(event) {
       if (event.matches) details.open = true;
     }
