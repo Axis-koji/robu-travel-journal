@@ -34,16 +34,25 @@ $requiredShellText = @(
     'robu-language-picker',
     'translate.google.com/translate',
     "{ code: 'ja', label: '日本語' }",
-    "{ code: 'en', label: 'English' }",
-    "{ code: 'zh-CN', label: '简体中文' }",
-    "{ code: 'zh-TW', label: '繁體中文' }",
-    "{ code: 'yue', label: '粵語' }",
-    "{ code: 'vi', label: 'Tiếng Việt' }"
+    "{ code: 'en', label: 'English' }"
 )
 
 foreach ($required in $requiredShellText) {
     if (-not $shell.Contains($required)) {
         $problems += "shared-shell.js: missing required translation setting: $required"
+    }
+}
+
+$retiredShellText = @(
+    "{ code: 'zh-CN'",
+    "{ code: 'zh-TW'",
+    "{ code: 'yue'",
+    "{ code: 'vi'"
+)
+
+foreach ($retired in $retiredShellText) {
+    if ($shell.Contains($retired)) {
+        $problems += "shared-shell.js: retired translation setting remains: $retired"
     }
 }
 

@@ -72,11 +72,7 @@
   var translationStorageKey = 'robu_translation_language_v1';
   var translationLanguages = [
     { code: 'ja', label: '日本語' },
-    { code: 'en', label: 'English' },
-    { code: 'zh-CN', label: '简体中文' },
-    { code: 'zh-TW', label: '繁體中文' },
-    { code: 'yue', label: '粵語' },
-    { code: 'vi', label: 'Tiếng Việt' }
+    { code: 'en', label: 'English' }
   ];
 
   function isSelectionLabel(value) {
