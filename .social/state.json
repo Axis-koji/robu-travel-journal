@@ -120,9 +120,10 @@
       "post_id": "18121565756478753"
     },
     "garmin-cirqa-smart-band:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-13T15:53:17.127069+00:00",
-      "payload_hash": "575d3d48d5e145acbe205c3486f7b92e238ede53f611464d2e411e8e3316ec8d"
+      "payload_hash": "575d3d48d5e145acbe205c3486f7b92e238ede53f611464d2e411e8e3316ec8d",
+      "post_id": "1324933827363335_122108385135463588"
     }
   },
   "channels": {
