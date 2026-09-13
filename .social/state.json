@@ -130,6 +130,11 @@
       "attempted_at": "2026-09-13T15:53:24.428932+00:00",
       "payload_hash": "cd356c1b1861aca82d4884d475a1c4c57927147c1634750602619a89e29b6560",
       "post_id": "18625257583055994"
+    },
+    "azusa-ice-coffee:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-13T17:30:41.851920+00:00",
+      "payload_hash": "45e49d0ecfd8b1d76865b74530230c828c7e5497307818be0e7aabb079fc7543"
     }
   },
   "channels": {
