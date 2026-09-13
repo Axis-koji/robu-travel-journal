@@ -82,6 +82,11 @@
       "attempted_at": "2026-09-13T04:01:49.446685+00:00",
       "payload_hash": "3c774160caa3635305fd50585542f5eb22d892cd6048d7a37d5cf09dd199495d",
       "post_id": "18124971988841973"
+    },
+    "sanwa-700-tap093bk:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-13T13:30:32.417888+00:00",
+      "payload_hash": "24dbea8054a748203039a2f5324ef3b1fe2b00724f6c59834b5ae2c828b7800d"
     }
   },
   "channels": {
