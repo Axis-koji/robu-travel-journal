@@ -104,9 +104,8 @@ def publish(plan, config, ledger, client, env=os.environ, verify=verify_public):
     if not platforms:
         print("自動投稿先はありません。投稿アプリから無料の手動投稿を利用できます。")
         return
-    targets = client.check()
-    for platform, target in targets.items():
-        if data.get("channels", {}).get(platform, {}).get("target") != target["target"]:
+    for platform, setting in client.settings.items():
+        if data.get("channels", {}).get(platform, {}).get("target") != setting["target"]:
             raise DeliveryError(f"{platform}: 先にconnectで接続を初期化してください。過去記事の一斉投稿を防止します")
     errors = [key + ": 前回の結果が不明です。SNSで確認してresolveしてください"
               for key, record in data["posts"].items()
@@ -115,7 +114,10 @@ def publish(plan, config, ledger, client, env=os.environ, verify=verify_public):
         "published", "accepted", "submitting", "uncertain", "manual_done"}
     candidates = [a for a in plan if any(pending(a, p) for p in platforms)]
     candidates.sort(key=lambda a: (a.get("published", ""), a["id"]))
-    for article in candidates[:config["max_articles_per_run"]]:
+    selected = candidates[:config["max_articles_per_run"]]
+    active_platforms = [p for p in platforms if any(pending(a, p) for a in selected)]
+    client.check(active_platforms)
+    for article in selected:
         for platform in platforms:
             if not pending(article, platform):
                 continue

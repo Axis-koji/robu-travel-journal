@@ -52,9 +52,15 @@ class FakeDirect:
         self.settings = connection_settings(env)
         self.timeout_for = None
         self.reject_for = None
+        self.check_error_for = None
+        self.checked = []
 
-    def check(self):
-        return {p: {"target": c["target"]} for p, c in self.settings.items()}
+    def check(self, platforms=None):
+        names = list(self.settings) if platforms is None else platforms
+        self.checked.append(list(names))
+        if self.check_error_for in names:
+            raise Rejected("expired")
+        return {p: {"target": self.settings[p]["target"]} for p in names}
 
     def create(self, article, platform):
         assert self.ledger.persisted["posts"][article["id"] + ":" + platform]["status"] == "submitting"
@@ -110,6 +116,16 @@ class DeliveryTests(unittest.TestCase):
         self.client.reject_for = None
         self.run_publish()
         self.assertEqual(len(self.client.sent), 5)
+
+    def test_completed_platform_is_not_rechecked_during_retry(self):
+        self.client.reject_for = "facebook"
+        with self.assertRaises(DeliveryError):
+            self.run_publish()
+        self.client.reject_for = None
+        self.client.check_error_for = "instagram"
+        self.run_publish()
+        self.assertEqual(self.client.checked[-1], ["facebook"])
+        self.assertEqual(sum(p == "instagram" for _, p in self.client.sent), 1)
 
     def test_disabled_prevents_any_post(self):
         with self.assertRaises(DeliveryError): publish([ARTICLE], CONFIG, self.ledger, self.client, env={})
