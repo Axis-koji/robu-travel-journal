@@ -416,11 +416,21 @@
   color: #b9efeb;
 }
 
-.robu-common-footer .footer-jao-logo {
+.robu-common-footer .footer-jao-link {
   display: block;
   width: min(100%, 468px);
-  height: auto;
   margin-top: 14px;
+}
+
+.robu-common-footer .footer-jao-link:focus-visible {
+  outline: 3px solid #b9efeb;
+  outline-offset: 4px;
+}
+
+.robu-common-footer .footer-jao-logo {
+  display: block;
+  width: 100%;
+  height: auto;
   background: #fff;
 }
 
