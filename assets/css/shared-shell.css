@@ -416,6 +416,14 @@
   color: #b9efeb;
 }
 
+.robu-common-footer .footer-jao-logo {
+  display: block;
+  width: min(100%, 468px);
+  height: auto;
+  margin-top: 14px;
+  background: #fff;
+}
+
 .robu-common-footer p {
   margin: 12px 0 0;
   color: #bfd3d3;

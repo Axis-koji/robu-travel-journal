@@ -32,7 +32,7 @@
     wait_for_update: 500
   });
 
-  var cssHref = '/assets/css/shared-shell.css?v=20260913-formal-3';
+  var cssHref = '/assets/css/shared-shell.css?v=20260913-formal-6';
   var selectionCssHref = '/assets/css/robus-selection-theme.css?v=20260913-formal-2';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = window.location.pathname.indexOf('/articles/') === 0;
@@ -250,8 +250,10 @@
   }
 
   function footerMarkup() {
-    return '<footer class="site-footer robu-common-footer" data-robu-common-footer>' +
-      '<div><a class="brand" href="/">ろぶーの<span>気になる事</span></a><p>日常に、少し旅の気分を。</p></div>' +
+    return '<footer id="site-footer" class="site-footer robu-common-footer" data-robu-common-footer>' +
+      '<div><a class="brand" href="/">ろぶーの<span>気になる事</span></a>' +
+      '<p>日常に、少し旅の気分を。</p>' +
+      '<img class="footer-jao-logo" src="/assets/images/jaologo468x60.gif" width="468" height="60" alt="日本アフィリエイト協議会" loading="lazy"></div>' +
       '<div class="footer-links">' +
       '<a href="/about/">運営者情報</a>' +
       '<a href="/privacy-policy/">プライバシーポリシー</a>' +
