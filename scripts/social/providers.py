@@ -111,10 +111,12 @@ class Direct:
             raise Rejected(f"{platform}: APIが拒否しました。接続権限と素材を確認してください")
         return result
 
-    def check(self):
+    def check(self, platforms=None):
         """Read-only identity check. Does not prove publishing permission or app review."""
         result = {}
-        for platform, c in self.settings.items():
+        names = list(self.settings) if platforms is None else platforms
+        for platform in names:
+            c = self.settings[platform]
             fields = "id,username" if platform in {"instagram", "threads"} else "id,name"
             path = "boards/" + c["target"] if platform == "pinterest" else c["target"] + "?fields=" + fields
             response = self.call(platform, path)
