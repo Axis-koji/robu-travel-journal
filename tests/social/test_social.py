@@ -12,6 +12,7 @@ from scripts.social.content import PLATFORMS, caption, catalog, local_image
 from scripts.social.publish import DeliveryError, configure, publish, resolve
 from scripts.social.providers import Direct, Rejected, automatic_platforms, connection_settings
 from scripts.social.studio import export_studio
+from scripts.social.landing import export_instagram_landing
 
 
 CONFIG = {"site_url": "https://www.axis-jp.net", "site_name": "ろぶーの気になる事",
@@ -294,6 +295,27 @@ class StudioTests(unittest.TestCase):
 
 
 class ContentTests(unittest.TestCase):
+    def test_instagram_landing_lists_recent_articles_and_escapes_content(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            older = {**ARTICLE, "id": "older", "title": "古い記事", "published": "2026-09-01"}
+            newer = {**ARTICLE, "id": "newer", "title": "新しい<script>記事", "published": "2026-09-02"}
+            state = {"posts": {"older:instagram": {"status": "published", "attempted_at": "2026-09-03T00:00:00Z"}}}
+            target = export_instagram_landing(out, [older, newer], CONFIG, state=state)
+            page = target.read_text(encoding="utf-8")
+            self.assertLess(page.index("古い記事"), page.index("新しい&lt;script&gt;記事"))
+            self.assertIn("https://www.axis-jp.net/instagram/", page)
+            self.assertNotIn("新しい<script>記事", page)
+
+    def test_catalog_uses_json_ld_date_when_article_meta_is_missing(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            file = root / "articles" / "dated" / "index.html"
+            file.parent.mkdir(parents=True)
+            file.write_text('<title>記事</title><meta name="description" content="紹介">'
+                            '<script type="application/ld+json">{"datePublished":"2026-09-10"}</script><article>本文</article>')
+            self.assertEqual(catalog(root, CONFIG)[0]["published"], "2026-09-10")
+
     def test_japanese_x_caption_fits_conservative_weight_and_keeps_url(self):
         article = {**ARTICLE, "title": "日本語の長いタイトル" * 70, "disclosure": "広告を含む記事"}
         text = caption(article, "twitter")

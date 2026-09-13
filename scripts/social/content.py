@@ -82,6 +82,9 @@ def catalog(root, config, now=None):
                 or not (parser.has_article or meta.get("og:type") == "article")):
             continue
         published = meta.get("article:published_time", "")
+        if not published:
+            match = re.search(r'"datePublished"\s*:\s*"([^"<>]+)"', html)
+            published = clean(match.group(1)) if match else ""
         if published:
             when = datetime.fromisoformat(published.replace("Z", "+00:00"))
             if (when if when.tzinfo else when.replace(tzinfo=timezone(timedelta(hours=9)))) > now:
