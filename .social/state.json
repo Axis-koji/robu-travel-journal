@@ -70,6 +70,11 @@
       "attempted_at": "2026-09-07T01:41:46.475136+00:00",
       "payload_hash": "8b338d3950e4dda3a0a9ad0e84bf668a0c6fd21cd8280ba57a8323cf6b8e10f0",
       "post_id": "18184271710392614"
+    },
+    "boso-train-replacement:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-13T04:01:47.039964+00:00",
+      "payload_hash": "c0964a83ced9f4f645157323595b2631b3648264282e7731b508d707e72bfa46"
     }
   },
   "channels": {
