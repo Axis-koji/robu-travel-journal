@@ -96,9 +96,10 @@
       "post_id": "18016053716946194"
     },
     "nasa-nikon-d5:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-13T13:30:48.075802+00:00",
-      "payload_hash": "d781fe93337369743eef004ae27782bae2d52c8e831d0d2e53032f40fe4147d2"
+      "payload_hash": "d781fe93337369743eef004ae27782bae2d52c8e831d0d2e53032f40fe4147d2",
+      "post_id": "1324933827363335_122108340453463588"
     }
   },
   "channels": {
