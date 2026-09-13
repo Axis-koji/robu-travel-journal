@@ -72,8 +72,8 @@
       "post_id": "18184271710392614"
     },
     "boso-train-replacement:facebook": {
-      "status": "rejected",
-      "attempted_at": "2026-09-13T04:01:47.039964+00:00",
+      "status": "submitting",
+      "attempted_at": "2026-09-13T05:18:12.316972+00:00",
       "payload_hash": "c0964a83ced9f4f645157323595b2631b3648264282e7731b508d707e72bfa46"
     },
     "boso-train-replacement:instagram": {
