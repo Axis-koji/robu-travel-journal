@@ -140,18 +140,16 @@
 
   function renderMarketplaceLinks() {
     var products = {
-      '/articles/sony-ult-tower-7/': ['Sony ULT TOWER 7', 'Sony ULT TOWER 7'],
-      '/articles/garmin-fenix-9-pro-titanium-inreach/': ['Garmin fenix 9 Pro inReach', 'Garmin fēnix 9シリーズ'],
-      '/articles/garmin-cirqa-smart-band/': ['Garmin CIRQA Smart Band', 'Garmin CIRQA'],
-      '/articles/meta-glasses/': ['Meta AI Glasses', 'Meta AI Glasses'],
+      '/articles/sony-ult-tower-7/': ['Sony ULT TOWER 7 SRS-ULT700', 'Sony ULT TOWER 7', null, 'https://yahoo.jp/tRmSWDd'],
+      '/articles/garmin-fenix-9-pro-titanium-inreach/': ['Garmin fenix 9 Pro inReach', 'Garmin fēnix 9シリーズ', null, 'https://yahoo.jp/6mH9AW'],
+      '/articles/garmin-cirqa-smart-band/': ['Garmin CIRQA Smart Band', 'Garmin CIRQA', null, 'https://yahoo.jp/59bPv8'],
+      '/articles/meta-glasses/': ['Meta AI Glasses', 'Meta AI Glasses', false, 'https://yahoo.jp/T8vT-A'],
       '/articles/seiko-prospex-hbc011j/': ['セイコー プロスペックス HBC011J', 'セイコー プロスペックス HBC011J', 'https://room.rakuten.co.jp/room_4b003bc175/1700392030842251'],
-      '/articles/seiko-presage-bonsai/': ['セイコー プレザージュ HCC011J', 'セイコー プレザージュ HCC011J'],
-      '/articles/gopro-mission-1-pro-ils/': ['GoPro MISSION 1 PRO ILS', 'GoPro MISSION 1 PRO ILS'],
-      '/articles/google-pixel-watch-5/': ['Google Pixel Watch 5', 'Google Pixel Watch 5'],
-      '/articles/breitling-navitimer-samurai-japan/': ['ブライトリング ナビタイマー GMT 41 侍ジャパン', 'ナビタイマー GMT 41 侍ジャパン'],
-      '/articles/breitling-navitimer-concorde/': ['Breitling AB01389C1C1P1', 'Breitling AB01389C1C1P1'],
-      '/articles/seiko-astron-hab005j/': ['セイコー アストロン HAB005J', 'セイコー アストロン HAB005J'],
-      '/articles/casio-gwr-b3000/': ['CASIO G-SHOCK GWR-B3000-1AJF', 'CASIO G-SHOCK GWR-B3000-1AJF']
+      '/articles/seiko-presage-bonsai/': ['セイコー プレザージュ HCC011J', 'セイコー プレザージュ HCC011J', null, 'https://yahoo.jp/xNVQPd'],
+      '/articles/gopro-mission-1-pro-ils/': ['GoPro MISSION 1 PRO ILS', 'GoPro MISSION 1 PRO ILS', false, 'https://yahoo.jp/Nx_YPQ'],
+      '/articles/google-pixel-watch-5/': ['Google Pixel Watch 5', 'Google Pixel Watch 5', null, 'https://yahoo.jp/SPntrVB'],
+      '/articles/seiko-astron-hab005j/': ['セイコー アストロン HAB005J', 'セイコー アストロン HAB005J', null, 'https://yahoo.jp/NXPV4D'],
+      '/articles/casio-gwr-b3000/': ['CASIO G-SHOCK GWR-B3000-1AJF', 'CASIO G-SHOCK GWR-B3000-1AJF', null, 'https://yahoo.jp/tmnQ4o']
     };
     var product = products[currentPath];
     if (!product || document.querySelector('[data-marketplace-links], .purchase-buttons')) return;
@@ -163,14 +161,20 @@
     heading.textContent = '購入先を確認する';
     var disclosure = document.createElement('p');
     disclosure.className = 'note';
-    disclosure.textContent = 'Amazonのリンクはアフィリエイトリンクです。楽天ROOMが表示される記事では、そのリンクもアフィリエイトリンクです。価格・在庫・販売元は各ページでご確認ください。';
+    disclosure.textContent = '掲載している各販売先へのリンクはアフィリエイトリンクです。価格・在庫・販売元は各ページでご確認ください。';
     var buttons = document.createElement('div');
     buttons.className = 'robu-marketplace-buttons';
+    var rakutenSearch = 'https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(product[0]) + '/';
+    var rakutenAffiliate = 'https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?' + new URLSearchParams({
+      pc: rakutenSearch,
+      link_type: 'text',
+      ut: 'eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9'
+    });
     var destinations = [
       { className: 'amazon', href: 'https://www.amazon.co.jp/s?' + new URLSearchParams({k: product[0], tag: 'womaster-22'}), rel: 'nofollow sponsored noopener noreferrer', text: 'Amazonで詳細を見る' },
-      { className: 'rakuten', href: product[2] || 'https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(product[0]) + '/', rel: product[2] ? 'nofollow sponsored noopener noreferrer' : 'noopener noreferrer', text: product[2] ? '楽天市場で詳細を見る' : '楽天市場で探す' },
-      { className: 'yahoo', href: 'https://shopping.yahoo.co.jp/search?p=' + encodeURIComponent(product[0]), rel: 'noopener noreferrer', text: 'Yahoo!ショッピングで探す' }
-    ];
+      product[2] === false ? null : { className: 'rakuten', href: product[2] || rakutenAffiliate, rel: 'nofollow sponsored noopener noreferrer', text: '楽天市場で詳細を見る' },
+      product[3] ? { className: 'yahoo', href: product[3], rel: 'nofollow sponsored noopener noreferrer', text: 'Yahoo!ショッピングで詳細を見る' } : null
+    ].filter(Boolean);
     destinations.forEach(function (destination) {
       var link = document.createElement('a');
       link.className = 'robu-marketplace-button ' + destination.className;
