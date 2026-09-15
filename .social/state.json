@@ -162,9 +162,10 @@
       "post_id": "1324933827363335_122109226731463588"
     },
     "instax-pal-2-features:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-15T14:47:21.122737+00:00",
-      "payload_hash": "4005156d387c184e9a0beacf09fe2f43995d5b642ab19d815667f03f7df64abf"
+      "payload_hash": "4005156d387c184e9a0beacf09fe2f43995d5b642ab19d815667f03f7df64abf",
+      "post_id": "18034336991657953"
     }
   },
   "channels": {
