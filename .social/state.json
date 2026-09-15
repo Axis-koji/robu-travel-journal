@@ -150,9 +150,10 @@
       "post_id": "1324933827363335_122109226653463588"
     },
     "generative-ai-search-2026:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-15T14:47:02.404583+00:00",
-      "payload_hash": "0b7fc64c4677b69835181a7b01c230eec29ab898d55ac9438f52040cab59f991"
+      "payload_hash": "0b7fc64c4677b69835181a7b01c230eec29ab898d55ac9438f52040cab59f991",
+      "post_id": "18136153423713707"
     }
   },
   "channels": {
