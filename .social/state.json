@@ -142,6 +142,11 @@
       "attempted_at": "2026-09-13T17:30:49.902066+00:00",
       "payload_hash": "1a0737384603e797346f9c2a57ef15abb7aad6b048cd9bc92dcf1051a499f4e6",
       "post_id": "18009269591975788"
+    },
+    "generative-ai-search-2026:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-15T14:46:53.880310+00:00",
+      "payload_hash": "ecae66e21d4058a9e246b50055bdbb182ed7c628b711160e39abf2ef406aaa28"
     }
   },
   "channels": {
