@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta property="article:section" content="ろぶーの気になる事 / AI・テクノロジー" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="canonical" href="https://www.axis-jp.net/articles/generative-ai-search-2026/" />
+    <meta
+      name="description"
+      content="生成AIの検索利用率が52.3%に達した最新調査をもとに、AI検索の広がりと、日付・一次情報・複数ソースを確認する使い方をやさしく解説します。"
+    />
+    <meta
+      property="og:title"
+      content="検索の半分以上がAIへ？生成AIと上手に情報を探す3つのコツ"
+    />
+    <meta
+      property="og:description"
+      content="生成AIの検索利用率が52.3%に達した最新調査をもとに、AI検索の広がりと、日付・一次情報・複数ソースを確認する使い方をやさしく解説します。"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:site_name" content="ろぶーの気になる事" />
+    <meta property="og:url" content="https://www.axis-jp.net/articles/generative-ai-search-2026/" />
+    <meta property="og:image" content="https://www.axis-jp.net/articles/generative-ai-search-2026/ai-search-shift-hero.png" />
+    <meta property="og:image:alt" content="従来の検索と生成AI検索を見比べるAI生成イメージ" />
+    <meta property="article:published_time" content="2026-09-15T00:00:00+09:00" />
+    <meta property="article:modified_time" content="2026-09-15T00:00:00+09:00" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="検索の半分以上がAIへ？生成AIと上手に情報を探す3つのコツ" />
+    <meta name="twitter:description" content="日付・一次情報・複数ソース。AI検索を安全に使う3つの確認を解説します。" />
+    <meta name="twitter:image" content="https://www.axis-jp.net/articles/generative-ai-search-2026/ai-search-shift-hero.png" />
+    <title>検索の半分以上がAIへ？生成AIと上手に情報を探す3つのコツ</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f4ee;
+        --card: #fff;
+        --ink: #202124;
+        --muted: #666;
+        --accent: #126f67;
+        --line: #ddd;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP",
+          sans-serif;
+        line-height: 1.85;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: auto;
+        padding: 24px;
+      }
+      .toolbar {
+        display: none;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        backdrop-filter: blur(10px);
+        padding: 12px 0;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+      }
+      .badge {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .switch {
+        display: flex;
+        gap: 6px;
+      }
+      .switch button {
+        border: 1px solid var(--accent);
+        background: transparent;
+        color: var(--accent);
+        padding: 9px 16px;
+        border-radius: 999px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .switch button[aria-pressed="true"] {
+        background: var(--accent);
+        color: white;
+      }
+      article {
+        background: var(--card);
+        padding: clamp(22px, 5vw, 56px);
+        border-radius: 18px;
+        box-shadow: 0 8px 30px #0001;
+      }
+      h1 {
+        line-height: 1.35;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+      }
+      h2 {
+        margin-top: 2.3em;
+        border-left: 5px solid var(--accent);
+        padding-left: 0.7em;
+        line-height: 1.45;
+      }
+      h3 {
+        margin-top: 1.8em;
+      }
+      figure {
+        margin: 2em 0;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 14px;
+      }
+      figcaption {
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-top: 0.5em;
+      }
+      .notice {
+        border: 1px solid var(--line);
+        padding: 12px 15px;
+        border-radius: 10px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .lang[hidden] {
+        display: none;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111;
+          --card: #1b1b1b;
+          --ink: #eee;
+          --muted: #bbb;
+          --line: #444;
+          --accent: #64c9bb;
+        }
+      }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"検索の半分以上がAIへ？生成AIと上手に情報を探す3つのコツ","description":"生成AIの検索利用率が52.3%に達した最新調査をもとに、AI検索の広がりと安全な確かめ方を解説します。","datePublished":"2026-09-15","dateModified":"2026-09-15","inLanguage":"ja-JP","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.axis-jp.net/articles/generative-ai-search-2026/"},"image":["https://www.axis-jp.net/articles/generative-ai-search-2026/ai-search-shift-hero.png"],"author":{"@type":"Organization","name":"ろぶーの気になる事"},"publisher":{"@type":"Organization","name":"ろぶーの気になる事","url":"https://www.axis-jp.net/"}}</script>
+    <script defer src="/assets/js/shared-shell.js?v=20260914-language-1"></script>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="toolbar">
+        <span class="badge" id="status">公開記事</span>
+        <div class="switch" role="group" aria-label="Language">
+          <button id="jaButton" type="button" aria-pressed="true">日本語</button
+          ><button id="enButton" type="button" aria-pressed="false">
+            English
+          </button>
+        </div>
+      </div>
+      <article>
+        <section id="ja" class="lang" lang="ja">
+          <h1>検索の半分以上がAIへ？生成AIと上手に情報を探す3つのコツ</h1>
+          <p>こんにちは、ろぶーです。</p>
+          <p class="notice">
+            この記事ではAI生成の概念画像を使用しています。実製品・実景の写真ではありません。
+          </p>
+          <h2>検索の入り口が変わってきた</h2>
+          <p>
+            調べものといえば、少し前までは検索窓にキーワードを入れ、表示されたページを順番に開くのが当たり前でした。いまは「条件を伝えてAIに整理してもらう」という方法が、特別ではなくなりつつあります。
+          </p>
+          <p>
+            サイバーエージェントのGEOラボが2026年8月に全国の10代から60代まで9,278人を対象に行った調査では、Google検索のAI
+            Modeを含む生成AIの検索利用率が52.3%に達しました。2025年5月の21.3%から、約1年3か月で31ポイント増えています。
+          </p>
+          <figure>
+            <img
+              src="./ai-search-shift-hero.png"
+              alt="従来の検索画面と生成AIの回答を見比べながら情報を確認するイメージ"
+              loading="lazy"
+            />
+            <figcaption data-caption="concept"></figcaption>
+          </figure>
+          <h2>若い人だけの話ではない</h2>
+          <p>
+            年代別では10代が80.6%、20代が61.0%と高い一方、40代も50.2%で初めて半数を超えました。50代は46.1%、60代は39.6%で、生成AI検索は幅広い世代へ広がっています。
+          </p>
+          <p>
+            サービス別ではChatGPTが30.6%で首位を保ち、AI
+            Modeが28.4%、Geminiが23.2%でした。ひとつのAIだけを使う段階から、目的に応じて複数を使い分ける段階へ移っていることがうかがえます。
+          </p>
+          <h2>比較や買い物にも影響している</h2>
+          <p>
+            同じ調査では、検索エンジンと生成AIの両方を使う人の46.6%が、検索行動の半分以上を生成AIへ切り替えたと回答しています。また、AIのおすすめをきっかけに商品やサービスを購入・利用した経験がある人は58.7%でした。
+          </p>
+          <p>
+            生成AIは、長いページを何枚も読む前に要点を整理したり、条件に合う候補を並べたりするのが得意です。一方で、回答が自然な文章だからといって、内容まで必ず正しいとは限りません。買い物、旅行、医療、契約など判断の影響が大きい場面ほど、最後の確認が重要です。
+          </p>
+          <h2>上手に使うための3つの確認</h2>
+          <figure>
+            <img
+              src="./ai-search-verification-steps.png"
+              alt="日付・一次情報・複数ソースの3段階でAIの回答を確認する図"
+              loading="lazy"
+            />
+            <figcaption data-caption="concept"></figcaption>
+          </figure>
+          <h3>1. 情報の日付を見る</h3>
+          <p>
+            価格、在庫、キャンペーン、制度、営業時間などは変わります。「いつ時点の情報か」をAIに聞き、必要なら公式ページで最新日を確かめます。
+          </p>
+          <h3>2. 一次情報を開く</h3>
+          <p>
+            企業の発表、官公庁の資料、製品の公式仕様など、情報の出どころを確認します。AIに出典URLを示してもらっても、リンク先に同じ内容が書かれているかは自分で見ます。
+          </p>
+          <h3>3. 複数の情報で照らし合わせる</h3>
+          <p>
+            重要な判断は、ひとつの回答だけで決めません。別の検索結果や複数の公式情報も確認し、食い違いがあれば保留にします。
+          </p>
+          <h2>AIは答えそのものより「調査の案内役」</h2>
+          <p>
+            生成AIは、質問を重ねながら考えを整理できる便利な道具です。最初の説明をかみ砕いてもらい、比較表を作り、次に確認すべき公式ページを教えてもらう。そんな案内役として使うと、調べものの負担を減らせます。
+          </p>
+          <p>
+            利用率が52.3%まで伸びた今、生成AIを使うかどうかだけでなく、どう確かめながら使うかが大切になっています。日付、一次情報、複数ソース。この3つを習慣にして、速さと確かさの両方を取りにいきたいところです。
+          </p>
+          <section data-affiliate-today="2026-09-15" class="notice">
+            <p><strong>広告／PR</strong></p>
+            <p>
+              以下は記事内容に関連するアフィリエイトリンクです。リンク経由で購入が成立すると、当サイトに報酬が発生する場合があります。
+            </p>
+            <ul>
+              <li>
+                <a
+                  href="https://www.amazon.co.jp/s?k=%E7%94%9F%E6%88%90AI%20%E6%B4%BB%E7%94%A8%20%E5%85%A5%E9%96%80%20%E6%9C%AC&amp;tag=womaster-22"
+                  target="_blank"
+                  rel="sponsored nofollow noopener noreferrer"
+                  >生成AIを安全に活用するための本をAmazonで探す</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2F%25E7%2594%259F%25E6%2588%2590AI%2520%25E6%25B4%25BB%25E7%2594%25A8%2520%25E5%2585%25A5%25E9%2596%2580%2520%25E6%259C%25AC%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9"
+                  target="_blank"
+                  rel="sponsored nofollow noopener noreferrer"
+                  >生成AIを安全に活用するための本を楽天市場で探す</a
+                >
+              </li>
+            </ul>
+            <p>
+              <small
+                >商品、価格、在庫は時期によって変わります。リンク先で最新情報をご確認ください。Yahoo!ショッピングは商品別の成果リンク発行後に追加します。</small
+              >
+            </p>
+          </section>
+          <h2>出典</h2>
+          <p>
+            <a
+              href="https://www.cyberagent.co.jp/news/detail/id=33787"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.cyberagent.co.jp/news/detail/id=33787</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://www.cyberagent.co.jp/news/detail/id=33041"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.cyberagent.co.jp/news/detail/id=33041</a
+            >
+          </p>
+        </section>
+        <section id="en" class="lang" lang="en" hidden>
+          <h1>
+            More Than Half Now Use AI for Search: Three Ways to Check What You
+            Find
+          </h1>
+          <p class="notice">
+            Article preview using AI-generated concept images. The images
+            are not photographs of an actual product or location.
+          </p>
+          <h2>The starting point for search is changing</h2>
+          <p>
+            Until recently, online research usually meant typing keywords into a
+            search box and opening result pages one by one. Now, more people
+            begin by describing what they need and asking an AI system to
+            organize the information.
+          </p>
+          <p>
+            In an August 2026 survey of 9,278 people aged from their teens to
+            their sixties, CyberAgent's GEO Lab reported that 52.3% used
+            generative AI for search when Google's AI Mode was included. That
+            was up 31 percentage points from 21.3% in May 2025.
+          </p>
+          <figure>
+            <img
+              src="./ai-search-shift-hero.png"
+              alt="Illustration of comparing conventional search results with a generative AI answer"
+              loading="lazy"
+            />
+            <figcaption data-caption="concept"></figcaption>
+          </figure>
+          <h2>It is no longer only a youth trend</h2>
+          <p>
+            Usage was highest among teenagers at 80.6% and people in their
+            twenties at 61.0%. However, the rate among people in their forties
+            also exceeded half for the first time, reaching 50.2%. The survey
+            reported 46.1% for people in their fifties and 39.6% for those in
+            their sixties.
+          </p>
+          <p>
+            By service, ChatGPT remained first at 30.6%, followed by AI Mode at
+            28.4% and Gemini at 23.2%. The results suggest that people are
+            moving from deciding whether to use AI toward choosing among several
+            AI services for different purposes.
+          </p>
+          <h2>AI is also influencing comparisons and purchases</h2>
+          <p>
+            Among respondents who used both search engines and generative AI,
+            46.6% said that they had shifted at least half of their search
+            activity to AI. The survey also found that 58.7% had purchased or
+            used a product or service after an AI recommendation.
+          </p>
+          <p>
+            AI can quickly summarize long pages and organize options around a
+            set of conditions. But a fluent answer is not a guarantee of
+            accuracy. A final check matters most when a decision involves money,
+            travel, health, or a contract.
+          </p>
+          <h2>Three checks for smarter AI search</h2>
+          <figure>
+            <img
+              src="./ai-search-verification-steps.png"
+              alt="Three-step illustration for checking an AI answer: date, primary source, and multiple sources"
+              loading="lazy"
+            />
+            <figcaption data-caption="concept"></figcaption>
+          </figure>
+          <h3>1. Check the date</h3>
+          <p>
+            Prices, stock, campaigns, rules, and opening hours change. Ask what
+            date the information refers to and confirm the latest date on an
+            official page when necessary.
+          </p>
+          <h3>2. Open the primary source</h3>
+          <p>
+            Look for the original company announcement, government document, or
+            official product specification. Even when an AI provides a source
+            link, open it and confirm that it supports the claim.
+          </p>
+          <h3>3. Compare more than one source</h3>
+          <p>
+            Do not base an important decision on a single answer. Check another
+            search result and more than one reliable source. If they disagree,
+            pause rather than forcing a conclusion.
+          </p>
+          <h2>Treat AI as a research guide, not the final authority</h2>
+          <p>
+            Generative AI is useful for simplifying an unfamiliar topic,
+            building a comparison table, and identifying the official pages
+            worth checking next. Used as a guide, it can reduce the work of
+            research without handing over the final decision.
+          </p>
+          <p>
+            With AI search usage at 52.3%, the question is no longer simply
+            whether to use AI. The practical skill is learning how to verify it.
+            Remember three checks: date, primary source, and multiple sources.
+          </p>
+          <section data-affiliate-today="2026-09-15" class="notice">
+            <p><strong>Advertisement / Affiliate</strong></p>
+            <p>
+              The following is an affiliate link related to this article. This
+              site may receive a commission if a qualifying purchase is
+              completed through it.
+            </p>
+            <ul>
+              <li>
+                <a
+                  href="https://www.amazon.co.jp/s?k=%E7%94%9F%E6%88%90AI%20%E6%B4%BB%E7%94%A8%20%E5%85%A5%E9%96%80%20%E6%9C%AC&amp;tag=womaster-22"
+                  target="_blank"
+                  rel="sponsored nofollow noopener noreferrer"
+                  >Find books about using generative AI on Amazon Japan</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2F%25E7%2594%259F%25E6%2588%2590AI%2520%25E6%25B4%25BB%25E7%2594%25A8%2520%25E5%2585%25A5%25E9%2596%2580%2520%25E6%259C%25AC%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9"
+                  target="_blank"
+                  rel="sponsored nofollow noopener noreferrer"
+                  >Find books about using generative AI on Rakuten Japan</a
+                >
+              </li>
+            </ul>
+            <p>
+              <small
+                >Products, prices, and availability may change. Check the latest
+                information on the destination page. Yahoo! Shopping will be
+                added after its product-specific affiliate link is
+                issued.</small
+              >
+            </p>
+          </section>
+          <h2>Sources</h2>
+          <p>
+            <a
+              href="https://www.cyberagent.co.jp/news/detail/id=33787"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.cyberagent.co.jp/news/detail/id=33787</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://www.cyberagent.co.jp/news/detail/id=33041"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.cyberagent.co.jp/news/detail/id=33041</a
+            >
+          </p>
+        </section>
+      </article>
+    </main>
+    <script>
+      const data = {
+        ja: {
+          title: "検索の半分以上がAIへ？生成AIと上手に情報を探す3つのコツ",
+          description:
+            "生成AIの検索利用率が52.3%に達した最新調査をもとに、AI検索の広がりと、日付・一次情報・複数ソースを確認する使い方をやさしく解説します。",
+          status: "公開記事",
+          caption: "AI生成のイメージ画像",
+        },
+        en: {
+          title:
+            "More Than Half Now Use AI for Search: Three Ways to Check What You Find",
+          description:
+            "A recent Japanese survey puts generative-AI search use at 52.3%. Here are three simple checks—date, primary source, and multiple sources—for using AI search wisely.",
+          status: "Published article",
+          caption: "AI-generated concept image",
+        },
+      };
+      function setLanguage(lang) {
+        if (!["ja", "en"].includes(lang)) lang = "ja";
+        document.documentElement.lang = lang;
+        document.getElementById("ja").hidden = lang !== "ja";
+        document.getElementById("en").hidden = lang !== "en";
+        document
+          .getElementById("jaButton")
+          .setAttribute("aria-pressed", String(lang === "ja"));
+        document
+          .getElementById("enButton")
+          .setAttribute("aria-pressed", String(lang === "en"));
+        document.title = data[lang].title;
+        document.querySelector('meta[name="description"]').content =
+          data[lang].description;
+        document.querySelector('meta[property="og:title"]').content =
+          data[lang].title;
+        document.querySelector('meta[property="og:description"]').content =
+          data[lang].description;
+        document.getElementById("status").textContent = data[lang].status;
+        document
+          .querySelectorAll("#" + lang + " figcaption")
+          .forEach((x) => (x.textContent = data[lang].caption));
+        localStorage.setItem("articleLanguage", lang);
+      }
+      document.getElementById("jaButton").onclick = () => setLanguage("ja");
+      document.getElementById("enButton").onclick = () => setLanguage("en");
+      setLanguage(
+        ["ja", "en"].includes(localStorage.getItem("articleLanguage"))
+          ? localStorage.getItem("articleLanguage")
+          : "ja",
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta property="article:section" content="Robu's Selection / カメラ・撮影機材" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="canonical" href="https://www.axis-jp.net/articles/instax-pal-2-features/" />
+    <meta
+      name="description"
+      content="2026年10月9日に日本発売予定の手のひらサイズカメラinstax Pal 2を公式情報から解説。本体では印刷できない点、主な機能、向いている人を整理します。"
+    />
+    <meta
+      property="og:title"
+      content="instax Pal 2はどんなカメラ？特徴・注意点・向いている人を整理"
+    />
+    <meta
+      property="og:description"
+      content="手のひらサイズのinstax Pal 2を欧州向け公式発表から解説。本体では印刷できない点、主な機能、向いている人、日本発売前に確認したい点を整理します。"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:site_name" content="ろぶーの気になる事" />
+    <meta property="og:url" content="https://www.axis-jp.net/articles/instax-pal-2-features/" />
+    <meta property="og:image" content="https://www.axis-jp.net/articles/instax-pal-2-features/instax-pal-2-top-angle-concept.png" />
+    <meta property="og:image:alt" content="instax Pal 2のファインダーと天面モニターが見えるAI生成イメージ" />
+    <meta property="article:published_time" content="2026-09-15T00:00:00+09:00" />
+    <meta property="article:modified_time" content="2026-09-15T00:00:00+09:00" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="instax Pal 2はどんなカメラ？特徴・注意点・向いている人" />
+    <meta name="twitter:description" content="2026年10月9日発売予定。仕様、印刷方法、向いている人を公式情報から整理します。" />
+    <meta name="twitter:image" content="https://www.axis-jp.net/articles/instax-pal-2-features/instax-pal-2-top-angle-concept.png" />
+    <title>instax Pal 2はどんなカメラ？特徴・注意点・向いている人を整理</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f4ee;
+        --card: #fff;
+        --ink: #202124;
+        --muted: #666;
+        --accent: #126f67;
+        --line: #ddd;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP",
+          sans-serif;
+        line-height: 1.85;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: auto;
+        padding: 24px;
+      }
+      .toolbar {
+        display: none;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        backdrop-filter: blur(10px);
+        padding: 12px 0;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+      }
+      .badge {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .switch {
+        display: flex;
+        gap: 6px;
+      }
+      .switch button {
+        border: 1px solid var(--accent);
+        background: transparent;
+        color: var(--accent);
+        padding: 9px 16px;
+        border-radius: 999px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .switch button[aria-pressed="true"] {
+        background: var(--accent);
+        color: white;
+      }
+      article {
+        background: var(--card);
+        padding: clamp(22px, 5vw, 56px);
+        border-radius: 18px;
+        box-shadow: 0 8px 30px #0001;
+      }
+      h1 {
+        line-height: 1.35;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+      }
+      h2 {
+        margin-top: 2.3em;
+        border-left: 5px solid var(--accent);
+        padding-left: 0.7em;
+        line-height: 1.45;
+      }
+      h3 {
+        margin-top: 1.8em;
+      }
+      figure {
+        margin: 2em 0;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 14px;
+      }
+      figcaption {
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-top: 0.5em;
+      }
+      .spec-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5em 0;
+        font-size: 0.95rem;
+      }
+      .spec-table th,
+      .spec-table td {
+        border: 1px solid var(--line);
+        padding: 10px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .spec-table th {
+        background: color-mix(in srgb, var(--accent) 12%, var(--card));
+      }
+      .notice {
+        border: 1px solid var(--line);
+        padding: 12px 15px;
+        border-radius: 10px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .lang[hidden] {
+        display: none;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111;
+          --card: #1b1b1b;
+          --ink: #eee;
+          --muted: #bbb;
+          --line: #444;
+          --accent: #64c9bb;
+        }
+      }
+    </style>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"instax Pal 2はどんなカメラ？特徴・注意点・向いている人を整理","description":"2026年10月9日に日本発売予定のinstax Pal 2を公式情報から解説します。","datePublished":"2026-09-15","dateModified":"2026-09-15","inLanguage":"ja-JP","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.axis-jp.net/articles/instax-pal-2-features/"},"image":["https://www.axis-jp.net/articles/instax-pal-2-features/instax-pal-2-top-angle-concept.png"],"author":{"@type":"Organization","name":"ろぶーの気になる事"},"publisher":{"@type":"Organization","name":"ろぶーの気になる事","url":"https://www.axis-jp.net/"}}</script>
+    <script defer src="/assets/js/shared-shell.js?v=20260914-language-1"></script>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="toolbar">
+        <span class="badge" id="status">公開記事</span>
+        <div class="switch" role="group" aria-label="Language">
+          <button id="jaButton" type="button" aria-pressed="true">日本語</button
+          ><button id="enButton" type="button" aria-pressed="false">
+            English
+          </button>
+        </div>
+      </div>
+      <article>
+        <section id="ja" class="lang" lang="ja">
+          <h1>instax Pal 2はどんなカメラ？特徴・注意点・向いている人を整理</h1>
+          <p>こんにちは、ろぶーです。</p>
+          <p class="notice">
+            この記事ではAI生成の概念画像を使用しています。実製品・実景の写真ではありません。
+          </p>
+          <h2>手のひらサイズで「撮ること」を楽しむカメラ</h2>
+          <p>
+          富士フイルムは、手のひらサイズのデジタルカメラ「instax Pal
+          2」を2026年10月9日に日本で発売予定と発表しました。小さく持ち歩きやすい形は前モデルから受け継ぎつつ、撮影の楽しさを広げる機能が加わっています。
+          </p>
+          <p>
+            ただし、購入前に覚えておきたい大切な点があります。Pal
+            2は撮影用のデジタルカメラで、本体だけでは写真を印刷できません。まずは、何ができる製品なのかを落ち着いて整理します。
+          </p>
+          <figure>
+            <img
+              src="./instax-pal-2-concept-hero.png"
+              alt="手のひらサイズの小型デジタルカメラを持ち歩くイメージ（AI生成・製品写真ではありません）"
+              loading="lazy"
+            />
+            <figcaption data-caption="concept"></figcaption>
+          </figure>
+          <h2>instax Pal 2の主な特徴</h2>
+          <p>欧州向け公式発表で案内されている主な仕様は次のとおりです。</p>
+          <ul>
+            <li>最大10メガピクセルで撮影</li>
+            <li>光学ファインダーを搭載</li>
+            <li>1.0インチの液晶画面</li>
+            <li>Bluetooth 5.1でスマートフォンと接続</li>
+            <li>USB Type-C端子を搭載</li>
+            <li>microSDカードに対応（カードは別売り）</li>
+            <li>アプリへ転送するまで本体に最大100枚を保持</li>
+            <li>5種類のフィルターテーマ、それぞれに6種類のエフェクト</li>
+            <li>10コマで動きのある表現を作るinstax Animation撮影モード</li>
+          </ul>
+          <figure>
+            <img
+              src="./instax-pal-2-top-angle-concept.png"
+              alt="instax Pal 2の光学ファインダー、天面モニター、操作ダイヤルが見える斜め上からのAI生成イメージ"
+              loading="lazy"
+            />
+            <figcaption data-caption="concept"></figcaption>
+          </figure>
+          <h2>instax Pal 2 仕様表</h2>
+          <table class="spec-table">
+            <tbody>
+              <tr><th>日本発売予定日</th><td>2026年10月9日</td></tr>
+              <tr><th>価格</th><td>オープン価格</td></tr>
+              <tr><th>カラー</th><td>ブラック、ホワイト</td></tr>
+              <tr><th>撮像素子</th><td>1/3.06型 CMOS原色フィルター</td></tr>
+              <tr><th>記録画素数</th><td>10MP：3776×2832、1MP：1280×960</td></tr>
+              <tr><th>レンズ</th><td>35mm判換算28mm、F2.2</td></tr>
+              <tr><th>撮影可能距離</th><td>8cm～∞</td></tr>
+              <tr><th>内蔵メモリー</th><td>10MPモードで約100枚</td></tr>
+              <tr><th>対応カード</th><td>microSD／microSDHC／microSDXC（最大2TB）</td></tr>
+              <tr><th>接続</th><td>Bluetooth 5.1、USB Type-C</td></tr>
+              <tr><th>画面・操作</th><td>天面1.0インチ液晶、光学ファインダー、ダイヤル、レバー</td></tr>
+              <tr><th>本体での印刷</th><td>非対応。対応プリンターなどが別途必要</td></tr>
+            </tbody>
+          </table>
+          <p>
+            利用には無料のinstax
+            Palアプリが必要です。スマートフォンとの連携を前提に、気軽に撮影し、写真を転送して楽しむ製品と考えると分かりやすいでしょう。
+          </p>
+          <h2>本体だけでは印刷できない</h2>
+          <figure>
+            <img
+              src="./instax-pal-2-workflow-concept.png"
+              alt="小型カメラからスマートフォンへ転送し、別売りプリンターで印刷する流れのイメージ"
+              loading="lazy"
+            />
+            <figcaption data-caption="concept"></figcaption>
+          </figure>
+          <p>
+            Pal
+            2は、写真をその場で排出するインスタントカメラではありません。印刷したい場合は、対応するinstax
+            Linkプリンターや対応機器、さらにフィルムを別に用意する必要があります。
+          </p>
+          <p>
+            そのため、費用を考えるときは本体価格だけでなく、プリンターとフィルムも含めて確認することが大切です。すでにinstaxのプリンターを持っている人と、最初から一式そろえる人では必要な予算が変わります。
+          </p>
+          <h2>向いている人</h2>
+          <h3>小さなカメラを気軽に持ち歩きたい人</h3>
+          <p>
+            スマートフォンとは別に、撮るための道具を持ちたい人には魅力があります。大きなカメラを持ち出すほどではない散歩や日常の記録で、軽快に使えることが特徴です。
+          </p>
+          <h3>すでにinstaxの印刷環境がある人</h3>
+          <p>
+            対応プリンターなどを持っていれば、撮影から印刷までの環境を組みやすくなります。Pal
+            2を撮影専用の小さな相棒として追加する考え方です。
+          </p>
+          <h3>画質競争より遊び方を重視する人</h3>
+          <p>
+            フィルターやAnimationモードなど、撮影後の楽しみ方を重視する人に向いています。スマートフォンより高性能かどうかではなく、専用機で撮る体験を楽しめるかが選ぶポイントです。
+          </p>
+          <h2>向かない可能性がある人</h2>
+          <p>
+            1台で撮影から印刷まで完結させたい人には合いません。また、細部まで高精細な写真を重視する人は、最大10メガピクセルという仕様と自分の用途が合うか確認した方がよいでしょう。
+          </p>
+          <p>
+            アプリが必要なので、対応スマートフォンや接続方法も購入前に確認が必要です。microSDカードも付属しません。
+          </p>
+        <h2>日本では2026年10月9日発売予定</h2>
+          <p>
+          日本向けの公式発表では、2026年10月9日発売予定、価格はオープン価格、カラーはブラックとホワイトの2色です。ストラップと角度調整アクセサリーが同梱され、専用カメラケースは2026年11月下旬発売予定と案内されています。
+          </p>
+          <p>
+          発売前後は旧型の「instax Pal」と検索結果が混在する可能性があります。購入時は、商品名に「Pal 2」と明記されていること、光学ファインダーと天面モニターを備えた新型であることを確認してください。
+          </p>
+          <h2>まとめ</h2>
+          <p>
+            instax Pal
+            2は、光学ファインダーや液晶画面、Animationモードを備え、持ち歩いて撮る楽しさを重視した小型デジタルカメラです。一方、本体だけでは印刷できず、利用にはアプリも必要です。
+          </p>
+          <p>
+          向いているのは、小さな専用カメラで気軽に撮りたい人や、すでにinstaxの印刷環境を持つ人。日本では2026年10月9日発売予定です。本体だけでは印刷できないため、必要に応じてプリンターやフィルムを含めた総額を確認するとよさそうです。
+          </p>
+          <section class="notice" aria-labelledby="affiliate-heading">
+            <h2 id="affiliate-heading">関連商品（広告／PR）</h2>
+            <p>Pal 2で撮影した写真をチェキプリントにするには、対応プリンターとフィルムが別途必要です。</p>
+            <p><a href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2Finstax%2520mini%2520Link%25203%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9" target="_blank" rel="sponsored nofollow noopener noreferrer">対応プリンター「instax mini Link 3」を楽天市場で確認する</a></p>
+            <p><small>上のリンクはアフィリエイトリンクです。Pal 2本体は、正規商品ページを確認できるまで購入リンクを掲載しません。2026年10月9日の発売日に再確認します。</small></p>
+          </section>
+          <h2>出典</h2>
+          <p>
+            <a href="https://www.fujifilm.com/jp/ja/news/list/13922" target="_blank" rel="noopener noreferrer">富士フイルム「instax Pal 2」新発売</a>
+          </p>
+          <p>
+            <a href="https://instax.jp/item/camera/instax-pal2/" target="_blank" rel="noopener noreferrer">instax公式「instax Pal 2」製品ページ</a>
+          </p>
+          <p>
+            <a
+              href="https://www.fujifilm.com/de/en/news/fujifilm-introduces-instax-Pal-2-digital-camera"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.fujifilm.com/de/en/news/fujifilm-introduces-instax-Pal-2-digital-camera</a
+            >
+          </p>
+        </section>
+        <section id="en" class="lang" lang="en" hidden>
+          <h1>
+            What Is the instax Pal 2? Features, Limitations, and Who It Suits
+          </h1>
+          <p>Hello, I'm Robu.</p>
+          <p class="notice">
+            Article preview using AI-generated concept images. The images
+            are not photographs of an actual product or location.
+          </p>
+          <h2>A palm-sized camera built around the act of taking pictures</h2>
+          <p>
+            FUJIFILM Europe has announced the instax Pal 2, a palm-sized digital
+            camera. It keeps the portable idea of the original Pal while adding
+            features intended to make shooting more enjoyable.
+          </p>
+          <p>
+            One point is essential before considering a purchase: the Pal 2 is a
+            digital capture device and cannot print photographs by itself.
+            Understanding that distinction makes the rest of the product easier
+            to evaluate.
+          </p>
+          <figure>
+            <img
+              src="./instax-pal-2-concept-hero.png"
+              alt="AI-generated concept of carrying a palm-sized digital camera; not an actual product photo"
+              loading="lazy"
+            />
+            <figcaption data-caption="concept"></figcaption>
+          </figure>
+          <h2>Main instax Pal 2 features</h2>
+          <p>
+            Fujifilm's European announcement lists the following highlights:
+          </p>
+          <ul>
+            <li>Capture at up to 10 megapixels</li>
+            <li>An optical viewfinder</li>
+            <li>A 1.0-inch LCD</li>
+            <li>Bluetooth 5.1 smartphone connectivity</li>
+            <li>A built-in USB Type-C connector</li>
+            <li>microSD card support; the card is not included</li>
+            <li>Storage for up to 100 photos before transfer to the app</li>
+            <li>Five filter themes with six effects each</li>
+            <li>instax Animation shooting mode, which uses ten frames</li>
+          </ul>
+          <p>
+            The free instax Pal app is required. The product is therefore best
+            understood as a small camera for taking photos and moving them to a
+            smartphone, rather than a completely stand-alone system.
+          </p>
+          <h2>It does not print on its own</h2>
+          <figure>
+            <img
+              src="./instax-pal-2-workflow-concept.png"
+              alt="Concept illustration of transferring photos from a small camera to a phone and printing with a separate printer"
+              loading="lazy"
+            />
+            <figcaption data-caption="concept"></figcaption>
+          </figure>
+          <p>
+            The Pal 2 is not an instant camera that ejects a print. Printing
+            requires a compatible instax Link printer or other supported device,
+            plus the appropriate film.
+          </p>
+          <p>
+            The real cost may therefore include more than the camera. Someone
+            who already owns a compatible printer has a different starting point
+            from a first-time buyer who needs the complete setup.
+          </p>
+          <h2>Who it may suit</h2>
+          <h3>People who want a tiny camera to carry every day</h3>
+          <p>
+            It may appeal to someone who wants a dedicated picture-taking tool
+            in addition to a smartphone. The compact format is suited to walks
+            and everyday moments when carrying a large camera would feel
+            excessive.
+          </p>
+          <h3>Existing instax printer owners</h3>
+          <p>
+            People who already have a compatible printing setup can add the Pal
+            2 as a small capture device and use their current printer for
+            physical photos.
+          </p>
+          <h3>People who value play over a specification race</h3>
+          <p>
+            The filters and Animation mode focus on experimentation. The useful
+            question is not whether the camera beats a modern phone on every
+            specification, but whether a separate, playful camera makes
+            photography more enjoyable.
+          </p>
+          <h2>Who may want a different product</h2>
+          <p>
+            It is not suitable for someone who wants capture and printing in one
+            device. Buyers who prioritize highly detailed images should also
+            decide whether the maximum 10-megapixel specification is appropriate
+            for their intended output.
+          </p>
+          <p>
+            Because the app is required, smartphone compatibility and the
+            connection workflow should be checked before purchase. A microSD
+            card is not included.
+          </p>
+          <h2>Scheduled for release in Japan on October 9, 2026</h2>
+          <p>
+            Fujifilm Japan has announced that the instax Pal 2 is scheduled for
+            release in Japan on October 9, 2026. The suggested price is open,
+            and black and white models are planned.
+          </p>
+          <p>
+            The camera itself is not yet linked here because an exact official
+            Pal 2 listing has not been verified at the major Japanese stores.
+            The purchase links will be checked again on the release date so an
+            older instax Pal listing is never presented as the new model.
+          </p>
+          <h2>Conclusion</h2>
+          <p>
+            The instax Pal 2 is a compact digital camera focused on the pleasure
+            of carrying and taking pictures. It adds an optical viewfinder, an
+            LCD, and Animation mode, but it still requires an app and cannot
+            print by itself.
+          </p>
+          <p>
+            It is most promising for people who want a tiny dedicated camera or
+            already own an instax printing setup. Before buying in Japan,
+            confirm the official release details and calculate the total cost of
+            the camera, printer, and film that your preferred workflow requires.
+          </p>
+          <section data-affiliate-today="2026-09-15" class="notice">
+            <p><strong>Advertisement / Affiliate</strong></p>
+            <p>
+              The following is an affiliate link related to this article. This
+              site may receive a commission if a qualifying purchase is
+              completed through it.
+            </p>
+            <ul>
+              <li>
+                <a
+                  href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2Finstax%2520mini%2520Link%25203%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9"
+                  target="_blank"
+                  rel="sponsored nofollow noopener noreferrer"
+                  >Find the compatible instax mini Link 3 printer on Rakuten
+                  Japan</a
+                >
+              </li>
+            </ul>
+            <p>
+              <small
+                >Products, prices, and availability may change. Check the latest
+                information on the destination page. Exact Pal 2 purchase links
+                will be added only after the new model is verified.</small
+              >
+            </p>
+          </section>
+          <h2>Sources</h2>
+          <p>
+            <a
+              href="https://www.fujifilm.com/de/en/news/fujifilm-introduces-instax-Pal-2-digital-camera"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.fujifilm.com/de/en/news/fujifilm-introduces-instax-Pal-2-digital-camera</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://instax.jp/pal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://instax.jp/pal/</a
+            >
+          </p>
+        </section>
+      </article>
+    </main>
+    <script>
+      const data = {
+        ja: {
+          title: "instax Pal 2はどんなカメラ？特徴・注意点・向いている人を整理",
+          description:
+            "手のひらサイズのinstax Pal 2を欧州向け公式発表から解説。本体では印刷できない点、主な機能、向いている人、日本発売前に確認したい点を整理します。",
+          status: "公開記事",
+          caption: "AI生成のイメージ画像",
+        },
+        en: {
+          title:
+            "What Is the instax Pal 2? Features, Limitations, and Who It Suits",
+          description:
+            "A clear guide to the palm-sized instax Pal 2 based on Fujifilm’s European announcement, including its features, printing limitation, and who it may suit.",
+          status: "Published article",
+          caption: "AI-generated concept image",
+        },
+      };
+      function setLanguage(lang) {
+        if (!["ja", "en"].includes(lang)) lang = "ja";
+        document.documentElement.lang = lang;
+        document.getElementById("ja").hidden = lang !== "ja";
+        document.getElementById("en").hidden = lang !== "en";
+        document
+          .getElementById("jaButton")
+          .setAttribute("aria-pressed", String(lang === "ja"));
+        document
+          .getElementById("enButton")
+          .setAttribute("aria-pressed", String(lang === "en"));
+        document.title = data[lang].title;
+        document.querySelector('meta[name="description"]').content =
+          data[lang].description;
+        document.querySelector('meta[property="og:title"]').content =
+          data[lang].title;
+        document.querySelector('meta[property="og:description"]').content =
+          data[lang].description;
+        document.getElementById("status").textContent = data[lang].status;
+        document
+          .querySelectorAll("#" + lang + " figcaption")
+          .forEach((x) => (x.textContent = data[lang].caption));
+        localStorage.setItem("articleLanguage", lang);
+      }
+      document.getElementById("jaButton").onclick = () => setLanguage("ja");
+      document.getElementById("enButton").onclick = () => setLanguage("en");
+      setLanguage(
+        ["ja", "en"].includes(localStorage.getItem("articleLanguage"))
+          ? localStorage.getItem("articleLanguage")
+          : "ja",
+      );
+    </script>
+  </body>
+</html>
