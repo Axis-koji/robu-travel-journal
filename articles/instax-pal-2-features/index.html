@@ -149,6 +149,50 @@
         color: var(--muted);
         font-size: 0.9rem;
       }
+      .affiliate-card {
+        display: grid;
+        grid-template-columns: minmax(120px, 180px) 1fr;
+        gap: 18px;
+        align-items: center;
+        margin-top: 14px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--accent) 5%, var(--card));
+      }
+      .affiliate-card img {
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+      .affiliate-card h3 {
+        margin: 0 0 0.35em;
+        color: var(--ink);
+      }
+      .affiliate-card p {
+        margin: 0.45em 0;
+      }
+      .affiliate-button {
+        display: inline-block;
+        margin-top: 0.45em;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: #bf0000;
+        color: #fff;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .affiliate-button:hover,
+      .affiliate-button:focus-visible {
+        background: #960000;
+      }
+      @media (max-width: 620px) {
+        .affiliate-card {
+          grid-template-columns: 104px 1fr;
+          gap: 12px;
+          padding: 12px;
+        }
+      }
       .lang[hidden] {
         display: none;
       }
@@ -299,7 +343,14 @@
           <section class="notice" aria-labelledby="affiliate-heading">
             <h2 id="affiliate-heading">関連商品（広告／PR）</h2>
             <p>Pal 2で撮影した写真をチェキプリントにするには、対応プリンターとフィルムが別途必要です。</p>
-            <p><a href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2Finstax%2520mini%2520Link%25203%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9" target="_blank" rel="sponsored nofollow noopener noreferrer">対応プリンター「instax mini Link 3」を楽天市場で確認する</a></p>
+            <div class="affiliate-card">
+              <img src="instax-pal-2-workflow-concept.png" alt="Pal 2からスマートフォンを経由して対応プリンターで印刷するAI生成イメージ" loading="lazy" width="640" height="480" />
+              <div>
+                <h3>対応プリンター instax mini Link 3</h3>
+                <p>スマートフォンへ転送した写真をチェキプリントにしたい人向けの関連商品です。</p>
+                <a class="affiliate-button" href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2Finstax%2520mini%2520Link%25203%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9" target="_blank" rel="sponsored nofollow noopener noreferrer">楽天市場で確認する</a>
+              </div>
+            </div>
             <p><small>上のリンクはアフィリエイトリンクです。Pal 2本体は、正規商品ページを確認できるまで購入リンクを掲載しません。2026年10月9日の発売日に再確認します。</small></p>
           </section>
           <h2>出典</h2>
@@ -451,17 +502,26 @@
               site may receive a commission if a qualifying purchase is
               completed through it.
             </p>
-            <ul>
-              <li>
+            <div class="affiliate-card">
+              <img
+                src="instax-pal-2-workflow-concept.png"
+                alt="AI-generated concept showing the Pal 2, a smartphone, and a compatible printer workflow"
+                loading="lazy"
+                width="640"
+                height="480"
+              />
+              <div>
+                <h3>Compatible printer: instax mini Link 3</h3>
+                <p>For people who want to turn transferred photos into instax prints.</p>
                 <a
+                  class="affiliate-button"
                   href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2Finstax%2520mini%2520Link%25203%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9"
                   target="_blank"
                   rel="sponsored nofollow noopener noreferrer"
-                  >Find the compatible instax mini Link 3 printer on Rakuten
-                  Japan</a
+                  >Check on Rakuten Japan</a
                 >
-              </li>
-            </ul>
+              </div>
+            </div>
             <p>
               <small
                 >Products, prices, and availability may change. Check the latest
