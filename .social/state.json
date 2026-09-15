@@ -156,9 +156,10 @@
       "post_id": "18136153423713707"
     },
     "instax-pal-2-features:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-15T14:47:13.023204+00:00",
-      "payload_hash": "c21e13987ef41816486b6dad46362758b09fa312a5dcb6ce3cac0e7d2e152f09"
+      "payload_hash": "c21e13987ef41816486b6dad46362758b09fa312a5dcb6ce3cac0e7d2e152f09",
+      "post_id": "1324933827363335_122109226731463588"
     }
   },
   "channels": {
