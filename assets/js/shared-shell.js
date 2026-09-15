@@ -440,6 +440,7 @@
     var nav = document.createElement('nav');
     nav.setAttribute('aria-label', '記事内の見出し');
     var list = document.createElement('ol');
+    var tocEntries = [];
 
     headings.forEach(function (heading, index) {
       var id = uniqueHeadingId(heading, index, usedIds);
@@ -450,7 +451,32 @@
       link.setAttribute('data-robu-toc-link', id);
       item.appendChild(link);
       list.appendChild(item);
+      tocEntries.push({ heading: heading, item: item });
     });
+
+    function syncTocLanguage() {
+      tocEntries.forEach(function (entry) {
+        var languageSection = entry.heading.closest('.lang[lang]');
+        entry.item.hidden = Boolean(languageSection && languageSection.hidden);
+      });
+      var isEnglish = document.documentElement.lang === 'en';
+      aside.setAttribute('aria-label', isEnglish ? 'Table of contents' : 'この記事の目次');
+      nav.setAttribute('aria-label', isEnglish ? 'Article headings' : '記事内の見出し');
+      summary.textContent = isEnglish ? 'Table of contents' : 'この記事の目次';
+    }
+
+    syncTocLanguage();
+    var languageSections = [];
+    tocEntries.forEach(function (entry) {
+      var section = entry.heading.closest('.lang[lang]');
+      if (section && languageSections.indexOf(section) === -1) languageSections.push(section);
+    });
+    if (languageSections.length && 'MutationObserver' in window) {
+      var languageObserver = new MutationObserver(syncTocLanguage);
+      languageSections.forEach(function (section) {
+        languageObserver.observe(section, { attributes: true, attributeFilter: ['hidden'] });
+      });
+    }
 
     nav.appendChild(list);
     details.appendChild(nav);
