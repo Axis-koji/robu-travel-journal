@@ -172,19 +172,38 @@
       .affiliate-card p {
         margin: 0.45em 0;
       }
+      .affiliate-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-top: 0.65em;
+      }
       .affiliate-button {
         display: inline-block;
-        margin-top: 0.45em;
+        flex: 1 1 210px;
         padding: 10px 18px;
         border-radius: 999px;
         background: #bf0000;
         color: #fff;
         font-weight: 700;
+        text-align: center;
         text-decoration: none;
       }
+      .affiliate-button.amazon {
+        background: #ff9900;
+        color: #1f2937;
+      }
+      .affiliate-button.yahoo {
+        background: #6001d2;
+      }
       .affiliate-button:hover,
-      .affiliate-button:focus-visible {
-        background: #960000;
+      .affiliate-button:focus-visible,
+      .affiliate-button.amazon:hover,
+      .affiliate-button.amazon:focus-visible,
+      .affiliate-button.yahoo:hover,
+      .affiliate-button.yahoo:focus-visible {
+        background: #f59e0b;
+        color: #1f2937;
       }
       @media (max-width: 620px) {
         .affiliate-card {
@@ -348,7 +367,11 @@
               <div>
                 <h3>対応プリンター instax mini Link 3</h3>
                 <p>スマートフォンへ転送した写真をチェキプリントにしたい人向けの関連商品です。</p>
-                <a class="affiliate-button" href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2Finstax%2520mini%2520Link%25203%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9" target="_blank" rel="sponsored nofollow noopener noreferrer">楽天市場で確認する</a>
+                <div class="affiliate-actions">
+                  <a class="affiliate-button" href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2Finstax%2520mini%2520Link%25203%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9" target="_blank" rel="sponsored nofollow noopener noreferrer">楽天市場で確認する</a>
+                  <a class="affiliate-button amazon" href="https://www.amazon.co.jp/s?k=instax+mini+Link+3&amp;tag=womaster-22" target="_blank" rel="sponsored nofollow noopener noreferrer">Amazonで確認する</a>
+                  <a class="affiliate-button yahoo" href="https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3447653&amp;pid=892705892&amp;vc_url=https%3A%2F%2Fshopping.yahoo.co.jp%2Fproducts%2Fa53b145192" target="_blank" rel="sponsored nofollow noopener noreferrer">Yahoo!ショッピングで確認する</a>
+                </div>
               </div>
             </div>
             <p><small>上のリンクはアフィリエイトリンクです。Pal 2本体は、正規商品ページを確認できるまで購入リンクを掲載しません。2026年10月9日の発売日に再確認します。</small></p>
@@ -513,13 +536,29 @@
               <div>
                 <h3>Compatible printer: instax mini Link 3</h3>
                 <p>For people who want to turn transferred photos into instax prints.</p>
-                <a
-                  class="affiliate-button"
-                  href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2Finstax%2520mini%2520Link%25203%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9"
-                  target="_blank"
-                  rel="sponsored nofollow noopener noreferrer"
-                  >Check on Rakuten Japan</a
-                >
+                <div class="affiliate-actions">
+                  <a
+                    class="affiliate-button"
+                    href="https://hb.afl.rakuten.co.jp/ichiba/573b428c.29ab7cd1.573b428d.a8ea33bd/?pc=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2Finstax%2520mini%2520Link%25203%2F&amp;link_type=text&amp;ut=eyJwYWdlIjoidXJsIiwidHlwZSI6InRleHQiLCJjb2wiOjF9"
+                    target="_blank"
+                    rel="sponsored nofollow noopener noreferrer"
+                    >Check on Rakuten Japan</a
+                  >
+                  <a
+                    class="affiliate-button amazon"
+                    href="https://www.amazon.co.jp/s?k=instax+mini+Link+3&amp;tag=womaster-22"
+                    target="_blank"
+                    rel="sponsored nofollow noopener noreferrer"
+                    >Check on Amazon Japan</a
+                  >
+                  <a
+                    class="affiliate-button yahoo"
+                    href="https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3447653&amp;pid=892705892&amp;vc_url=https%3A%2F%2Fshopping.yahoo.co.jp%2Fproducts%2Fa53b145192"
+                    target="_blank"
+                    rel="sponsored nofollow noopener noreferrer"
+                    >Check on Yahoo! Shopping Japan</a
+                  >
+                </div>
               </div>
             </div>
             <p>
@@ -600,5 +639,6 @@
           : "ja",
       );
     </script>
+    <script src="/assets/js/contact-feedback.js?v=20260907-1"></script>
   </body>
 </html>
