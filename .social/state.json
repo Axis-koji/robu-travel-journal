@@ -180,9 +180,10 @@
       "post_id": "18127785733746047"
     },
     "mitz-wakebukuuro-16:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-16T17:10:47.927662+00:00",
-      "payload_hash": "9c83b8f9d7d4ad1eb618e4187b6a2c1d00a027b7ed45142ea3160ae0c65d3b0f"
+      "payload_hash": "9c83b8f9d7d4ad1eb618e4187b6a2c1d00a027b7ed45142ea3160ae0c65d3b0f",
+      "post_id": "1324933827363335_122109667467463588"
     }
   },
   "channels": {
