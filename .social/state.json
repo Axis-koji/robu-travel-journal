@@ -186,9 +186,10 @@
       "post_id": "1324933827363335_122109667467463588"
     },
     "mitz-wakebukuuro-16:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-16T17:10:54.999449+00:00",
-      "payload_hash": "fd7b3160f93a750ee15f5a02436034477caab72c715b8111f4387947e57065de"
+      "payload_hash": "fd7b3160f93a750ee15f5a02436034477caab72c715b8111f4387947e57065de",
+      "post_id": "17907193773486283"
     }
   },
   "channels": {
