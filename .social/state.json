@@ -178,6 +178,11 @@
       "attempted_at": "2026-09-16T16:58:14.682637+00:00",
       "payload_hash": "538cdbd7f2bf40563fd9a21ebddf7f8c2027a2c2d8c577cce7dd9993fa7848f0",
       "post_id": "18127785733746047"
+    },
+    "mitz-wakebukuuro-16:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-16T17:10:47.927662+00:00",
+      "payload_hash": "9c83b8f9d7d4ad1eb618e4187b6a2c1d00a027b7ed45142ea3160ae0c65d3b0f"
     }
   },
   "channels": {
