@@ -174,9 +174,10 @@
       "post_id": "1324933827363335_122109664605463588"
     },
     "hal-3-evolution-2026:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-16T16:58:14.682637+00:00",
-      "payload_hash": "538cdbd7f2bf40563fd9a21ebddf7f8c2027a2c2d8c577cce7dd9993fa7848f0"
+      "payload_hash": "538cdbd7f2bf40563fd9a21ebddf7f8c2027a2c2d8c577cce7dd9993fa7848f0",
+      "post_id": "18127785733746047"
     }
   },
   "channels": {
