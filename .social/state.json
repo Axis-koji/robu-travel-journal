@@ -190,6 +190,11 @@
       "attempted_at": "2026-09-16T17:10:54.999449+00:00",
       "payload_hash": "fd7b3160f93a750ee15f5a02436034477caab72c715b8111f4387947e57065de",
       "post_id": "17907193773486283"
+    },
+    "seiko-epson-yn88-yn71-mechanical-watch-guide:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-19T04:55:03.572609+00:00",
+      "payload_hash": "a81e7b86fe734bb3ddf304471959501d0cf00e9440f5db3c42af2e781af997f2"
     }
   },
   "channels": {
