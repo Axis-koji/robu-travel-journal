@@ -210,9 +210,10 @@
       "post_id": "1324933827363335_122111509683463588"
     },
     "arrows-alpha2-durability-ai-healthcare:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-20T19:24:59.381388+00:00",
-      "payload_hash": "22043d3d31d80e9dbf7d85c1532aa908e9a6625c88c05136b9e91e16dd8b5812"
+      "payload_hash": "22043d3d31d80e9dbf7d85c1532aa908e9a6625c88c05136b9e91e16dd8b5812",
+      "post_id": "17991793653018473"
     }
   },
   "channels": {
