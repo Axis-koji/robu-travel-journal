@@ -216,9 +216,10 @@
       "post_id": "17991793653018473"
     },
     "cesa2026-generative-ai:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-20T19:38:39.397503+00:00",
-      "payload_hash": "da0a7e441a252704add575ee0349eee4e311376d33b8a0cc448ec4f99fcc61e4"
+      "payload_hash": "da0a7e441a252704add575ee0349eee4e311376d33b8a0cc448ec4f99fcc61e4",
+      "post_id": "1324933827363335_122111512995463588"
     }
   },
   "channels": {
