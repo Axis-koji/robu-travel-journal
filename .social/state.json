@@ -222,9 +222,10 @@
       "post_id": "1324933827363335_122111512995463588"
     },
     "cesa2026-generative-ai:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-20T19:38:51.859700+00:00",
-      "payload_hash": "20bf9570d145c6fa33eeb80dae6cc450ba032f9d491632d640a3aa0b47c45fd1"
+      "payload_hash": "20bf9570d145c6fa33eeb80dae6cc450ba032f9d491632d640a3aa0b47c45fd1",
+      "post_id": "17963320952983154"
     }
   },
   "channels": {
