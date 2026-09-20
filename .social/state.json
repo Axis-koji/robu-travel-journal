@@ -202,6 +202,11 @@
       "attempted_at": "2026-09-19T04:55:10.818679+00:00",
       "payload_hash": "afc9b08d9bf36b4ec2dc1510ec5c528029d1c20c2ce56edfd62b38e7f917834e",
       "post_id": "18013936676950121"
+    },
+    "arrows-alpha2-durability-ai-healthcare:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-20T19:24:49.896045+00:00",
+      "payload_hash": "dcccca8cfdd36e0197023cf7ac2894166302a0e4131de8dfb79d0b3dc19ce00d"
     }
   },
   "channels": {
