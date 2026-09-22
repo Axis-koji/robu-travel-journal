@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,follow">
-  <title>運営者ページは準備中です｜ろぶーの気になる事</title>
+  <meta name="robots" content="index,follow">
+  <title>運営者プロフィール｜ろぶーの気になる事</title>
+  <meta name="description" content="『ろぶーの気になる事』を運営する、ろぶーのプロフィールと記事づくりの方針をご紹介します。">
   <style>
     :root { --ink:#102933; --sea:#0e6c78; --deep:#082d39; --paper:#fffdf9; --coral:#ef765c; }
     * { box-sizing:border-box; }
@@ -12,18 +13,19 @@
     header { min-height:68px; display:flex; align-items:center; padding:14px clamp(20px,5vw,58px); background:var(--paper); }
     .brand { color:var(--ink); font-size:20px; font-weight:900; text-decoration:none; }
     .brand span { color:var(--sea); }
-    main { min-height:calc(100vh - 68px); display:grid; grid-template-columns:minmax(0,1fr) minmax(320px,760px); align-items:center; gap:clamp(20px,5vw,70px); padding:clamp(34px,7vw,90px); background:radial-gradient(circle at 25% 35%,#15515d 0,transparent 44%),var(--deep); }
-    .copy { position:relative; z-index:2; max-width:620px; }
+    main { width:min(100%,1280px); min-height:calc(100vh - 68px); margin:0 auto; display:grid; grid-template-columns:1fr; align-items:start; justify-items:center; gap:clamp(34px,5vw,64px); padding:clamp(42px,6vw,82px); background:radial-gradient(circle at 50% 22%,#15515d 0,transparent 46%),var(--deep); }
+    .copy { position:relative; z-index:2; width:min(100%,700px); justify-self:center; text-align:left; }
     .eyebrow { margin:0 0 15px; color:#9edbd7; font-size:12px; font-weight:900; letter-spacing:.18em; }
-    h1 { margin:0; font-family:Georgia,"Yu Mincho",serif; font-size:clamp(42px,7vw,84px); font-weight:500; line-height:1.18; }
-    p { margin:24px 0 0; color:#d6e9e9; font-size:clamp(15px,2vw,18px); line-height:1.9; }
-    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+    h1 { margin:0; font-family:Georgia,"Yu Mincho",serif; font-size:clamp(40px,5vw,64px); font-weight:500; line-height:1.18; white-space:nowrap; }
+    p { margin:20px 0 0; color:#d6e9e9; font-size:clamp(15px,2vw,18px); line-height:1.9; }
+    .note { color:#9edbd7; font-size:13px; }
+    .actions { display:flex; flex-wrap:wrap; justify-content:flex-start; gap:12px; margin-top:30px; }
     .actions a { border:1px solid var(--coral); border-radius:7px; padding:12px 18px; background:var(--coral); color:var(--ink); font-weight:800; text-decoration:none; }
     .actions a:focus-visible { outline:3px solid #fff; outline-offset:3px; }
-    .scene { width:100%; max-height:72vh; object-fit:contain; filter:drop-shadow(0 24px 38px rgba(0,0,0,.28)); animation:bob 1.8s ease-in-out infinite alternate; }
-    @keyframes bob { from { transform:translateY(0) rotate(-.25deg); } to { transform:translateY(-8px) rotate(.25deg); } }
-    @media (prefers-reduced-motion:reduce) { .scene { animation:none; } }
-    @media (max-width:800px) { main { grid-template-columns:1fr; text-align:center; } .copy { margin:auto; } .actions { justify-content:center; } .scene { max-height:56vh; } }
+    figure { width:min(100%,760px); margin:0; justify-self:center; }
+    .scene { display:block; width:100%; max-height:72vh; object-fit:cover; border-radius:18px; background:#061f28; filter:drop-shadow(0 24px 38px rgba(0,0,0,.28)); }
+    figcaption { margin-top:10px; color:#9edbd7; font-size:12px; text-align:right; }
+    @media (max-width:800px) { main { width:100%; grid-template-columns:1fr; text-align:center; } .copy { width:100%; margin:auto; justify-self:center; } h1 { font-size:clamp(34px,10vw,44px); white-space:normal; } .actions { justify-content:center; } .scene { max-height:56vh; } }
   </style>
   <script defer src="/assets/js/shared-shell.js?v=20260916-toc-lang-1"></script>
 </head>
@@ -32,11 +34,20 @@
   <main>
     <section class="copy">
       <p class="eyebrow">ABOUT ROBU</p>
-      <h1>運営者ページは<br>ただいま準備中です</h1>
-      <p>小さな工事係たちが、このページを丁寧に準備しています。完成まで、もう少しだけお待ちください。</p>
-      <div class="actions"><a href="/">ホームへ戻る</a></div>
+      <h1>運営者プロフィール</h1>
+      <p>こんにちは、ろぶーです。ミオ、リナと3人で旅をしながら、そこで出会った景色や食べ物、気になる乗り物を自分たちの目線で記録しています。毎日の暮らしを少し便利にする道具やAIについても、気になったことを楽しく掘り下げています。</p>
+      <p>「気になったことを、そのままにしない」を大切に、新しい製品やサービスは公式情報を確かめながら、実際に使う人の目線で分かりやすくお伝えします。</p>
+      <p>写真や体験も交え、読んだ方が次の行動を決めるときに少しでも役立つ記事を目指しています。AIで作成した画像を使う場合は、そのことが分かるように明記します。</p>
+      <p class="note">主なテーマ：旅・食・乗り物・スマートフォン・腕時計・AIと新しい技術</p>
+      <div class="actions"><a href="/">最新の記事を読む</a></div>
     </section>
-    <img class="scene" src="/assets/images/coming-soon-guide-v7.png" alt="小さな工事係たちが踊りながら準備中を案内するイラスト" width="1536" height="1024">
+    <figure>
+      <video class="scene" controls playsinline preload="metadata" poster="/assets/images/robu-mio-rina-vietnam-beach-illustration-v1.png" aria-label="ダナンの浜辺を旅する、ろぶー、ミオ、リナの映像">
+        <source src="/assets/videos/robu-mio-rina-danang-beach-v1.mp4" type="video/mp4">
+        お使いのブラウザは動画の再生に対応していません。
+      </video>
+      <figcaption>ろぶー・ミオ・リナのダナン浜辺編（AI生成・編集映像）</figcaption>
+    </figure>
   </main>
 </body>
 </html>
