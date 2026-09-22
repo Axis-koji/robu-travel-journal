@@ -226,6 +226,11 @@
       "attempted_at": "2026-09-20T19:38:51.859700+00:00",
       "payload_hash": "20bf9570d145c6fa33eeb80dae6cc450ba032f9d491632d640a3aa0b47c45fd1",
       "post_id": "17963320952983154"
+    },
+    "suito-kurawanka-fireworks-2026-report:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-22T14:55:43.467282+00:00",
+      "payload_hash": "e02cea66bbc5568a2b5f6ce3f692b5318471fa6e16435b0938d84873340d69be"
     }
   },
   "channels": {
