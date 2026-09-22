@@ -246,9 +246,10 @@
       "post_id": "1324933827363335_122112413439463588"
     },
     "izutsu-yatsuhashi-shinkouetsu:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-22T16:03:26.188370+00:00",
-      "payload_hash": "e017fe67577b5bd418c3b956f30b438498311eea4998dda1ee0adb55652a93e2"
+      "payload_hash": "e017fe67577b5bd418c3b956f30b438498311eea4998dda1ee0adb55652a93e2",
+      "post_id": "18395050255205766"
     }
   },
   "channels": {
