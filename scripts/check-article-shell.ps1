@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
 $root = Split-Path $PSScriptRoot -Parent
-$articlePages = Get-ChildItem -Path (Join-Path $root 'articles') -Recurse -Filter index.html
+$articlePages = Get-ChildItem -Path (Join-Path $root 'articles') -Recurse -File | Where-Object { $_.Name -in @('index.html', 'en.html') }
 $shellPath = Join-Path $root 'assets\js\shared-shell.js'
 $stylePath = Join-Path $root 'assets\css\shared-shell.css'
 $shell = Get-Content -LiteralPath $shellPath -Raw -Encoding utf8
