@@ -234,9 +234,10 @@
       "post_id": "1324933827363335_122112393783463588"
     },
     "suito-kurawanka-fireworks-2026-report:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-22T14:55:51.868053+00:00",
-      "payload_hash": "277c57a1f1226c854577ba121cdc5b2a06c4b7716db8eb6ae785a416c307d8ac"
+      "payload_hash": "277c57a1f1226c854577ba121cdc5b2a06c4b7716db8eb6ae785a416c307d8ac",
+      "post_id": "18106301216244343"
     }
   },
   "channels": {
