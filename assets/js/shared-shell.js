@@ -200,6 +200,14 @@
   }
 
   function googleTranslateHref(languageCode) {
+    var alternate = document.querySelector('link[rel="alternate"][hreflang="' + languageCode + '"]');
+    if (alternate) {
+      var alternateUrl = new URL(alternate.href, window.location.href);
+      // Authored translations must stay on this site, including in previews.
+      if (alternateUrl.origin === window.location.origin || alternateUrl.origin === 'https://www.axis-jp.net') {
+        return alternateUrl.pathname + alternateUrl.search + alternateUrl.hash;
+      }
+    }
     if (languageCode === 'ja') return window.location.href;
     return 'https://translate.google.com/translate?' + new URLSearchParams({
       sl: 'ja',
@@ -209,16 +217,18 @@
   }
 
   function languagePickerMarkup() {
+    var isEnglish = document.documentElement.lang === 'en';
+    var hasAuthoredTranslation = !!document.querySelector('link[rel="alternate"][hreflang="en"]');
     var links = translationLanguages.map(function (language) {
-      var current = language.code === 'ja' ? ' aria-current="page"' : '';
+      var current = language.code === (isEnglish ? 'en' : 'ja') ? ' aria-current="page"' : '';
       var external = language.code === 'ja' ? '' : ' rel="noopener noreferrer"';
       return '<a href="' + googleTranslateHref(language.code) + '" lang="' + language.code + '" data-robu-translation-language="' + language.code + '"' + current + external + '>' + language.label + '</a>';
     }).join('');
 
     return '<details class="robu-language-picker" data-robu-language-picker>' +
-      '<summary aria-label="表示言語を選ぶ">言語</summary>' +
-      '<div class="robu-language-menu" role="group" aria-label="表示言語">' +
-      '<span>Google翻訳で開きます</span>' + links +
+      '<summary aria-label="' + (isEnglish ? 'Choose a language' : '表示言語を選ぶ') + '">' + (isEnglish ? 'Language' : '言語') + '</summary>' +
+      '<div class="robu-language-menu" role="group" aria-label="' + (isEnglish ? 'Language' : '表示言語') + '">' +
+      '<span>' + (hasAuthoredTranslation ? (isEnglish ? 'Japanese / English article' : '日本語／英語の記事を切り替えます') : 'Google翻訳で開きます') + '</span>' + links +
       '</div></details>';
   }
 
