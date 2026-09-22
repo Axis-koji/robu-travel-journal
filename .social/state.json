@@ -240,9 +240,10 @@
       "post_id": "18106301216244343"
     },
     "izutsu-yatsuhashi-shinkouetsu:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-22T16:03:15.845988+00:00",
-      "payload_hash": "0c0d6a007cffef35f87587f5d95b8d43937cbc48beb69bae28b669028e477b56"
+      "payload_hash": "0c0d6a007cffef35f87587f5d95b8d43937cbc48beb69bae28b669028e477b56",
+      "post_id": "1324933827363335_122112413439463588"
     }
   },
   "channels": {
