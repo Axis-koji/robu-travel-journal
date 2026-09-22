@@ -3,6 +3,8 @@ name: Check contact feedback form
 on:
   pull_request:
     paths:
+      - "index.html"
+      - "scripts/check-article-categories.ps1"
       - "articles/**"
       - "assets/js/contact-feedback.js"
       - "assets/js/site.js"
@@ -27,3 +29,6 @@ jobs:
       - name: Verify the formal article shell and translation menu
         shell: pwsh
         run: ./scripts/check-article-shell.ps1
+      - name: Verify explicit category registration for every article
+        shell: pwsh
+        run: ./scripts/check-article-categories.ps1
