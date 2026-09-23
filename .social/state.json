@@ -262,6 +262,11 @@
       "attempted_at": "2026-09-23T01:25:18.991741+00:00",
       "payload_hash": "3d39112e254f1bed6fce56995792e353f092dced7dd2b2781c8d94b373b80779",
       "post_id": "18107965820240974"
+    },
+    "moxy-umeda:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-23T02:46:51.978681+00:00",
+      "payload_hash": "4215c3bcdc82ab24712b0bc10c782348709bf4c3e1a2132aa86bf61e36f03193"
     }
   },
   "channels": {
