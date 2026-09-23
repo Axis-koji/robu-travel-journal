@@ -270,9 +270,10 @@
       "post_id": "1324933827363335_122112628965463588"
     },
     "moxy-umeda:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-23T02:46:58.689064+00:00",
-      "payload_hash": "63b200508cbaae706c184b581c09a98ca6b2ed5e40feb3f7e7710e585a80e49a"
+      "payload_hash": "63b200508cbaae706c184b581c09a98ca6b2ed5e40feb3f7e7710e585a80e49a",
+      "post_id": "17900006010375925"
     }
   },
   "channels": {
