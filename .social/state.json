@@ -250,6 +250,11 @@
       "attempted_at": "2026-09-22T16:03:26.188370+00:00",
       "payload_hash": "e017fe67577b5bd418c3b956f30b438498311eea4998dda1ee0adb55652a93e2",
       "post_id": "18395050255205766"
+    },
+    "shizushi-drive:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-09-23T01:25:09.762827+00:00",
+      "payload_hash": "ca8dda085a3284dfadec4f6dcbdac08113fc98f1bde88a5b745027ba1edd77ef"
     }
   },
   "channels": {
