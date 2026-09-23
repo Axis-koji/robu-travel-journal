@@ -1,0 +1,45 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="social:publish" content="false"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="index,follow,max-image-preview:large"><title>AIの採点、その点数を信じていい？「SEGT」をやさしく解説</title><meta name="description" content="同じ作文なのに点数が違うのはなぜ？AI採点を整理する技術SEGTを、身近な例で説明。点数がそろうことと公平さの違いも紹介します。"><meta property="article:section" content="ろぶーの気になる事"><link rel="canonical" href="https://www.axis-jp.net/articles/segt-ai-evaluation-pct-explainer/"><link rel="alternate" hreflang="ja" href="https://www.axis-jp.net/articles/segt-ai-evaluation-pct-explainer/"><link rel="alternate" hreflang="en" href="https://www.axis-jp.net/en/articles/segt-ai-evaluation-pct-explainer/"><meta property="og:type" content="article"><meta property="og:title" content="AIの採点、その点数を信じていい？「SEGT」をやさしく解説"><meta property="og:description" content="同じ作文なのに点数が違うのはなぜ？AI採点を整理する技術SEGTを、身近な例で説明。点数がそろうことと公平さの違いも紹介します。"><meta property="og:url" content="https://www.axis-jp.net/articles/segt-ai-evaluation-pct-explainer/"><meta property="og:image" content="https://www.axis-jp.net/assets/images/articles/segt-ai-evaluation-pct-explainer/segt-human-evaluation-workflow-v1.png"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="/assets/css/contact-feedback-ees-standard.css?v=3" data-contact-feedback-style><link rel="stylesheet" href="/assets/css/draft-article-preview.css?v=20260912-4"><style>.article-figure img{display:block;width:100%;height:auto}.article-figure figcaption{font-size:.85rem;line-height:1.6;opacity:.8;margin-top:.6rem}article{overflow-wrap:anywhere}article h1{line-height:1.5}article h2{margin-top:2.2rem}</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"AIの採点、その点数を信じていい？「SEGT」をやさしく解説","author":{"@type":"Organization","name":"ろぶーの気になる事"},"mainEntityOfPage":"https://www.axis-jp.net/articles/segt-ai-evaluation-pct-explainer/","articleSection":"ろぶーの気になる事","datePublished":"2026-09-23","description":"同じ作文なのに点数が違うのはなぜ？AI採点を整理する技術SEGTを、身近な例で説明。点数がそろうことと公平さの違いも紹介します。","inLanguage":"ja","publisher":{"@type":"Organization","name":"ろぶーの気になる事","url":"https://www.axis-jp.net/"},"citation":["https://www.eval000.ai/","https://readyfor.jp/projects/segt-global","https://www.wipo.int/en/web/patents/faq_patents"],"image":["https://www.axis-jp.net/assets/images/articles/segt-ai-evaluation-pct-explainer/segt-human-evaluation-workflow-v1.png"],"dateModified":"2026-09-23"}</script><script defer src="/assets/js/shared-shell.js?v=20260923-en-articles-1"></script></head><body class="regular-preview"><main class="draft-main" data-contact-page><article><div class="article-series">ろぶーの気になる事</div><div class="article-category" data-article-category>AI / テクノロジー</div><div class="article-content"><h1 id="aisegt">AIの採点、その点数を信じていい？「SEGT」をやさしく解説</h1><p>こんにちは、ろぶーです。</p>
+<figure class="article-figure"><img decoding="async" src="/assets/images/articles/segt-ai-evaluation-pct-explainer/segt-human-evaluation-workflow-v1.png" alt="AIによる採点を人が確認する様子を描いたイメージ" /><figcaption>AI生成イメージ。実際のサービス画面や正式な処理手順・検証結果ではありません。</figcaption></figure>
+<p>「この作文、何点ですか？」</p>
+<p>AIに聞けば、すぐに点数とコメントが返ってきます。でも、その点数をそのまま信じていいのでしょうか。</p>
+<p>今回の「SEGT」は、<strong>AIや人による採点を、あらかじめ決めた基準に沿って整理しようとする技術</strong>です。まずは「採点の仕方を整える工夫」と考えると、少し分かりやすくなります。</p>
+<p>ただし、「これを使えば必ず正しい点数が出る」という話ではありません。何が面白くて、どこに注意が必要なのか。身近な例から見ていきましょう。</p>
+<h2 id="section">同じ作文なのに、70点と90点？</h2>
+<p>例えば、同じ作文を二人に読んでもらったとします。</p>
+<ul>
+<li>一人は「誤字が少なく、文章が整っている」と高く評価する。</li>
+<li>もう一人は「きれいだけれど、本人の考えがもっとほしい」と評価する。</li>
+</ul>
+<p>どちらも真面目に読んでいても、重視するところが違えば点数は変わります。AIでも、何を重視するよう頼むかによって、評価が変わることがあります。</p>
+<p>ここでの70点・90点は、説明のための例です。SEGTの実験結果ではありません。</p>
+<h2 id="segt">SEGTは、何をするの？</h2>
+<p>開発元は、人の評価、採点基準、生成AIを組み合わせて、評価を組み立て直す仕組みだと説明しています。技術の名称が「SEGT」、その技術を使う評価の仕組みが「eval000」です。<a href="https://www.eval000.ai/">開発元の説明</a></p>
+<p>考え方の入口は、<strong>点数を出す前に「何を見て採点するか」を決めること</strong>です。</p>
+<p>作文なら、「内容が伝わるか」「理由が書かれているか」「読みやすいか」といった項目が考えられます。こうした採点項目や配点の一覧を、専門用語で「ルーブリック」といいます。難しく覚えなくても、「採点表」のことだと思えば大丈夫です。</p>
+<p>SEGTは、そのような基準と複数の評価を使い、決められた計算を繰り返して、基準となる評価値を作ることを目指しています。単に点数の平均を取る、という説明とは異なります。</p>
+<h2 id="section-1">点数がそろえば、公平になるの？</h2>
+<p>ここが、いちばん大切なところです。<strong>同じ点数が出ることと、その点数が正しいことは別です。</strong></p>
+<p>例えば「難しい言葉をたくさん使うほど高得点」という採点表を作ったらどうでしょう。分かりやすい文章を書いた人が、かえって不利になるかもしれません。</p>
+<p>毎回同じ点数になっても、最初の採点表が目的に合っていなければ、納得できる評価にはならないのです。これはSEGTだけでなく、人の採点にも当てはまります。</p>
+<p>開発元も、計算の結果が一定の値に落ち着くという説明には、同じ評価者の集まり・同じ入力条件・同じ計算方法という前提があるとしています。どんな人や課題でも公平になると確認されたわけではありません。</p>
+<figure class="article-figure"><img decoding="async" src="/assets/images/articles/segt-ai-evaluation-pct-explainer/segt-reproducible-standard-concept-v1.png" alt="複数の採点を共通の基準で整理する考え方のイメージ" /><figcaption>AI生成イメージ。実際のサービス画面や正式な処理手順・検証結果ではありません。</figcaption></figure>
+<h2 id="section-2">もう、学校や会社で安心して使えるの？</h2>
+<p>開発元のサイトにはデモの紹介があります。ただ、その紹介だけで「学校の成績や採用の判断を任せて大丈夫」とまでは言えません。</p>
+<p>使う前に知りたいのは、例えば次の三つです。</p>
+<ul>
+<li>採点表は誰が作り、何を大切にしているのか。</li>
+<li>不自然な点数が出たとき、人が理由を確認できるのか。</li>
+<li>採点された人が「おかしい」と思ったとき、見直してもらえるのか。</li>
+</ul>
+<p>実際の現場で役立つかは、使った結果や、開発元以外による検証も見て判断したいところです。</p>
+<h2 id="section-3">ニュースに出てくる「国際出願」って何？</h2>
+<p>今回の話題のきっかけは、開発者が公開したクラウドファンディングです。SEGTの技術について、海外でも特許の取得を検討するための「PCT国際出願」の費用を募っています。<a href="https://readyfor.jp/projects/segt-global">プロジェクトの説明</a></p>
+<p>ここは、<strong>「海外で権利を守るための手続きを進めたい」という話</strong>と捉えれば十分です。「世界中で特許を取れた」という意味ではありません。また、特許の手続きと、採点が公平かどうかの検証も別の話です。</p>
+<h2 id="section-4">私たちが覚えておきたいのは、一つ</h2>
+<p>SEGTという名前や、難しい計算方法を全部覚える必要はありません。</p>
+<p><strong>AIが点数を出しても、「何を基準にした点数なの？」と一度立ち止まる。</strong></p>
+<p>この視点は、作文の採点だけでなく、AIに仕事の企画や文章を評価してもらうときにも役立ちます。「82点です」で終わらず、「どこが良くて、何を直すといいのか」まで確かめたいですね。</p>
+<p>SEGTの面白さも、AIに判定を丸投げするのではなく、採点の基準や仕組みに目を向けようとしているところにあります。期待は持ちつつ、実際にどこまで役立つかは、これからの検証を見ていきたいと思います。</p>
+<section><h2>出典・公式情報（2026年9月23日確認）</h2><ul><li><a href="https://www.eval000.ai/" rel="noopener noreferrer">SEGT / eval000 official</a></li><li><a href="https://readyfor.jp/projects/segt-global" rel="noopener noreferrer">SEGT project</a></li><li><a href="https://www.wipo.int/en/web/patents/faq_patents" rel="noopener noreferrer">WIPO: Patent FAQs</a></li></ul></section></div></article></main><script src="/assets/js/contact-feedback.js?v=20260907-1"></script><script>
+document.addEventListener('DOMContentLoaded',function(){var note=document.querySelector('.robu-language-menu > span');if(note)note.textContent='日本語 / English';document.querySelectorAll('[data-robu-translation-language]').forEach(function(a){var l=a.getAttribute('data-robu-translation-language');if(l==='ja'||l==='en'){a.href=l==='ja'?'/articles/segt-ai-evaluation-pct-explainer/':'/en/articles/segt-ai-evaluation-pct-explainer/';a.removeAttribute('aria-current');if(l==='ja')a.setAttribute('aria-current','page');}});});
+</script></body></html>
