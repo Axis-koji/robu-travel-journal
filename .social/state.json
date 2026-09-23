@@ -252,9 +252,10 @@
       "post_id": "18395050255205766"
     },
     "shizushi-drive:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-09-23T01:25:09.762827+00:00",
-      "payload_hash": "ca8dda085a3284dfadec4f6dcbdac08113fc98f1bde88a5b745027ba1edd77ef"
+      "payload_hash": "ca8dda085a3284dfadec4f6dcbdac08113fc98f1bde88a5b745027ba1edd77ef",
+      "post_id": "1324933827363335_122112599403463588"
     }
   },
   "channels": {
