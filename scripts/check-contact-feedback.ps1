@@ -7,6 +7,9 @@ foreach ($page in $articlePages) {
     $html = Get-Content -LiteralPath $page.FullName -Raw -Encoding utf8
     $hasDirectLoader = $html -match '/assets/js/contact-feedback\.js'
     $hasSharedLoader = $html -match '/assets/js/site\.js'
+    if ($html -match '<aside\b[^>]*class="contact-(?:box|note)"' -or $html -match '<p><strong>問い合わせ:</strong>') {
+        Write-Error "Duplicate legacy contact notice must not accompany the shared form: $($page.FullName)"
+    }
 
     if (-not ($hasDirectLoader -or $hasSharedLoader)) {
         $missing += $page.FullName
