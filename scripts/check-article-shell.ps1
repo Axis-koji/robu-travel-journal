@@ -28,6 +28,19 @@ foreach ($page in $articlePages) {
             }
         }
     }
+
+    $retiredConclusionHeadings = @(
+        '<h2\b[^>]*>\s*まとめ\s*</h2>',
+        '<h2\b[^>]*>\s*ろぶーのまとめ\s*</h2>',
+        "<h2\b[^>]*>\s*Robu(?:'|’|&#39;)s Selectionとして(?:選んだ理由|の結論)\s*</h2>",
+        '<h2\b[^>]*>\s*(?:In summary|Conclusion|My thoughts)\s*</h2>'
+    )
+
+    foreach ($retiredHeading in $retiredConclusionHeadings) {
+        if ($html -match $retiredHeading) {
+            $problems += "$($page.FullName): retired conclusion heading remains; use ろぶーの結論 or Robu’s Take"
+        }
+    }
 }
 
 $requiredShellText = @(
