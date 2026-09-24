@@ -15,7 +15,7 @@
 - instax-pal-2-features（同一ページ内）
 - cesa2026-generative-ai（既存記事整備の1本目・本変更に含む）
 
-## 未作成：46記事
+## 未作成：43記事（下記チェック済み3記事も今回の追加分）
 
 - [ ] 2026-08-08-travel-vietnam-hotel-digest
 - [ ] 2026-08-09-spain-eclipse
@@ -26,7 +26,7 @@
 - [ ] azusa-ice-coffee
 - [ ] boso-train-replacement
 - [ ] breitling-navitimer-concorde
-- [ ] breitling-navitimer-samurai-japan
+- [x] breitling-navitimer-samurai-japan
 - [ ] casio-gwr-b3000
 - [ ] europe-ees-etias-guide
 - [ ] garmin-cirqa-smart-band
@@ -60,11 +60,10 @@
 - [ ] suma-seaworld-hotel
 - [ ] travel-memory-notes
 - [ ] vietnam-coffee
-- [ ] vietnam-grab
+- [x] vietnam-grab
 - [ ] vietnam-japan-travel-news
-- [ ] weekend-drive-preparation
+- [x] weekend-drive-preparation
 
 ## 各記事の完了条件
 
 原文全体・数値・注意事項・体験談のニュアンスを照合。写真・動画・AI画像表記・出典・既存の広告リンクを保持。日英双方のリンク、スマートフォン表示、公開ページを確認してから完了とする。SNSは別途指示がなければ投稿しない。
-
