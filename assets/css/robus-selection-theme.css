@@ -235,6 +235,36 @@ body.robus-selection-page > article {
   padding-bottom: 40px !important;
 }
 
+/* Selection purchase links: user-confirmed black/gold standard, 2026-09-24.
+   Cover both the shared shell and legacy article button classes. */
+body.robus-selection-page :is(.purchase-button, .affiliate-button, .affiliate-cta a, .robu-marketplace-button) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 56px;
+  padding: 12px 18px;
+  border: 1px solid #d8b676 !important;
+  border-radius: 10px;
+  background: #071821 !important;
+  color: #f4ebdd !important;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+}
+
+body.robus-selection-page :is(.purchase-button, .affiliate-button, .affiliate-cta a, .robu-marketplace-button):is(:hover, :focus-visible) {
+  border-color: #e57d28 !important;
+  background: #e57d28 !important;
+  color: #211300 !important;
+}
+
+body.robus-selection-page :is(.purchase-button, .affiliate-button, .affiliate-cta a, .robu-marketplace-button):focus-visible {
+  outline: 3px solid #d8b676;
+  outline-offset: 3px;
+}
+
 @media (max-width: 760px) {
   body.robus-selection-page .contact-feedback {
     margin-top: 24px;
