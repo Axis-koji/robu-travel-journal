@@ -199,26 +199,32 @@
     return regularArticleNavigation[currentPath] || 'home';
   }
 
-  function googleTranslateHref(languageCode) {
-    if (languageCode === 'ja') return window.location.href;
-    return 'https://translate.google.com/translate?' + new URLSearchParams({
-      sl: 'ja',
-      tl: languageCode,
-      u: window.location.href
-    }).toString();
+  function authoredLanguageHref(languageCode) {
+    var alternate = document.querySelector('link[rel="alternate"][hreflang="' + languageCode + '"]');
+    if (alternate) {
+      var url = new URL(alternate.getAttribute('href'), window.location.href);
+      if (url.origin === window.location.origin || url.hostname === 'www.axis-jp.net') {
+        return url.pathname + url.search + url.hash;
+      }
+    }
+    if (document.querySelector('.lang[lang="' + languageCode + '"]')) return '#' + languageCode;
+    if (document.documentElement.lang === languageCode) return window.location.href;
+    return null;
   }
 
   function languagePickerMarkup() {
     var links = translationLanguages.map(function (language) {
-      var current = language.code === 'ja' ? ' aria-current="page"' : '';
-      var external = language.code === 'ja' ? '' : ' rel="noopener noreferrer"';
-      return '<a href="' + googleTranslateHref(language.code) + '" lang="' + language.code + '" data-robu-translation-language="' + language.code + '"' + current + external + '>' + language.label + '</a>';
+      var href = authoredLanguageHref(language.code);
+      if (!href) return '<span aria-disabled="true">' + language.label + '（準備中）</span>';
+      var current = language.code === document.documentElement.lang ? ' aria-current="page"' : '';
+      var safeHref = href.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+      return '<a href="' + safeHref + '" lang="' + language.code + '" data-robu-translation-language="' + language.code + '"' + current + '>' + language.label + '</a>';
     }).join('');
 
     return '<details class="robu-language-picker" data-robu-language-picker>' +
       '<summary aria-label="表示言語を選ぶ">言語</summary>' +
       '<div class="robu-language-menu" role="group" aria-label="表示言語">' +
-      '<span>Google翻訳で開きます</span>' + links +
+      '<span>日本語 / English</span>' + links +
       '</div></details>';
   }
 
@@ -333,11 +339,29 @@
     if (!picker) return;
 
     picker.querySelectorAll('[data-robu-translation-language]').forEach(function (link) {
-      link.addEventListener('click', function () {
+      link.addEventListener('click', function (event) {
+        var language = link.getAttribute('data-robu-translation-language');
+        var section = document.querySelector('.lang[lang="' + language + '"]');
+        if (section && link.getAttribute('href') === '#' + language) {
+          event.preventDefault();
+          var existingButton = document.getElementById(language + 'Button');
+          if (existingButton) existingButton.click();
+          else {
+            document.querySelectorAll('.lang[lang]').forEach(function (item) {
+              item.hidden = item.lang !== language;
+            });
+            document.documentElement.lang = language;
+          }
+          picker.querySelectorAll('[data-robu-translation-language]').forEach(function (item) {
+            if (item.getAttribute('data-robu-translation-language') === language) item.setAttribute('aria-current', 'page');
+            else item.removeAttribute('aria-current');
+          });
+          picker.open = false;
+        }
         try {
           window.localStorage.setItem(translationStorageKey, link.getAttribute('data-robu-translation-language'));
         } catch (error) {
-          // Translation still works when storage is unavailable.
+          // Authored language selection works without storage.
         }
       });
     });
