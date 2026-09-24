@@ -265,6 +265,36 @@ body.robus-selection-page :is(.purchase-button, .affiliate-button, .affiliate-ct
   outline-offset: 3px;
 }
 
+/* One purchase layout, using the Seiko Astron HAB005J panel as the reference. */
+body.robus-selection-page [data-selection-purchase-standard] {
+  margin-top: 42px !important;
+  padding: clamp(20px, 4vw, 28px) !important;
+  border: 1px solid rgba(169, 120, 50, .45) !important;
+  border-radius: 14px !important;
+  background: rgba(255, 255, 255, .06) !important;
+}
+body.robus-selection-page [data-selection-purchase-standard] .robu-marketplace-buttons {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  margin: 16px 0 0 !important;
+  padding: 0 !important;
+}
+body.robus-selection-page [data-selection-purchase-standard] .robu-marketplace-button {
+  width: 100% !important;
+  min-height: 56px !important;
+  padding: 12px 18px !important;
+  border-radius: 10px !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.5 !important;
+}
+@media (max-width: 640px) {
+  body.robus-selection-page [data-selection-purchase-standard] .robu-marketplace-buttons {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 @media (max-width: 760px) {
   body.robus-selection-page .contact-feedback {
     margin-top: 24px;
