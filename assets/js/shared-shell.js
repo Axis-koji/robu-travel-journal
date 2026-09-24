@@ -33,7 +33,7 @@
   });
 
   var cssHref = '/assets/css/shared-shell.css?v=20260913-formal-7';
-  var selectionCssHref = '/assets/css/robus-selection-theme.css?v=20260913-formal-2';
+  var selectionCssHref = '/assets/css/robus-selection-theme.css?v=20260924-black-gold-1';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = /^\/(?:en\/)?articles\//.test(window.location.pathname);
   // Older Selection pages predate article:section metadata. Keep them as a
