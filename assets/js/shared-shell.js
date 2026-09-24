@@ -253,6 +253,20 @@
         group.appendChild(link);
       });
     });
+    // Keep end-of-article official references after the purchase panel, without
+    // moving inline citations or changing product/language group contents.
+    document.querySelectorAll('[data-selection-purchase-standard]').forEach(function (panel) {
+      var languageRoot = panel.closest('[lang]') || document.documentElement;
+      var sourceHeading = Array.from(languageRoot.querySelectorAll('h2')).find(function (heading) {
+        return /^(?:公式出典|公式情報(?:・参考資料)?|確認した公式情報|出典|参考情報|出典・参考(?:情報|資料)|Official sources|Sources(?: and references)?|Official references)$/i.test(heading.textContent.trim()) &&
+          !panel.contains(heading) &&
+          (heading.compareDocumentPosition(panel) & Node.DOCUMENT_POSITION_FOLLOWING);
+      });
+      if (!sourceHeading) return;
+      var sourceSection = sourceHeading.closest('section');
+      var target = sourceSection && !sourceSection.contains(panel) ? sourceSection : sourceHeading;
+      target.before(panel);
+    });
   }
 
   function currentNavigationKey(shellTheme) {
