@@ -32,7 +32,7 @@ foreach ($page in $articlePages) {
 
 $requiredShellText = @(
     'robu-language-picker',
-    'translate.google.com/translate',
+    'authoredLanguageHref',
     "{ code: 'ja', label: '日本語' }",
     "{ code: 'en', label: 'English' }"
 )
@@ -44,6 +44,8 @@ foreach ($required in $requiredShellText) {
 }
 
 $retiredShellText = @(
+    'translate.google.com/translate',
+    'TranslateElement',
     "{ code: 'zh-CN'",
     "{ code: 'zh-TW'",
     "{ code: 'yue'",
