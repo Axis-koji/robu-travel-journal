@@ -33,7 +33,7 @@
   });
 
   var cssHref = '/assets/css/shared-shell.css?v=20260913-formal-7';
-  var selectionCssHref = '/assets/css/robus-selection-theme.css?v=20260924-black-gold-1';
+  var selectionCssHref = '/assets/css/robus-selection-theme.css?v=20260924-astron-standard-1';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = /^\/(?:en\/)?articles\//.test(window.location.pathname);
   // Older Selection pages predate article:section metadata. Keep them as a
@@ -191,6 +191,68 @@
     if (sourceSection) sourceSection.parentNode.insertBefore(section, sourceSection);
     else if (sourceHeading) sourceHeading.parentNode.insertBefore(section, sourceHeading);
     else root.appendChild(section);
+  }
+
+  // HAB005J is the user-approved purchase-panel reference. Preserve destination
+  // anchors (including tracking pixels) and product/language group boundaries.
+  function normalizeSelectionPurchases(shellTheme) {
+    if (shellTheme !== 'selection') return;
+    var groups = Array.from(document.querySelectorAll('.robu-marketplace-buttons, .purchase-buttons, .affiliate-actions'));
+    document.querySelectorAll('[data-affiliate-refresh]').forEach(function (legacy) {
+      if (groups.length) {
+        legacy.remove(); // redundant lower PR box; primary purchase links remain
+      } else {
+        var links = Array.from(legacy.querySelectorAll('a[rel~="sponsored"]'));
+        if (!links.length) return;
+        var group = document.createElement('div');
+        links.forEach(function (link) { group.appendChild(link); });
+        legacy.replaceChildren(group);
+        legacy.removeAttribute('style');
+        legacy.removeAttribute('data-affiliate-refresh');
+        legacy.className = 'robu-marketplace-section';
+        groups.push(group);
+      }
+    });
+    groups.forEach(function (group) {
+      var links = Array.from(group.querySelectorAll('a[href]'));
+      if (!links.length) return;
+      var english = (group.closest('[lang]') || document.documentElement).lang === 'en';
+      var panel = group.parentElement;
+      if (!panel.matches('.robu-marketplace-section, .purchase-panel')) {
+        panel = document.createElement('section');
+        group.before(panel);
+        panel.appendChild(group);
+      }
+      panel.classList.add('robu-marketplace-section');
+      panel.setAttribute('data-selection-purchase-standard', 'astron-hab005j');
+      var heading = panel.querySelector('h2');
+      if (!heading) { heading = document.createElement('h2'); panel.prepend(heading); }
+      heading.textContent = english ? 'Check where to buy' : '購入先を確認する';
+      var disclosure = panel.querySelector('[data-purchase-disclosure]');
+      if (!disclosure) {
+        disclosure = panel.querySelector(':scope > p.note') || document.createElement('p');
+        disclosure.className = 'note';
+        disclosure.setAttribute('data-purchase-disclosure', '');
+        heading.after(disclosure);
+      }
+      disclosure.textContent = english
+        ? 'These are affiliate links. We may earn a commission from qualifying purchases. Check each store for current prices, availability and seller details.'
+        : '掲載している各販売先へのリンクはアフィリエイトリンクです。購入等により当サイトに報酬が発生する場合があります。価格・在庫・販売元は各ページでご確認ください。';
+      if (group.tagName === 'UL' || group.tagName === 'OL') {
+        var replacement = document.createElement('div');
+        group.replaceWith(replacement);
+        group = replacement;
+      }
+      group.className = 'robu-marketplace-buttons';
+      // Remove legacy paragraph/list wrappers, not the original anchors.
+      group.replaceChildren();
+      links.forEach(function (link) {
+        link.className = 'robu-marketplace-button';
+        // Large marketplace badges belong to the former layout; retain tracking pixels.
+        link.querySelectorAll('img.amazon-available-badge').forEach(function (badge) { badge.remove(); });
+        group.appendChild(link);
+      });
+    });
   }
 
   function currentNavigationKey(shellTheme) {
@@ -602,6 +664,7 @@
     renderHeader(shellTheme, currentNavKey);
     renderSelectionLabel(shellTheme);
     renderMarketplaceLinks();
+    normalizeSelectionPurchases(shellTheme);
     renderFooter();
     renderArticleToc();
     if (storedConsent === 'granted') loadGoogleAnalytics();

@@ -28,6 +28,19 @@ foreach ($guard in $sharedUiContrastGuards) {
 }
 
 $selectionPages = @()
+$purchaseGuards = @(
+    'function normalizeSelectionPurchases(shellTheme)',
+    "if (shellTheme !== 'selection') return;",
+    'normalizeSelectionPurchases(shellTheme);',
+    "'data-selection-purchase-standard', 'astron-hab005j'",
+    "'data-purchase-disclosure'"
+)
+foreach ($guard in $purchaseGuards) {
+    if (-not $shell.Contains($guard)) { Write-Error "Missing Astron purchase standard guard: $guard" }
+}
+foreach ($guard in @('[data-selection-purchase-standard]', 'grid-template-columns: repeat(3, minmax(0, 1fr)) !important', 'grid-template-columns: 1fr !important')) {
+    if (-not $theme.Contains($guard)) { Write-Error "Missing purchase layout rule: $guard" }
+}
 $problems = @()
 $expectedSelectionSlugs = @(
     'seiko-lukia-liberty-limited-2026', 'sony-ult-tower-7', 'sharp-niah-ai-home',
