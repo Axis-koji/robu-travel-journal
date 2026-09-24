@@ -15,7 +15,7 @@
 - instax-pal-2-features（同一ページ内）
 - cesa2026-generative-ai（既存記事整備の1本目・本変更に含む）
 
-## 未作成：43記事（下記チェック済み3記事も今回の追加分）
+## 未作成：41記事（下記チェック済み5記事も今回の追加分）
 
 - [ ] 2026-08-08-travel-vietnam-hotel-digest
 - [ ] 2026-08-09-spain-eclipse
@@ -40,7 +40,7 @@
 - [ ] kyoto-favorite-unagi-day
 - [ ] meta-glasses
 - [ ] mitz-wakebukuuro-16
-- [ ] moxy-umeda
+- [x] moxy-umeda
 - [ ] nasa-coffies-solar-ai
 - [ ] nasa-nikon-d5
 - [ ] news-coffee-plus-20260826
@@ -59,7 +59,7 @@
 - [ ] suito-kurawanka-fireworks-2026-report
 - [ ] suma-seaworld-hotel
 - [ ] travel-memory-notes
-- [ ] vietnam-coffee
+- [x] vietnam-coffee
 - [x] vietnam-grab
 - [ ] vietnam-japan-travel-news
 - [x] weekend-drive-preparation
