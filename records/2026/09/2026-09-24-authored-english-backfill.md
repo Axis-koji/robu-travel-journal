@@ -15,10 +15,10 @@
 - instax-pal-2-features（同一ページ内）
 - cesa2026-generative-ai（既存記事整備の1本目・本変更に含む）
 
-## 未作成：41記事（下記チェック済み5記事も今回の追加分）
+## 未作成：37記事（下記チェック済み9記事も今回の追加分）
 
-- [ ] 2026-08-08-travel-vietnam-hotel-digest
-- [ ] 2026-08-09-spain-eclipse
+- [x] 2026-08-08-travel-vietnam-hotel-digest
+- [x] 2026-08-09-spain-eclipse
 - [ ] ai-smartglasses-vietnam-travel
 - [ ] android-motion-assist-guided-vision
 - [ ] aoi-noen-fruit-cafe
@@ -38,10 +38,10 @@
 - [ ] izutsu-yatsuhashi-shinkouetsu
 - [ ] jr-east-midori-no-madoguchi-ai
 - [ ] kyoto-favorite-unagi-day
-- [ ] meta-glasses
+- [x] meta-glasses
 - [ ] mitz-wakebukuuro-16
 - [x] moxy-umeda
-- [ ] nasa-coffies-solar-ai
+- [x] nasa-coffies-solar-ai
 - [ ] nasa-nikon-d5
 - [ ] news-coffee-plus-20260826
 - [ ] openai-jalapeno-ai-chip
