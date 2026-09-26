@@ -95,6 +95,17 @@ body.draft-preview {
   margin-bottom: 0;
 }
 
+/* OCEANUS article: keep Selection typography readable inside its lead panel. */
+body.robus-selection-page .oceanus-article-lead {
+  border-color: rgba(169, 120, 50, 0.5);
+  background: #0c2029;
+  color: #f8f1e4;
+}
+
+body.robus-selection-page .oceanus-article-lead p {
+  color: #f8f1e4;
+}
+
 .article-content h2 {
   margin: 52px 0 14px;
   padding: 0 0 8px 15px;
