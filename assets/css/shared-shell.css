@@ -662,6 +662,108 @@ body.robu-regular-article-page .contact-feedback * {
   margin-left: auto;
 }
 
+/* The six September 30 articles use the common article shell, but their
+   draft-sized main otherwise sits to the right of the viewport centre.
+   Keep the reading column centred and a little narrower, with the TOC in
+   the remaining left gutter. Smaller desktop widths stack the TOC. */
+body.robu-published-article .robu-article-layout > main.draft-main {
+  width: min(820px, calc(100% - 32px));
+  max-width: 820px;
+}
+
+body.robu-published-article .article-title {
+  font-size: clamp(30px, 3.5vw, 44px);
+}
+
+body.robu-published-article .article-content img,
+body.robu-published-article .article-content video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+body.robu-published-article.robu-regular-article-page .selection-subcategory {
+  border-color: var(--robu-regular-accent);
+  color: var(--robu-regular-accent);
+}
+
+/* The Anker review retains its dark purchase card. The regular article
+   palette must not turn that card's heading dark against the dark panel. */
+body.anker-power-bank-review.robu-regular-article-page .purchase-panel h2 {
+  color: #fff !important;
+}
+
+body.robu-published-article .robu-marketplace-section {
+  display: flex;
+  flex-direction: column;
+}
+
+body.robu-published-article .robu-marketplace-section h2 {
+  margin: 0 0 6px;
+  padding: 0 0 6px 10px;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.45;
+}
+
+body.robu-published-article.robu-regular-article-page .robu-marketplace-section {
+  background: var(--robu-regular-panel);
+}
+
+body.robu-published-article .robu-marketplace-section .robu-marketplace-buttons {
+  order: 1;
+}
+
+body.robu-published-article .robu-marketplace-section [data-purchase-disclosure] {
+  order: 2;
+  margin: 14px 0 0;
+}
+
+body.robu-published-article .robu-marketplace-section .purchase-note {
+  order: 3;
+  margin: 8px 0 0;
+}
+
+@media (min-width: 1280px) {
+  body.robu-published-article .robu-article-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 820px) minmax(0, 1fr);
+    column-gap: 0;
+  }
+
+  body.robu-published-article .robu-article-layout > .robu-article-toc {
+    grid-column: 1;
+    width: min(220px, calc(100% - 28px));
+    margin-right: 16px;
+    margin-left: auto;
+  }
+
+  body.robu-published-article .robu-article-layout > main.draft-main {
+    grid-column: 2;
+  }
+}
+
+@media (min-width: 1101px) and (max-width: 1279px) {
+  body.robu-published-article .robu-article-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  body.robu-published-article .robu-article-layout > .robu-article-toc,
+  body.robu-published-article .robu-article-layout > main.draft-main {
+    grid-column: 1;
+  }
+
+  body.robu-published-article .robu-article-layout > .robu-article-toc {
+    grid-row: 1;
+    position: relative;
+    width: min(820px, calc(100% - 32px));
+    max-height: none;
+    margin: 24px auto 0;
+  }
+
+  body.robu-published-article .robu-article-layout > main.draft-main {
+    grid-row: 2;
+  }
+}
+
 .robu-article-toc {
   position: sticky;
   top: 24px;
