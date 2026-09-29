@@ -1,0 +1,26 @@
+name: 公開前チェック
+
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 下書きを取得
+        uses: actions/checkout@v4
+
+      - name: Node.jsを準備
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: 表示・記事・画像を検査
+        run: node scripts/check-site.mjs
+
