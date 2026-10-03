@@ -662,10 +662,8 @@ body.robu-regular-article-page .contact-feedback * {
   margin-left: auto;
 }
 
-/* The six September 30 articles use the common article shell, but their
-   draft-sized main otherwise sits to the right of the viewport centre.
-   Keep the reading column centred and a little narrower, with the TOC in
-   the remaining left gutter. Smaller desktop widths stack the TOC. */
+/* Published articles keep the reading column centred, with the TOC in the
+   left gutter on desktop. Only narrow screens stack the TOC above the text. */
 body.robu-published-article .robu-article-layout > main.draft-main {
   width: min(820px, calc(100% - 32px));
   max-width: 820px;
@@ -743,24 +741,25 @@ body.robu-published-article .robu-marketplace-section .purchase-note {
 
 @media (min-width: 1101px) and (max-width: 1279px) {
   body.robu-published-article .robu-article-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  body.robu-published-article .robu-article-layout > .robu-article-toc,
-  body.robu-published-article .robu-article-layout > main.draft-main {
-    grid-column: 1;
+    grid-template-columns: minmax(0, 1fr) minmax(0, min(820px, calc(100% - 360px))) minmax(0, 1fr);
+    column-gap: 0;
   }
 
   body.robu-published-article .robu-article-layout > .robu-article-toc {
+    grid-column: 1;
     grid-row: 1;
-    position: relative;
-    width: min(820px, calc(100% - 32px));
-    max-height: none;
-    margin: 24px auto 0;
+    width: min(220px, calc(100% - 24px));
+    margin-right: 12px;
+    margin-left: auto;
+  }
+
+  body.robu-published-article .robu-article-toc-details {
+    padding: 20px 16px 22px;
   }
 
   body.robu-published-article .robu-article-layout > main.draft-main {
-    grid-row: 2;
+    grid-column: 2;
+    grid-row: 1;
   }
 }
 
