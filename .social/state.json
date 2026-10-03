@@ -274,6 +274,11 @@
       "attempted_at": "2026-09-23T02:46:58.689064+00:00",
       "payload_hash": "63b200508cbaae706c184b581c09a98ca6b2ed5e40feb3f7e7710e585a80e49a",
       "post_id": "17900006010375925"
+    },
+    "tsubame-hutte-tamba-sasayama:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-10-03T06:56:45.347595+00:00",
+      "payload_hash": "149f0cd159231c936ae3e99f2cf42577b100b1007ed137d5cf630f8e0946a949"
     }
   },
   "channels": {
