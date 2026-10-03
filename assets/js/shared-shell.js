@@ -32,7 +32,7 @@
     wait_for_update: 500
   });
 
-  var cssHref = '/assets/css/shared-shell.css?v=20260930-published-article-centering-1';
+  var cssHref = '/assets/css/shared-shell.css?v=20261003-desktop-left-toc-1';
   var selectionCssHref = '/assets/css/robus-selection-theme.css?v=20260924-astron-standard-1';
   var homePath = window.location.pathname === '/' || window.location.pathname === '/index.html';
   var articlePath = /^\/(?:en\/)?articles\//.test(window.location.pathname);
