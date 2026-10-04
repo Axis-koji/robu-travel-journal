@@ -21,7 +21,7 @@ const baseUrl = process.env.PREVIEW_URL || 'http://127.0.0.1:8877';
       overflow:document.documentElement.scrollWidth>window.innerWidth,robots:document.querySelector('meta[name="robots"]')?.content,socialPublish:document.querySelector('meta[name="social:publish"]')?.content,
       bad:/公開前|要レビュー|AIを制作補助|Pre-publication|review required/i.test(document.body.innerText)
     }));
-    if(response.status()!==200||!d.title||d.images!==8||d.uniqueImages!==7||d.loaded!==8||d.videos!==3||d.autoplay||d.sources<7||d.affiliate.length!==1||!d.affiliate[0].includes('sponsored')||d.disclosure!==1||d.cave<1||!d.conclusion||d.nav<2||d.social!==5||d.overflow||!d.robots?.startsWith('index,follow')||d.socialPublish!=='false'||d.bad)throw new Error(JSON.stringify({width,route,status:response.status(),...d}));
+    if(response.status()!==200||!d.title||d.images!==8||d.uniqueImages!==7||d.loaded!==8||d.videos!==3||d.autoplay||d.sources<7||d.affiliate.length!==1||!d.affiliate[0].includes('sponsored')||d.disclosure!==1||d.cave<1||!d.conclusion||d.nav<2||d.social!==5||d.overflow||!d.robots?.startsWith('index,follow')||d.socialPublish!=='true'||d.bad)throw new Error(JSON.stringify({width,route,status:response.status(),...d}));
     console.log(width,route,'PASS',JSON.stringify(d));
    }
    await page.goto(baseUrl+'/',{waitUntil:'domcontentloaded'});await page.waitForTimeout(500);
