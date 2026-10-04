@@ -304,6 +304,11 @@
       "attempted_at": "2026-10-04T17:03:31.888360+00:00",
       "payload_hash": "52daab9d5a3454c668c286267305bcfa77344c6c767d953d29c6e50f5d32d770",
       "post_id": "1324933827363335_122117900013463588"
+    },
+    "fairfield-by-marriott-kyoto-kyotamba-stay:instagram": {
+      "status": "submitting",
+      "attempted_at": "2026-10-04T17:03:40.249406+00:00",
+      "payload_hash": "b839036676e6dcb36f873c2e9df7d00a772d4c7d20a965cb521152ebbb233fed"
     }
   },
   "channels": {
