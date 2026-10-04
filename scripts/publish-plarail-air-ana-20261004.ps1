@@ -102,7 +102,7 @@ function Build-Page([string]$language) {
 <!doctype html>
 <html lang="$language" translate="no"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="google" content="notranslate"><meta name="social:publish" content="false">
+<meta name="google" content="notranslate"><meta name="social:publish" content="true">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="robots" content="index,follow,max-image-preview:large">
 <title>$(Escape-Html $title)</title><meta name="description" content="$(Escape-Html $description)">
 <link rel="canonical" href="$canonical">
