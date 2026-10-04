@@ -294,9 +294,10 @@
       "post_id": "1324933827363335_122117670807463588"
     },
     "plarail-air-ana-passenger-plane-set:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-10-04T06:07:54.859901+00:00",
-      "payload_hash": "65c921bb01cbb25d216c330da5e82ca945d4ab738f5052dd7fcd86e7d41de989"
+      "payload_hash": "65c921bb01cbb25d216c330da5e82ca945d4ab738f5052dd7fcd86e7d41de989",
+      "post_id": "18217174951359090"
     }
   },
   "channels": {
