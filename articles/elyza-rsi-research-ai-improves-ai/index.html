@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja" translate="no"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="google" content="notranslate"><meta name="social:publish" content="false">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="robots" content="index,follow,max-image-preview:large">
+<title>AIがAIを作る時代は来た？ELYZA RSI Researchの3成果と限界</title><meta name="description" content="AIが次のAIを開発する時代は本当に始まったのか。ELYZA RSI Researchの国産LLM、評価基準、ハーネス改善という3成果と、未実現のRSI、安全性の課題を公式情報で検証します。">
+<link rel="canonical" href="https://www.axis-jp.net/articles/elyza-rsi-research-ai-improves-ai/">
+<link rel="alternate" hreflang="ja" href="https://www.axis-jp.net/articles/elyza-rsi-research-ai-improves-ai/"><link rel="alternate" hreflang="en" href="https://www.axis-jp.net/en/articles/elyza-rsi-research-ai-improves-ai/"><link rel="alternate" hreflang="x-default" href="https://www.axis-jp.net/articles/elyza-rsi-research-ai-improves-ai/">
+<meta property="og:type" content="article"><meta property="og:locale" content="ja_JP"><meta property="og:site_name" content="ろぶーの気になる事">
+<meta property="og:title" content="AIがAIを作る時代は来た？ELYZA RSI Researchの3成果と限界"><meta property="og:description" content="AIが次のAIを開発する時代は本当に始まったのか。ELYZA RSI Researchの国産LLM、評価基準、ハーネス改善という3成果と、未実現のRSI、安全性の課題を公式情報で検証します。">
+<meta property="og:url" content="https://www.axis-jp.net/articles/elyza-rsi-research-ai-improves-ai/"><meta property="og:image" content="https://www.axis-jp.net/assets/images/articles/elyza-rsi-research-ai-improves-ai/elyza-rsi-human-oversight-hero-v1.png"><meta property="og:image:alt" content="人間がAIモデルの開発・評価・改善ループを監督するAI生成編集イメージ">
+<meta property="article:section" content="ろぶーの気になる事 / AI・技術"><meta property="article:published_time" content="2026-10-04T00:00:00+09:00"><meta property="article:modified_time" content="2026-10-04T00:00:00+09:00">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="AIがAIを作る時代は来た？ELYZA RSI Researchの3成果と限界"><meta name="twitter:description" content="AIが次のAIを開発する時代は本当に始まったのか。ELYZA RSI Researchの国産LLM、評価基準、ハーネス改善という3成果と、未実現のRSI、安全性の課題を公式情報で検証します。"><meta name="twitter:image" content="https://www.axis-jp.net/assets/images/articles/elyza-rsi-research-ai-improves-ai/elyza-rsi-human-oversight-hero-v1.png">
+<link rel="stylesheet" href="/assets/css/contact-feedback-ees-standard.css?v=3" data-contact-feedback-style>
+<link rel="stylesheet" href="/assets/css/draft-article-preview.css?v=20260930-publish-five-1">
+<style>.article-content img{display:block;max-width:100%;height:auto;margin-inline:auto}.robu-image-caption{font-size:.78rem;color:#5a6f73;margin-top:-.6rem}.robu-editorial-note{margin:2rem 0;padding:1rem;border:1px solid rgba(120,145,150,.35);border-radius:10px;font-size:.86rem;line-height:1.7}.article-content table{display:block;max-width:100%;overflow-x:auto}</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AIがAIを作る時代は来た？ELYZA RSI Researchの3成果と限界","description":"AIが次のAIを開発する時代は本当に始まったのか。ELYZA RSI Researchの国産LLM、評価基準、ハーネス改善という3成果と、未実現のRSI、安全性の課題を公式情報で検証します。","datePublished":"2026-10-04","dateModified":"2026-10-04","inLanguage":"ja-JP","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.axis-jp.net/articles/elyza-rsi-research-ai-improves-ai/"},"image":["https://www.axis-jp.net/assets/images/articles/elyza-rsi-research-ai-improves-ai/elyza-rsi-human-oversight-hero-v1.png","https://www.axis-jp.net/assets/images/articles/elyza-rsi-research-ai-improves-ai/elyza-model-benchmark-harness-v1.png"],"articleSection":"ろぶーの気になる事 / AI・技術","author":{"@type":"Organization","name":"ろぶーの気になる事"},"publisher":{"@type":"Organization","name":"ろぶーの気になる事","url":"https://www.axis-jp.net/"},"isAccessibleForFree":true}</script>
+<script defer src="/assets/js/shared-shell.js?v=20261003-desktop-left-toc-1"></script>
+</head><body class="draft-preview robu-published-article"><main class="draft-main" data-contact-page><article>
+<div class="selection-subcategory" data-article-category>ろぶーの気になる事 / AI・技術</div>
+<h1 class="article-title">AIがAIを作る時代は来た？ELYZA RSI Researchの3成果と限界</h1>
+<div class="article-content"><p><img src="/assets/images/articles/elyza-rsi-research-ai-improves-ai/elyza-rsi-human-oversight-hero-v1.png" alt="人間の研究者が、AIモデルの開発・評価・改善ループを監督する編集イメージ" /></p><p class="robu-image-caption">AI生成による記事用イメージです。実際の研究画面や製品写真ではありません。</p>
+<p>いま使っているAIが、次のAIを自分で開発し始めたら、性能改善の速さも、仕事への入り方も大きく変わります。その入口は、もう開いたのでしょうか。</p>
+<p>株式会社ELYZAは2026年10月2日、「AIによるAI開発」を研究する新組織「ELYZA RSI Research」を設立し、基盤モデル、評価ベンチマーク、自律的なハーネス改善という三つの成果を公開しました。<a class="source-ref" href="#source-1">[1]</a></p>
+<p>ここで最初に線を引いておく必要があります。ELYZA自身が明記している通り、今回の成果は「再帰的自己改善（Recursive Self-Improvement、RSI）」そのものを実現したものではありません。現時点では、将来のRSIにつながり得る要素技術の研究です。<a class="source-ref" href="#source-1">[1]</a></p>
+<p>「AIが自分で無限に賢くなった」という話ではありません。モデルを学習させ、仕事を測り、道具の使い方を直す工程の一部をAIへ任せたら何が起きたのか。本稿では、公式情報で確認できる三つの成果と、まだ答えのない点を分けます。</p>
+<p><strong>この記事で分かること</strong></p>
+<ul>
+<li>ELYZAが実際に自動化・改善した三つの領域</li>
+<li>「1〜2人日」や「コスト67％削減」をどう読めばよいか</li>
+<li>RSIがまだ実現していない理由と、今後見るべき安全性</li>
+</ul>
+<h2 id="rsi">RSIは、単なる自動化と何が違うのか</h2>
+<p>ELYZAはRSIを、AIが自身の能力や開発・改善プロセスを反復的に改善し、その成果を次の開発へ使う考え方として説明しています。発表では進展を四段階に整理し、最終段階を「人が目的と制約を設定し、その範囲内でAIが開発・改善サイクルを回し続ける」状態として描いています。<a class="source-ref" href="#source-1">[1]</a></p>
+<p>重要なのは「制約」と「評価」です。AIが変更案を大量に出せても、何を良しとするかが間違っていれば、速く間違えるだけです。正答率だけを追えばコストや安全性が悪化するかもしれません。反対にコストだけを削れば、必要な確認を省く恐れがあります。</p>
+<p>そのため今回の発表は、モデルだけでなく、評価機構とハーネスを同時に扱っています。ハーネスとは、AIエージェントにどの道具を、どんな順序と条件で使わせるかを制御する外側の仕組みです。</p>
+<p><img src="/assets/images/articles/elyza-rsi-research-ai-improves-ai/elyza-model-benchmark-harness-v1.png" alt="AIモデル、評価コース、制御ハーネスの三要素を人間が確認する編集イメージ" /></p><p class="robu-image-caption">AI生成による記事用イメージです。実際の研究画面や製品写真ではありません。</p>
+<h2 id="section">成果1：国産基盤モデルを土台に2モデルを公開</h2>
+<p>ELYZAは、国立情報学研究所の大規模言語モデル研究開発センターが開発した「llm-jp-4」系列を土台に、Mid-training、Post-training、評価までを行いました。人が介在した作業は1〜2人日程度だったと説明しています。<a class="source-ref" href="#source-1">[1]</a></p>
+<p>公開されたのは、密な構造の33Bモデル「ELYZA-Thinking-1.0-llm-jp-4-33b」と、必要な一部の専門部分だけを動かすMoE構造の「32b-a3b」の2種類です。両方のモデルカードはApache 2.0ライセンスを表示し、日本語と英語の生成、推論、ツール利用を想定しています。<a class="source-ref" href="#source-2">[2]</a><a class="source-ref" href="#source-3">[3]</a></p>
+<p>ただし、「人の作業が1〜2人日」という数字は学習計算資源が小さいことを意味しません。事前に整えた学習基盤、データ、GPU、既存モデルがあって初めて成立する工程です。また、モデルカードのベンチマーク値は公開されていますが、異なるモデルの学習条件や推論設定が完全に同じとは限りません。数字は有力な手掛かりであって、あらゆる用途での優劣を一つに決める順位表ではありません。</p>
+<h2 id="section-1">成果2：問い合わせ業務の評価基準を公開</h2>
+<p>AIエージェントは、自然な返事をするだけでは仕事を完了したことになりません。正しい業務手順を選び、必要な情報を確認し、道具を適切に使い、最終結果まで到達する必要があります。</p>
+<p>ELYZAは日本語のカスタマーサービスを対象にした「ELYZA Agent Tasks: Customer Service」を公開しました。音声とテキストに対応し、SOP（標準作業手順）の選択、手順に沿った処理、ツール利用、最終結果などを段階ごとに評価する設計です。<a class="source-ref" href="#source-1">[1]</a><a class="source-ref" href="#source-4">[4]</a></p>
+<p>評価基準を公開する意味は大きい一方、公開ベンチマークには「その問題にだけ適応する」危険もあります。実運用では、表現の揺れ、欠損情報、例外、悪意ある入力、個人情報など、固定課題だけでは拾えない状況が出ます。ベンチマークで良い点を取ることと、現場で安全に働けることを分けて考える必要があります。</p>
+<p>そもそもAIの点数をどう読み解くべきかは、<a href="/articles/segt-ai-evaluation-pct-explainer/">AIの採点、その点数を信じていい？「SEGT」をやさしく解説</a>でも整理しています。</p>
+<h2 id="aiai">成果3：AIの動かし方をAIが改善</h2>
+<p>三つ目は、自律改善エージェントを使ってハーネスを改善する実験です。二種類の開発系ベンチマークでは、タスク成功率がそれぞれ14.4ポイント、27.2ポイント上がったと報告されています。<a class="source-ref" href="#source-1">[1]</a></p>
+<p>問い合わせ応答の未使用テストデータでは、完遂率が34.3％から52.9％へ18.6ポイント向上しました。また、精度向上とコスト削減を同時に目的とした改善では、精度向上だけを目的とした場合と比べ、精度をほぼ保ちながら推論コストを67％削減したとしています。<a class="source-ref" href="#source-1">[1]</a></p>
+<p>ここは言い換えに注意が必要です。「コストが従来比で常に67％下がる」「あらゆる業務で成功率が上がる」という意味ではありません。特定の評価条件で、別の最適化目的と比較した会社報告です。再現手順、試行回数、モデルごとの条件、失敗事例が追加公開されれば、成果の範囲をより正確に判断できます。</p>
+<h2 id="section-2">研究がすぐ事業へつながる理由</h2>
+<p>ELYZAは研究成果を「自律研究基盤」として整備し、業界・業務特化のバーティカルAIへ展開する方針です。第一弾の「ELYZA Voice Agent」は、会話だけでなく、業務ルールや顧客データ、業務システムとつなぎ、手続きの完了までを支援する構想です。<a class="source-ref" href="#source-1">[1]</a><a class="source-ref" href="#source-5">[5]</a></p>
+<p>研究から製品までの距離が短いのは魅力ですが、音声対応や顧客手続きは間違いの影響も大きい領域です。本人確認、録音への同意、誤案内の訂正、有人対応への切り替え、ログの保存期間、個人情報の扱いなど、精度以外の設計が欠かせません。公式ページは導入を段階的に行い、評価と改善を繰り返す流れを示しています。<a class="source-ref" href="#source-5">[5]</a></p>
+<h2 id="section-3">安全性は宣言から検証へ</h2>
+<p>ELYZAは、想定外の挙動や悪用リスクを踏まえ、安全性を重要な研究課題にすると表明しました。研究環境や体制を整え、適切な情報公開で透明性を高める方針です。<a class="source-ref" href="#source-1">[1]</a></p>
+<p>次に見たいのは、具体的な仕組みです。改善エージェントが変更できる範囲、停止条件、承認者、外部監査、重大な失敗の公開方針、評価指標を不正に満たす「報酬ハッキング」への対策が示されれば、研究の信頼性をより判断しやすくなります。</p>
+<h2 id="section-4">ろぶーの結論</h2>
+<p>今回の価値は、「自己改善AIが完成した」ことではありません。モデル、評価、ハーネスという地味だが重要な三層を公開し、AI開発のどこを自動化したのかを具体化した点にあります。</p>
+<p>一方、主要な数値はELYZAによる実験報告で、RSIそのものは未実現です。外部再現、長期運用、例外時の安全、評価指標の抜け穴まで確認されて初めて、「AIがAIを開発する」仕組みを安心して任せられるかが見えてきます。</p>
+<p>今は驚くべき完成品として見るより、人間が目的と制約を握ったまま、どこまで開発サイクルを速められるかを検証する研究として見るのが正確です。</p>
+<aside class="robu-editorial-note"><strong>この記事の制作について：</strong>AIを調査・構成・日英草稿の補助に使い、記載内容を公式一次資料と照合したうえで、運営者の公開承認を経て掲載しています。</aside><section class="robu-sources"><h2>主な一次・公式情報</h2><ol><li id="source-1"><a href="https://elyza.ai/news/2026/10/02/rsiresearch" target="_blank" rel="noopener noreferrer">ELYZA, ELYZA RSI Research launch and research results (2026-10-02)</a></li><li id="source-2"><a href="https://huggingface.co/elyza/ELYZA-Thinking-1.0-llm-jp-4-33b" target="_blank" rel="noopener noreferrer">ELYZA official Hugging Face model card, dense 33B model</a></li><li id="source-3"><a href="https://huggingface.co/elyza/ELYZA-Thinking-1.0-llm-jp-4-32b-a3b" target="_blank" rel="noopener noreferrer">ELYZA official Hugging Face model card, 32B-A3B MoE model</a></li><li id="source-4"><a href="https://github.com/elyza-inc/elyza-agent-tasks-customer-service" target="_blank" rel="noopener noreferrer">ELYZA official GitHub repository, ELYZA Agent Tasks: Customer Service</a></li><li id="source-5"><a href="https://elyza.ai/news/2026/10/02/voiceagent" target="_blank" rel="noopener noreferrer">ELYZA Voice Agent official announcement (2026-10-02)</a></li></ol></section></div>
+</article></main><script src="/assets/js/contact-feedback.js?v=20260907-1"></script></body></html>
