@@ -19,7 +19,7 @@ function Read-Body([string]$path) {
   $raw = Get-Content -Raw -LiteralPath $path -Encoding utf8
   if ($raw -notmatch '(?s)^---\s*\r?\n.*?\r?\n---\s*\r?\n(.*)$') { throw "Missing front matter: $path" }
   $body = $matches[1]
-  $body = [regex]::Replace($body, '(?m)^> (?:公開前メモ|Pre-publication note):.*(?:\r?\n)?', '')
+  $body = [regex]::Replace($body, '(?m)^> (?:公開前メモ|Pre-publication note)[：:].*(?:\r?\n)?', '')
   $body = $body.Replace("## Robu's conclusion", "## Robu's Take").Replace("## Robu's verdict", "## Robu's Take")
   return $body
 }
