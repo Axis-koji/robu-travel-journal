@@ -286,6 +286,11 @@
       "attempted_at": "2026-10-03T07:12:06.329664+00:00",
       "payload_hash": "abe6ed989cb92b2730791f95fd1e3f8de680bc0e13177591493f3357773cf9d2",
       "post_id": "17889712479459078"
+    },
+    "plarail-air-ana-passenger-plane-set:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-10-04T06:07:47.809521+00:00",
+      "payload_hash": "1b9277b0d26986242c8a99d45dd1487e6eae8177ae8a9933ebb4279f5e4c1808"
     }
   },
   "channels": {
