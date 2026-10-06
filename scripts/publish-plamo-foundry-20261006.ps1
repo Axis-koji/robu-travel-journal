@@ -88,7 +88,7 @@ function Build-Page([string]$language) {
   $caption = if ($language -eq 'ja') { 'AI生成による記事用イメージです。実際のMicrosoft Foundry画面やPLaMo製品画像ではありません。' } else { 'AI-generated editorial image; not an actual Microsoft Foundry interface or PLaMo product image.' }
   $html = [regex]::Replace($html, '(<p><img [^>]+/></p>)', ('$1' + '<p class="robu-image-caption">' + (Escape-Html $caption) + '</p>'))
   if ($language -eq 'ja') {
-    $html = [regex]::Replace($html, '(</p><p class="robu-image-caption">.*?</p>)', '$1<p>こんにちは、ろぶーです。</p>', 1)
+    $html = ([regex]::new('(</p><p class="robu-image-caption">.*?</p>)')).Replace($html, '$1<p>こんにちは、ろぶーです。</p>', 1)
   }
   $html = [regex]::Replace($html, '(?<![A-Za-z])\[([1-5])\]', '<a class="source-ref" href="#source-$1">[$1]</a>')
   $html += (Disclosure-Section $language)
