@@ -20,6 +20,7 @@ const { chromium } = require('C:/Users/yrt11/.cache/codex-runtimes/codex-primary
           sourceRefs: document.querySelectorAll('a.source-ref').length,
           internalLinks: [...document.querySelectorAll('.article-content a')].filter((node) => /ai-recommendation-link-safety/.test(node.getAttribute('href') || '')).length,
           greeting: document.body.innerText.includes('こんにちは、ろぶーです。'),
+          greetingCount: (document.body.innerText.match(/こんにちは、ろぶーです。/g) || []).length,
           conclusion: [...document.querySelectorAll('.article-content h2')].some((heading) => /ろぶーの結論|Robu's Take/.test(heading.textContent)),
           pricing: /3\.99/.test(document.body.innerText) && /6\.99/.test(document.body.innerText),
           individualUse: /個人開発者|individual developer/.test(document.body.innerText),
@@ -37,7 +38,7 @@ const { chromium } = require('C:/Users/yrt11/.cache/codex-runtimes/codex-primary
         if (
           response.status() !== 200 || !data.title || data.imageCount !== 2 || data.loadedImages !== 2 ||
           data.aiLabels !== 2 || data.sources !== 5 || data.sourceRefs < 5 || data.internalLinks < 1 ||
-          data.greeting !== isJa || !data.conclusion || !data.pricing || !data.individualUse || data.prePublicationNote ||
+          data.greeting !== isJa || (isJa && data.greetingCount !== 1) || !data.conclusion || !data.pricing || !data.individualUse || data.prePublicationNote ||
           data.nav < 2 || data.footerSocial !== 5 || data.overflow || !data.robots?.startsWith('index,follow') ||
           data.socialPublish !== 'false' || data.disclosure !== 1 || !data.canonical?.startsWith('https://www.axis-jp.net/') ||
           data.alternates !== 3
