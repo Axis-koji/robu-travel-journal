@@ -110,6 +110,7 @@ jobs:
           key: ${{ runner.os }}-robu-social-v2-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: ${{ runner.os }}-robu-social-v2-
       - name: Install Japanese fonts and video encoder
+        if: env.SOCIAL_PUBLISH_ENABLED == 'true' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'preview')
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y fonts-noto-cjk ffmpeg
@@ -120,11 +121,21 @@ jobs:
         env:
           PREVIEW_ARTICLE: ${{ inputs.preview_article }}
       - name: Build site and social media
-        if: github.event_name != 'workflow_dispatch' || inputs.mode != 'preview'
+        if: >-
+          (github.event_name != 'workflow_dispatch' || inputs.mode != 'preview') &&
+          env.SOCIAL_PUBLISH_ENABLED == 'true'
         run: python -m scripts.social build --ledger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build site without social media
+        if: >-
+          (github.event_name != 'workflow_dispatch' || inputs.mode != 'preview') &&
+          env.SOCIAL_PUBLISH_ENABLED != 'true'
+        run: >-
+          python -c "from pathlib import Path; from scripts.social.__main__ import copy_site;
+          root = Path('.').resolve(); copy_site(root, (root / '_site').resolve())"
       - uses: actions/upload-artifact@v4
+        if: env.SOCIAL_PUBLISH_ENABLED == 'true' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'preview')
         with:
           name: social-preview-and-plan
           path: |
