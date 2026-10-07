@@ -95,7 +95,7 @@ jobs:
 
   build:
     if: >-
-      (github.event_name == 'workflow_dispatch' && inputs.mode == 'preview') ||
+      (github.event_name == 'workflow_dispatch' && (inputs.mode == 'preview' || inputs.mode == 'publish-one')) ||
       (github.ref == 'refs/heads/main' && vars.SOCIAL_SITE_REPOSITORY == github.repository &&
        (github.event_name == 'push' || inputs.mode == 'publish'))
     runs-on: ubuntu-24.04
