@@ -99,6 +99,16 @@ def wait_for_media(articles, attempts=12, delay=10):
             raise DeliveryError("SNS画像の反映を確認できません。SNS送信は行っていません") from last_error
 
 
+def select_articles(articles, excluded, preview_article=None, only_article=None):
+    """Return exactly the approved article for scoped delivery, or the normal pending set."""
+    if only_article:
+        selected = [a for a in articles if a["id"] == only_article and a["id"] not in excluded]
+        if len(selected) != 1:
+            raise ValueError("一記事限定投稿の対象が存在しないか、既に投稿対象外です")
+        return selected
+    return [a for a in articles if a["id"] not in excluded or a["id"] == preview_article]
+
+
 def main():
     parser = argparse.ArgumentParser(description="Robu 投稿アプリ — 無料の投稿準備と公式APIでの直接投稿")
     parser.add_argument("command", choices=["catalog", "build", "initialize", "connect", "check", "publish", "resolve"])
@@ -106,6 +116,7 @@ def main():
     parser.add_argument("--out", type=Path, default=Path("_site"))
     parser.add_argument("--plan", type=Path, default=Path("_social/plan.json"))
     parser.add_argument("--preview-article", help="プレビュー用。既存記事を1本指定（送信しません）")
+    parser.add_argument("--only-article", help="一記事限定公開用。投稿対象の記事フォルダ名を1本だけ指定")
     parser.add_argument("--ledger", action="store_true", help="GitHubの初期化済み投稿記録を使用")
     parser.add_argument("--exclude-current", action="store_true", help="connect時、既存の接続先も現在の記事を除外して再開")
     parser.add_argument("--key")
@@ -133,7 +144,7 @@ def main():
             excluded = set(state["excluded"])
         else:
             excluded = set(json.loads((root / "social/baseline.json").read_text())["excluded"])
-        selected = [a for a in articles if a["id"] not in excluded or a["id"] == args.preview_article]
+        selected = select_articles(articles, excluded, args.preview_article, args.only_article)
         if args.preview_article and not any(a["id"] == args.preview_article for a in articles):
             raise ValueError("プレビュー記事が存在しないか、下書き／未来日です")
         out = args.out.resolve()
