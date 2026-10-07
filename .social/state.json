@@ -312,9 +312,10 @@
       "post_id": "18143262895595100"
     },
     "jinshari-bonsai-ai-cultural-knowledge:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-10-07T15:02:57.837264+00:00",
-      "payload_hash": "6aba01de918e2529d4d93dfbff3af7658ad9ba0bbeb8cf4f47745b73a4f4ddad"
+      "payload_hash": "6aba01de918e2529d4d93dfbff3af7658ad9ba0bbeb8cf4f47745b73a4f4ddad",
+      "post_id": "1324933827363335_122119128453463588"
     }
   },
   "channels": {
