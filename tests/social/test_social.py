@@ -7,7 +7,7 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
-from scripts.social.__main__ import wait_for_media
+from scripts.social.__main__ import select_articles, wait_for_media
 from scripts.social.content import PLATFORMS, caption, catalog, local_image
 from scripts.social.publish import DeliveryError, configure, publish, resolve
 from scripts.social.providers import Direct, Rejected, automatic_platforms, connection_settings
@@ -44,6 +44,19 @@ class MemoryLedger:
         if self.saves == self.fail_at:
             raise DeliveryError("write failed")
         self.persisted = copy.deepcopy(self.data)
+
+
+class ScopedSelectionTests(unittest.TestCase):
+    def test_only_article_never_includes_other_pending_articles(self):
+        articles = [{"id": "older-pending"}, {"id": "jinshari"}, {"id": "newer-pending"}]
+        self.assertEqual(select_articles(articles, set(), only_article="jinshari"), [{"id": "jinshari"}])
+
+    def test_only_article_rejects_missing_or_excluded_target(self):
+        articles = [{"id": "jinshari"}]
+        with self.assertRaises(ValueError):
+            select_articles(articles, {"jinshari"}, only_article="jinshari")
+        with self.assertRaises(ValueError):
+            select_articles(articles, set(), only_article="missing")
 
 
 class FakeDirect:

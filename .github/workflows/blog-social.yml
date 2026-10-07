@@ -8,12 +8,16 @@ on:
       mode:
         description: "preview=アプリ確認 / initialize=初期化 / connect=接続 / publish=公開と投稿"
         type: choice
-        options: [preview, initialize, connect, publish]
+        options: [preview, initialize, connect, publish, publish-one]
         default: preview
       preview_article:
         description: "確認用の記事フォルダ名（previewのみ使用）"
         type: string
         default: vietnam-coffee
+      publish_article:
+        description: "一記事限定投稿の記事フォルダ名（publish-oneのみ使用）"
+        type: string
+        default: ""
       exclude_current:
         description: "connectで再開する際、現在の既存記事をすべて除外する"
         type: boolean
@@ -110,7 +114,9 @@ jobs:
           key: ${{ runner.os }}-robu-social-v2-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: ${{ runner.os }}-robu-social-v2-
       - name: Install Japanese fonts and video encoder
-        if: env.SOCIAL_PUBLISH_ENABLED == 'true' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'preview')
+        if: >-
+          env.SOCIAL_PUBLISH_ENABLED == 'true' ||
+          (github.event_name == 'workflow_dispatch' && (inputs.mode == 'preview' || inputs.mode == 'publish-one'))
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y fonts-noto-cjk ffmpeg
@@ -123,19 +129,29 @@ jobs:
       - name: Build site and social media
         if: >-
           (github.event_name != 'workflow_dispatch' || inputs.mode != 'preview') &&
+          inputs.mode != 'publish-one' &&
           env.SOCIAL_PUBLISH_ENABLED == 'true'
         run: python -m scripts.social build --ledger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build site and one approved social article
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'publish-one'
+        run: python -m scripts.social build --ledger --only-article "$PUBLISH_ARTICLE"
+        env:
+          PUBLISH_ARTICLE: ${{ inputs.publish_article }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build site without social media
         if: >-
           (github.event_name != 'workflow_dispatch' || inputs.mode != 'preview') &&
-          env.SOCIAL_PUBLISH_ENABLED != 'true'
+          env.SOCIAL_PUBLISH_ENABLED != 'true' &&
+          inputs.mode != 'publish-one'
         run: >-
           python -c "from pathlib import Path; from scripts.social.__main__ import copy_site;
           root = Path('.').resolve(); copy_site(root, (root / '_site').resolve())"
       - uses: actions/upload-artifact@v4
-        if: env.SOCIAL_PUBLISH_ENABLED == 'true' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'preview')
+        if: >-
+          env.SOCIAL_PUBLISH_ENABLED == 'true' ||
+          (github.event_name == 'workflow_dispatch' && (inputs.mode == 'preview' || inputs.mode == 'publish-one'))
         with:
           name: social-preview-and-plan
           path: |
@@ -165,7 +181,9 @@ jobs:
 
   social:
     needs: deploy
-    if: vars.SOCIAL_PUBLISH_ENABLED == 'true'
+    if: >-
+      vars.SOCIAL_PUBLISH_ENABLED == 'true' ||
+      (github.event_name == 'workflow_dispatch' && inputs.mode == 'publish-one')
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
@@ -185,7 +203,7 @@ jobs:
       - name: Send new articles after successful deployment
         run: python -m scripts.social publish --plan _download/_social/plan.json
         env:
-          SOCIAL_PUBLISH_ENABLED: ${{ vars.SOCIAL_PUBLISH_ENABLED }}
+          SOCIAL_PUBLISH_ENABLED: ${{ inputs.mode == 'publish-one' && 'true' || vars.SOCIAL_PUBLISH_ENABLED }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
