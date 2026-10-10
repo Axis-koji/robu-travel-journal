@@ -322,6 +322,11 @@
       "attempted_at": "2026-10-07T15:03:07.399094+00:00",
       "payload_hash": "86b19d449e01574ce267472ad7f97bdcfb752cb328492511e5fb6cb76d7f1ba6",
       "post_id": "18218801701346689"
+    },
+    "anker-nano-power-bank-review:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-10-10T07:00:49.499078+00:00",
+      "payload_hash": "126a0d22c9da39ab63a84b799ffb0b0376e7c62471696640a63df939388e18b7"
     }
   },
   "channels": {
