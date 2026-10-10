@@ -346,6 +346,11 @@
       "attempted_at": "2026-10-10T08:46:58.778779+00:00",
       "payload_hash": "fb9379a4d301419fc3b1a7f39682b2e25c12dad8d0fb61917a0c2f32413ff6ca",
       "post_id": "18118318057972067"
+    },
+    "anker-powerport-iii-65w-pod-review:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-10-10T12:28:19.658199+00:00",
+      "payload_hash": "c4a047c49d144d005d6acbfc3a83bc237e0f1f38e5a92e193dcf52f89914ae3e"
     }
   },
   "channels": {
