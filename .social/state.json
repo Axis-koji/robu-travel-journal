@@ -358,6 +358,11 @@
       "attempted_at": "2026-10-10T12:29:50.274825+00:00",
       "payload_hash": "9ce54e4a1c03cca4537800dfbaf4ecb18c5b055fed0b44122cd5fafe18817194",
       "post_id": "18153876595481021"
+    },
+    "owl-mw08-review:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-10-10T21:49:33.684996+00:00",
+      "payload_hash": "cdcbc8265ec4790ea47552d44c6f34c4bd4dc2e0ef2f7919ff8c24e43b24d882"
     }
   },
   "channels": {
