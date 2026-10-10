@@ -370,6 +370,11 @@
       "attempted_at": "2026-10-10T21:49:41.715777+00:00",
       "payload_hash": "3bf7167fe6c54f954de84336b7faddebd06bf484e6d789379a43dfd3e030bdbb",
       "post_id": "18095698319418552"
+    },
+    "gemini-agent-enterprise-work:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-10-10T22:15:39.642816+00:00",
+      "payload_hash": "64194a8f9c41a55b558d213acc444b0ae3616165bacf006460df98135338ef23"
     }
   },
   "channels": {
