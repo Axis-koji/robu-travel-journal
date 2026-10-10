@@ -1,5 +1,11 @@
 # OWL-MW08 publication checks
 
+## SNS approval after publication
+
+- Owner subsequently authorized SNS posting. Enable this article only, with affiliate-link disclosure; global automatic posting stays off.
+- Checked delivery ledger: no OWL-MW08 Facebook or Instagram delivery exists. Configured automatic destinations are Facebook and Instagram only.
+- Use the scoped publish-one workflow after merging metadata. Do not publish Gemini or resend prior articles.
+
 - Owner approved publication after fact-checking and correcting inaccurate imagery.
 - Scope: OWL-MW08 Japanese/English article, two manufacturer product images, homepage Selection entry and sitemaps only. Gemini draft unchanged. SNS disabled for this article; repository SOCIAL_PUBLISH_ENABLED confirmed false.
 - Official product page: https://www.owltech.co.jp/product-top/cat_charger/cat_charger-wireless/mw08/
