@@ -366,9 +366,10 @@
       "post_id": "1324933827363335_122120434671463588"
     },
     "owl-mw08-review:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-10-10T21:49:41.715777+00:00",
-      "payload_hash": "3bf7167fe6c54f954de84336b7faddebd06bf484e6d789379a43dfd3e030bdbb"
+      "payload_hash": "3bf7167fe6c54f954de84336b7faddebd06bf484e6d789379a43dfd3e030bdbb",
+      "post_id": "18095698319418552"
     }
   },
   "channels": {
