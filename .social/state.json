@@ -360,9 +360,10 @@
       "post_id": "18153876595481021"
     },
     "owl-mw08-review:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-10-10T21:49:33.684996+00:00",
-      "payload_hash": "cdcbc8265ec4790ea47552d44c6f34c4bd4dc2e0ef2f7919ff8c24e43b24d882"
+      "payload_hash": "cdcbc8265ec4790ea47552d44c6f34c4bd4dc2e0ef2f7919ff8c24e43b24d882",
+      "post_id": "1324933827363335_122120434671463588"
     }
   },
   "channels": {
