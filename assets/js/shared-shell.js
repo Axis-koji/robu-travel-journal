@@ -75,6 +75,42 @@
     { code: 'en', label: 'English' }
   ];
 
+  function readTranslationPreference() {
+    try {
+      var stored = window.localStorage.getItem(translationStorageKey) ||
+        window.localStorage.getItem('axis-language-preference');
+      return stored === 'ja' || stored === 'en' ? stored : '';
+    } catch (error) {
+      return '';
+    }
+  }
+
+  function browserLanguage() {
+    var languages = navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language || 'ja'];
+    for (var index = 0; index < languages.length; index += 1) {
+      if (/^en(?:-|$)/i.test(languages[index])) return 'en';
+      if (/^ja(?:-|$)/i.test(languages[index])) return 'ja';
+    }
+    return 'ja';
+  }
+
+  function redirectToPreferredArticleLanguage() {
+    if (!articlePath) return false;
+    var preferred = readTranslationPreference() || browserLanguage();
+    var current = document.documentElement.lang === 'en' ? 'en' : 'ja';
+    // Keep an explicitly opened English URL in English. Auto-redirect only the
+    // default Japanese article URL when an English reader has not chosen Japanese.
+    if (current === 'en' || preferred !== 'en') return false;
+    var alternate = document.querySelector('link[rel="alternate"][hreflang="' + preferred + '"]');
+    if (!alternate) return false;
+    var destination = new URL(alternate.getAttribute('href'), window.location.href);
+    if (destination.origin !== window.location.origin && destination.hostname !== 'www.axis-jp.net') return false;
+    window.location.replace(destination.pathname + destination.search + destination.hash);
+    return true;
+  }
+
   function isSelectionLabel(value) {
     return /robu[\u2018\u2019'\-\s]*s?\s*selection/i.test(value || '');
   }
@@ -442,7 +478,9 @@
           picker.open = false;
         }
         try {
-          window.localStorage.setItem(translationStorageKey, link.getAttribute('data-robu-translation-language'));
+          var chosenLanguage = link.getAttribute('data-robu-translation-language');
+          window.localStorage.setItem(translationStorageKey, chosenLanguage);
+          window.localStorage.setItem('axis-language-preference', chosenLanguage);
         } catch (error) {
           // Authored language selection works without storage.
         }
@@ -676,6 +714,7 @@
   }
 
   function init() {
+    if (redirectToPreferredArticleLanguage()) return;
     var shellTheme = isSelectionArticle() ? 'selection' : 'regular';
     var currentNavKey = currentNavigationKey(shellTheme);
     document.body.setAttribute('data-shell-theme', shellTheme);
