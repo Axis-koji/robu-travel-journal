@@ -93,15 +93,21 @@ def catalog(root, config, now=None):
         description = clean(override.get("description") or meta.get("og:description") or meta.get("description", ""))
         if not title or not description:
             raise ValueError(f"{rel}: タイトルとdescriptionを設定してください")
+        campaign = clean(override.get("campaign") or meta.get("social:campaign", ""))
+        if campaign and not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,63}", campaign):
+            raise ValueError(f"{rel}: social:campaignは英小文字・数字・ハイフンで指定してください")
         # Always use the verified production host, including for older non-www articles.
         url = f"{site}/articles/{quote(slug)}/"
         ai_image = override.get("ai_image", meta.get("social:ai-image") == "true" or bool(
             re.search(r"生成(?:した|AI|イメージ|画像)|AI[-・ ]?(?:生成|イメージ)", html, re.I)))
-        result.append({"id": slug, "path": str(rel), "url": url, "title": title,
-                       "description": description, "published": published,
-                       "image_ref": override.get("image") or meta.get("og:image", ""),
-                       "ai_image": bool(ai_image),
-                       "disclosure": clean(override.get("disclosure") or meta.get("social:disclosure", ""))})
+        entry = {"id": slug, "path": str(rel), "url": url, "title": title,
+                 "description": description, "published": published,
+                 "image_ref": override.get("image") or meta.get("og:image", ""),
+                 "ai_image": bool(ai_image),
+                 "disclosure": clean(override.get("disclosure") or meta.get("social:disclosure", ""))}
+        if campaign:
+            entry["delivery_id"] = slug + "@" + campaign
+        result.append(entry)
     return result
 
 

@@ -96,6 +96,11 @@ def eligible(data, article, platform):
             and article["id"] not in data.get("channels", {}).get(platform, {}).get("excluded", []))
 
 
+def delivery_id(article):
+    """Use an explicit campaign key to permit one controlled repost without erasing history."""
+    return article.get("delivery_id") or article["id"]
+
+
 def publish(plan, config, ledger, client, env=os.environ, verify=verify_public):
     if env.get("SOCIAL_PUBLISH_ENABLED") != "true":
         raise DeliveryError("SOCIAL_PUBLISH_ENABLED=trueが必要です")
@@ -110,7 +115,7 @@ def publish(plan, config, ledger, client, env=os.environ, verify=verify_public):
     errors = [key + ": 前回の結果が不明です。SNSで確認してresolveしてください"
               for key, record in data["posts"].items()
               if record.get("status") in {"submitting", "uncertain"}]
-    pending = lambda a, p: eligible(data, a, p) and data["posts"].get(a["id"] + ":" + p, {}).get("status") not in {
+    pending = lambda a, p: eligible(data, a, p) and data["posts"].get(delivery_id(a) + ":" + p, {}).get("status") not in {
         "published", "accepted", "submitting", "uncertain", "manual_done"}
     candidates = [a for a in plan if any(pending(a, p) for p in platforms)]
     candidates.sort(key=lambda a: (a.get("published", ""), a["id"]))
@@ -121,7 +126,7 @@ def publish(plan, config, ledger, client, env=os.environ, verify=verify_public):
         for platform in platforms:
             if not pending(article, platform):
                 continue
-            key = article["id"] + ":" + platform
+            key = delivery_id(article) + ":" + platform
             try:
                 verify(article["url"])
                 verify(article["pin_url"] if platform == "pinterest" else article["image_url"])
