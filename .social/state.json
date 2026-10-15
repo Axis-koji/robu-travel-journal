@@ -406,6 +406,11 @@
       "attempted_at": "2026-10-15T21:46:24.161696+00:00",
       "payload_hash": "b0f4f7acf735f0424e54ae895166b0ad0f954a2eb70be78c1cff27d13cfe8bfe",
       "post_id": "18195941824388084"
+    },
+    "arrows-alpha2-durability-ai-healthcare@arrows-alpha2-amazon-points-20261016:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-10-15T21:52:03.180508+00:00",
+      "payload_hash": "5833f9c45353eb385686e3940e4507ad0896c074b3cddfaf6a837ce6b7812393"
     }
   },
   "channels": {
