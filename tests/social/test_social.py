@@ -9,7 +9,7 @@ from pathlib import Path
 from unittest.mock import patch
 from scripts.social.__main__ import select_articles, wait_for_media
 from scripts.social.content import PLATFORMS, caption, catalog, local_image
-from scripts.social.publish import DeliveryError, configure, publish, resolve
+from scripts.social.publish import DeliveryError, configure, delivery_id, publish, resolve
 from scripts.social.providers import Direct, Rejected, automatic_platforms, connection_settings
 from scripts.social.studio import export_studio
 from scripts.social.landing import export_instagram_landing
@@ -77,7 +77,7 @@ class FakeDirect:
         return {p: {"target": self.settings[p]["target"]} for p in names}
 
     def create(self, article, platform):
-        assert self.ledger.persisted["posts"][article["id"] + ":" + platform]["status"] == "submitting"
+        assert self.ledger.persisted["posts"][delivery_id(article) + ":" + platform]["status"] == "submitting"
         self.sent.append((article["id"], platform))
         if platform == self.timeout_for:
             raise TimeoutError()
@@ -99,6 +99,18 @@ class DeliveryTests(unittest.TestCase):
         publish([{**ARTICLE, "title": "変更後"}], CONFIG, self.ledger, self.client, env=ENV, verify=lambda url: None)
         self.assertEqual({p for _, p in self.client.sent}, {"facebook", "instagram", "threads", "pinterest"})
         self.assertEqual(len(self.client.sent), 4)
+
+    def test_explicit_campaign_allows_one_controlled_repost(self):
+        self.run_publish()
+        campaign = {**ARTICLE, "delivery_id": ARTICLE["id"] + "@prime-appreciation-2026"}
+        publish([campaign], CONFIG, self.ledger, self.client, env=ENV, verify=lambda url: None)
+        publish([campaign], CONFIG, self.ledger, self.client, env=ENV, verify=lambda url: None)
+        self.assertEqual(len(self.client.sent), 8)
+        for platform in self.client.settings:
+            self.assertEqual(
+                self.ledger.persisted["posts"][campaign["delivery_id"] + ":" + platform]["status"],
+                "published",
+            )
 
     def test_existing_articles_are_excluded(self):
         self.ledger.persisted["excluded"] = [ARTICLE["id"]]
@@ -328,6 +340,28 @@ class ContentTests(unittest.TestCase):
             file.write_text('<title>記事</title><meta name="description" content="紹介">'
                             '<script type="application/ld+json">{"datePublished":"2026-09-10"}</script><article>本文</article>')
             self.assertEqual(catalog(root, CONFIG)[0]["published"], "2026-09-10")
+
+    def test_catalog_creates_valid_campaign_delivery_key(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            file = root / "articles" / "sale" / "index.html"
+            file.parent.mkdir(parents=True)
+            file.write_text('<title>記事</title><meta name="description" content="紹介">'
+                            '<meta name="social:campaign" content="prime-appreciation-2026">'
+                            '<article>本文</article>')
+            self.assertEqual(catalog(root, CONFIG)[0]["delivery_id"],
+                             "sale@prime-appreciation-2026")
+
+    def test_catalog_rejects_unsafe_campaign_key(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            file = root / "articles" / "sale" / "index.html"
+            file.parent.mkdir(parents=True)
+            file.write_text('<title>記事</title><meta name="description" content="紹介">'
+                            '<meta name="social:campaign" content="../bad">'
+                            '<article>本文</article>')
+            with self.assertRaises(ValueError):
+                catalog(root, CONFIG)
 
     def test_japanese_x_caption_fits_conservative_weight_and_keeps_url(self):
         article = {**ARTICLE, "title": "日本語の長いタイトル" * 70, "disclosure": "広告を含む記事"}

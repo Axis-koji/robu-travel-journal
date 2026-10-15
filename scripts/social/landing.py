@@ -6,7 +6,7 @@ def export_instagram_landing(out, articles, config, state=None, limit=24):
     posts = (state or {}).get("posts", {})
 
     def recency(item):
-        post = posts.get(item["id"] + ":instagram", {})
+        post = posts.get((item.get("delivery_id") or item["id"]) + ":instagram", {})
         posted_at = post.get("attempted_at", "") if post.get("status") in {"published", "accepted", "uncertain"} else ""
         return (bool(posted_at), posted_at, item.get("published", ""), item["id"])
 
