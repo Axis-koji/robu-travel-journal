@@ -382,6 +382,11 @@
       "attempted_at": "2026-10-10T22:16:53.356284+00:00",
       "payload_hash": "c1d309f2a2665d220b1d43c0fb75c5985149cab956d1dc1ba62cd596bd76f71b",
       "post_id": "18117635330073326"
+    },
+    "anker-power-bank-25000mah-review:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-10-15T15:44:50.980868+00:00",
+      "payload_hash": "a0e96610d495bed0076f21ac5efbdeee309ede5d023dfc88d8f00f7fba17ef11"
     }
   },
   "channels": {
