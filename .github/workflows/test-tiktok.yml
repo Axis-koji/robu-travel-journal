@@ -1,0 +1,24 @@
+name: TikTok connection tests
+on:
+  pull_request:
+    paths:
+      - 'services/tiktok/**'
+      - '.github/workflows/test-tiktok.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'services/tiktok/**'
+      - '.github/workflows/test-tiktok.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Test OAuth and draft upload without sending to TikTok
+        working-directory: services/tiktok
+        run: node --test test/worker.test.mjs
