@@ -20,13 +20,16 @@ const { chromium } = require('C:/Users/yrt11/.cache/codex-runtimes/codex-primary
             loadedImages: [...document.querySelectorAll('.article-content img')].filter((image) => image.complete && image.naturalWidth > 0).length,
             toc: document.querySelectorAll('[data-robu-article-toc] a').length,
             contact: document.querySelectorAll('.site-footer a[href="/contact/"]').length,
+            contactForm: document.querySelectorAll('.contact-feedback .contact-form').length,
+            contactOpen: document.querySelector('.contact-details')?.open === true,
+            relatedBackground: getComputedStyle(document.querySelector('.link-panel')).backgroundColor,
             sources: document.querySelectorAll('.article-content a[href^="https://prtimes.jp"], .article-content a[href^="https://nkbb.nikkei.co.jp"]').length,
             purchaseOrder: Boolean(buttons && note && disclosure && (buttons.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING) && (note.compareDocumentPosition(disclosure) & Node.DOCUMENT_POSITION_FOLLOWING)),
             overflow: document.documentElement.scrollWidth > window.innerWidth,
             robots: document.querySelector('meta[name="robots"]')?.content,
           };
         });
-        if (response.status() !== 200 || !data.title || data.images !== 2 || data.loadedImages !== 2 || data.toc < 5 || data.contact !== 1 || data.sources < 2 || !data.purchaseOrder || data.overflow || !data.robots?.startsWith('index,follow')) {
+        if (response.status() !== 200 || !data.title || data.images !== 2 || data.loadedImages !== 2 || data.toc < 5 || data.contact !== 1 || data.contactForm !== 1 || !data.contactOpen || data.relatedBackground !== 'rgba(0, 0, 0, 0)' || data.sources < 2 || !data.purchaseOrder || data.overflow || !data.robots?.startsWith('index,follow')) {
           throw new Error(JSON.stringify({ width, lang, status: response.status(), ...data }));
         }
         await page.screenshot({ path: `.tmp-nikkei-${lang}-${width}.png`, fullPage: true });
