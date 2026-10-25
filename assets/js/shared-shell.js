@@ -191,9 +191,13 @@
     section.setAttribute('data-marketplace-links', '');
     var heading = document.createElement('h2');
     heading.textContent = '購入先を確認する';
+    var note = document.createElement('p');
+    note.className = 'purchase-note';
+    note.textContent = '価格・在庫・販売元は各販売ページでご確認ください。';
     var disclosure = document.createElement('p');
-    disclosure.className = 'note';
-    disclosure.textContent = '掲載している各販売先へのリンクはアフィリエイトリンクです。価格・在庫・販売元は各ページでご確認ください。';
+    disclosure.className = 'disclosure';
+    disclosure.setAttribute('data-purchase-disclosure', '');
+    disclosure.textContent = '掲載している各販売先へのリンクはアフィリエイトリンクです。リンク経由で購入が成立すると、当サイトが紹介料を受け取る場合があります。';
     var buttons = document.createElement('div');
     buttons.className = 'robu-marketplace-buttons';
     var rakutenSearch = 'https://search.rakuten.co.jp/search/mall/' + encodeURIComponent(product[0]) + '/';
@@ -216,7 +220,7 @@
       link.textContent = destination.text;
       buttons.appendChild(link);
     });
-    section.append(heading, disclosure, buttons);
+    section.append(heading, buttons, note, disclosure);
 
     var root = articleHeadingRoot();
     if (!root) return;
@@ -266,14 +270,13 @@
       heading.textContent = english ? 'Check where to buy' : '購入先を確認する';
       var disclosure = panel.querySelector('[data-purchase-disclosure]');
       if (!disclosure) {
-        disclosure = panel.querySelector(':scope > p.note') || document.createElement('p');
-        disclosure.className = 'note';
+        disclosure = panel.querySelector(':scope > p.note, :scope > p.disclosure') || document.createElement('p');
+        disclosure.className = 'disclosure';
         disclosure.setAttribute('data-purchase-disclosure', '');
-        heading.after(disclosure);
       }
       disclosure.textContent = english
-        ? 'These are affiliate links. We may earn a commission from qualifying purchases. Check each store for current prices, availability and seller details.'
-        : '掲載している各販売先へのリンクはアフィリエイトリンクです。購入等により当サイトに報酬が発生する場合があります。価格・在庫・販売元は各ページでご確認ください。';
+        ? 'The links to the sellers listed here are affiliate links. If a purchase is made through one of them, this site may receive a referral fee.'
+        : '掲載している各販売先へのリンクはアフィリエイトリンクです。リンク経由で購入が成立すると、当サイトが紹介料を受け取る場合があります。';
       if (group.tagName === 'UL' || group.tagName === 'OL') {
         var replacement = document.createElement('div');
         group.replaceWith(replacement);
@@ -288,6 +291,16 @@
         link.querySelectorAll('img.amazon-available-badge').forEach(function (badge) { badge.remove(); });
         group.appendChild(link);
       });
+      var note = panel.querySelector(':scope > .purchase-note');
+      if (!note) {
+        note = document.createElement('p');
+        note.className = 'purchase-note';
+        note.textContent = english
+          ? 'Check each retailer page for current prices, availability, edition, and format.'
+          : '価格、在庫、版・改訂状況、販売形式は、各販売ページでご確認ください。';
+      }
+      group.after(note);
+      note.after(disclosure);
     });
     // Keep end-of-article official references after the purchase panel, without
     // moving inline citations or changing product/language group contents.
