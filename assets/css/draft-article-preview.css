@@ -301,6 +301,25 @@ body.robus-selection-page .oceanus-article-lead p {
   color: #e5dccd;
 }
 
+/* Regular articles keep editorial content visually primary. Purchase links sit on
+   the same paper background instead of becoming a dark advertising card. */
+body.robu-regular-article-page .purchase-panel {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.robu-regular-article-page .purchase-panel h2,
+body.robu-regular-article-page .purchase-panel p {
+  color: var(--draft-ink);
+}
+
+body.robu-regular-article-page .purchase-panel h2 {
+  font-family: inherit;
+}
+
 .purchase-buttons {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
