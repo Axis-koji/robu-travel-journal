@@ -21,7 +21,8 @@ class NikkeiKaiArticleTests(unittest.TestCase):
                 self.assertIn('content="index,follow,max-image-preview:large"', text)
                 self.assertIn("shared-shell.js", text)
                 self.assertIn("robus-selection-page", text)
-                self.assertNotIn("contact-feedback.js", text)
+                self.assertIn("contact-feedback.js", text)
+                self.assertIn("contact-feedback-ees-standard.css", text)
                 self.assertNotIn("noindex", text.lower())
                 self.assertNotIn("unpublished", text.lower())
 

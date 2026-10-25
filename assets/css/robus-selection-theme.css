@@ -62,6 +62,21 @@ body.robus-selection-page a {
   color: #c9974d;
 }
 
+body.robus-selection-page .link-panel {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.robus-selection-page .link-panel h2 {
+  color: var(--robu-selection-ivory);
+}
+
+body.robus-selection-page .link-panel a {
+  color: #d8b676;
+}
+
 body.robus-selection-page .viewer,
 body.robus-selection-page .hero img,
 body.robus-selection-page article > img {
