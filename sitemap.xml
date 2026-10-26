@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <url><loc>https://www.axis-jp.net/articles/tsubame-hutte-tamba-sasayama/</loc><lastmod>2026-10-03</lastmod></url>
 <url><loc>https://www.axis-jp.net/en/articles/tsubame-hutte-tamba-sasayama/</loc><lastmod>2026-10-03</lastmod></url>
 <url><loc>https://www.axis-jp.net/en/articles/meta-glasses/</loc><lastmod>2026-09-24</lastmod></url>
@@ -122,12 +122,12 @@
 <url><loc>https://www.axis-jp.net/en/articles/gemini-agent-enterprise-work/</loc><lastmod>2026-10-11</lastmod></url>
 <url><loc>https://www.axis-jp.net/articles/dyson-camerajet-seven-checks/</loc><lastmod>2026-10-14</lastmod></url>
 <url><loc>https://www.axis-jp.net/en/articles/dyson-camerajet-seven-checks/</loc><lastmod>2026-10-14</lastmod></url>
-<url><loc>https://www.axis-jp.net/articles/sarashina-service-six-models-beta/</loc><lastmod>2026-10-16</lastmod></url>
-<url><loc>https://www.axis-jp.net/en/articles/sarashina-service-six-models-beta/</loc><lastmod>2026-10-16</lastmod></url>
-<url><loc>https://www.axis-jp.net/articles/rog-xbox-ally-x20-seven-checks/</loc><lastmod>2026-10-16</lastmod></url>
-<url><loc>https://www.axis-jp.net/en/articles/rog-xbox-ally-x20-seven-checks/</loc><lastmod>2026-10-16</lastmod></url>
-<url><loc>https://www.axis-jp.net/articles/homepod-mini-2-buying-guide/</loc><lastmod>2026-10-19</lastmod></url>
-<url><loc>https://www.axis-jp.net/en/articles/homepod-mini-2-buying-guide/</loc><lastmod>2026-10-19</lastmod></url>
+<url><loc>https://www.axis-jp.net/articles/sarashina-service-six-models-beta/</loc><xhtml:link rel="alternate" hreflang="ja" href="https://www.axis-jp.net/articles/sarashina-service-six-models-beta/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.axis-jp.net/en/articles/sarashina-service-six-models-beta/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.axis-jp.net/articles/sarashina-service-six-models-beta/"/><lastmod>2026-10-16</lastmod></url>
+<url><loc>https://www.axis-jp.net/en/articles/sarashina-service-six-models-beta/</loc><xhtml:link rel="alternate" hreflang="ja" href="https://www.axis-jp.net/articles/sarashina-service-six-models-beta/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.axis-jp.net/en/articles/sarashina-service-six-models-beta/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.axis-jp.net/articles/sarashina-service-six-models-beta/"/><lastmod>2026-10-16</lastmod></url>
+<url><loc>https://www.axis-jp.net/articles/rog-xbox-ally-x20-seven-checks/</loc><xhtml:link rel="alternate" hreflang="ja" href="https://www.axis-jp.net/articles/rog-xbox-ally-x20-seven-checks/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.axis-jp.net/en/articles/rog-xbox-ally-x20-seven-checks/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.axis-jp.net/articles/rog-xbox-ally-x20-seven-checks/"/><lastmod>2026-10-16</lastmod></url>
+<url><loc>https://www.axis-jp.net/en/articles/rog-xbox-ally-x20-seven-checks/</loc><xhtml:link rel="alternate" hreflang="ja" href="https://www.axis-jp.net/articles/rog-xbox-ally-x20-seven-checks/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.axis-jp.net/en/articles/rog-xbox-ally-x20-seven-checks/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.axis-jp.net/articles/rog-xbox-ally-x20-seven-checks/"/><lastmod>2026-10-16</lastmod></url>
+<url><loc>https://www.axis-jp.net/articles/homepod-mini-2-buying-guide/</loc><xhtml:link rel="alternate" hreflang="ja" href="https://www.axis-jp.net/articles/homepod-mini-2-buying-guide/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.axis-jp.net/en/articles/homepod-mini-2-buying-guide/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.axis-jp.net/articles/homepod-mini-2-buying-guide/"/><lastmod>2026-10-19</lastmod></url>
+<url><loc>https://www.axis-jp.net/en/articles/homepod-mini-2-buying-guide/</loc><xhtml:link rel="alternate" hreflang="ja" href="https://www.axis-jp.net/articles/homepod-mini-2-buying-guide/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.axis-jp.net/en/articles/homepod-mini-2-buying-guide/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.axis-jp.net/articles/homepod-mini-2-buying-guide/"/><lastmod>2026-10-19</lastmod></url>
 <url><loc>https://www.axis-jp.net/articles/nikkei-kai-pr-media-analysis-agent/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://www.axis-jp.net/en/articles/nikkei-kai-pr-media-analysis-agent/</loc><lastmod>2026-10-25</lastmod></url>
 <url><loc>https://www.axis-jp.net/articles/generative-ai-team-responsibilities-2026/</loc><lastmod>2026-10-25</lastmod></url>
