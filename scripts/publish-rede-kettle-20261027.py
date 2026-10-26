@@ -89,7 +89,7 @@ if article_id not in text:
         "imageAlt": "Re・De Kettle 0.6Lの3色を並べた公式メインビジュアル",
     }
     text = text.replace("const articles = [", "const articles = [\n      " + json.dumps(card, ensure_ascii=False, separators=(",", ":")) + ",", 1)
-    text = text.replace("const articleFilters = {", f"const articleFilters = {{\n      '{article_id}': ['selection','appliance'],", 1)
+    text = text.replace("const articleFilters = {", f"const articleFilters = {{\n      '{article_id}': ['selection'],", 1)
     index.write_text(text, encoding="utf-8")
 
 sitemap = ROOT / "sitemap.xml"
