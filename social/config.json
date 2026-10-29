@@ -3,5 +3,10 @@
   "site_name": "ろぶーの気になる事",
   "platforms": ["facebook", "instagram", "twitter", "tiktok", "threads", "pinterest"],
   "max_articles_per_run": 3,
-  "overrides": {}
+  "overrides": {
+    "tiger-hybrid-brew-adg-a060": {
+      "title": "朝・午後・夜。気分に合わせて4つの味わいを選べるコーヒーメーカー",
+      "description": "朝は力強い一杯で目を覚まし、午後はアイスコーヒーでひと息。夜はデカフェの香りを静かに楽しむ。豆の挽き目を変えながら、自分のお気に入りの一杯を探す時間まで楽しめそうな、タイガーのHYBRID BREWを紹介します。"
+    }
+  }
 }
