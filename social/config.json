@@ -4,6 +4,10 @@
   "platforms": ["facebook", "instagram", "twitter", "tiktok", "threads", "pinterest"],
   "max_articles_per_run": 3,
   "overrides": {
+    "instax-mini-evo-2-share-memories": {
+      "title": "撮った一枚を、その場で誰かに手渡せる。チェキがもっと楽しくなった",
+      "description": "旅先で出会った人に写真を渡す。余白に日付や一言を残す。4.5インチタッチパネルと5秒動画が加わったinstax mini Evo 2は、スマホとは違う形で思い出を残せるカメラです。"
+    },
     "tiger-hybrid-brew-adg-a060": {
       "title": "朝・午後・夜。気分に合わせて4つの味わいを選べるコーヒーメーカー",
       "description": "朝は力強い一杯で目を覚まし、午後はアイスコーヒーでひと息。夜はデカフェの香りを静かに楽しむ。豆の挽き目を変えながら、自分のお気に入りの一杯を探す時間まで楽しめそうな、タイガーのHYBRID BREWを紹介します。"
