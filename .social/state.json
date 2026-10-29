@@ -426,9 +426,10 @@
       "post_id": "1324933827363335_122125639443463588"
     },
     "tiger-hybrid-brew-adg-a060:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-10-29T13:21:23.875900+00:00",
-      "payload_hash": "a3a60eaf17ad5d3c903160887af1c24fdeaf4036cd120265bd10a0b19ccbab64"
+      "payload_hash": "a3a60eaf17ad5d3c903160887af1c24fdeaf4036cd120265bd10a0b19ccbab64",
+      "post_id": "18124563971515309"
     }
   },
   "channels": {
