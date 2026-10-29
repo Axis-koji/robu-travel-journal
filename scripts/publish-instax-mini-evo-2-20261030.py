@@ -43,7 +43,7 @@ def article_content(lang: str) -> str:
     raw = (DRAFT / name).read_text(encoding="utf-8")
     content = re.search(r'<div class="article-content">(.*?)</div></article>', raw, re.S)[1]
     for filename in IMAGES:
-        content = content.replace(f'./{filename}', f'/assets/images/articles/{SLUG}/{filename}')
+        content = content.replace(f'./{filename}', f'/assets/images/articles/{SLUG}/{filename}?v=20261030')
     return content
 
 
@@ -51,7 +51,7 @@ def page(lang: str) -> str:
     prefix = "" if lang == "ja" else "en/"
     meta = frontmatter(DRAFT / ("article.md" if lang == "ja" else "article-en.md"))
     url = f"{BASE}/{prefix}articles/{SLUG}/"
-    hero = f"{BASE}/assets/images/articles/{SLUG}/{IMAGES[0]}"
+    hero = f"{BASE}/assets/images/articles/{SLUG}/{IMAGES[0]}?v=20261030"
     locale = "ja_JP" if lang == "ja" else "en_US"
     category = "Robu's Selection / カメラ" if lang == "ja" else "Robu's Selection / Cameras"
     schema = {
