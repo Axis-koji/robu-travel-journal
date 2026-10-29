@@ -438,9 +438,10 @@
       "post_id": "1324933827363335_122125678947463588"
     },
     "instax-mini-evo-2-share-memories:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-10-29T17:09:18.632396+00:00",
-      "payload_hash": "9ac424a10b5b81b2f40b0a10918268e261f7fdebd23b9143cd7311af7d5e7f39"
+      "payload_hash": "9ac424a10b5b81b2f40b0a10918268e261f7fdebd23b9143cd7311af7d5e7f39",
+      "post_id": "18139608670727111"
     }
   },
   "channels": {
