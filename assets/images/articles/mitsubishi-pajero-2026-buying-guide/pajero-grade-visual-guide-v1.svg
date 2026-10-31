@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pajero grade visual guide</title>
+  <desc id="desc">A four-column editorial diagram comparing grade-specific wheels, rear lighting, grille and roof rails without reproducing the actual vehicle.</desc>
+  <rect width="1600" height="900" fill="#111820"/>
+  <text x="80" y="92" fill="#ffffff" font-family="Meiryo, Arial, sans-serif" font-size="48" font-weight="700">新型パジェロ 4グレード 外観の違い</text>
+  <text x="80" y="138" fill="#aeb9c4" font-family="Meiryo, Arial, sans-serif" font-size="23">ホイール・テールライト・グリル・ルーフレールを公式装備表から比較</text>
+  <g transform="translate(1360 45)" aria-label="Mitsubishi Motors brand mark">
+    <path d="M45 0 76 53 45 106 14 53Z" fill="#e60012"/>
+    <path d="M0 79 31 26 62 79 31 132Z" fill="#e60012"/>
+    <path d="M90 79 59 26 28 79 59 132Z" fill="#e60012"/>
+    <text x="-30" y="165" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="700">MITSUBISHI MOTORS</text>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(70 190)">
+      <rect width="350" height="620" rx="24" fill="#1b2630" stroke="#c98651" stroke-width="4"/>
+      <text x="28" y="60" fill="#fff" font-size="31" font-weight="700">SUPER EXCEED</text>
+      <text x="52" y="112" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">ホイール</text><text x="205" y="112" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">テールライト</text>
+      <circle cx="110" cy="190" r="66" fill="none" stroke="#d8dde2" stroke-width="18"/><circle cx="110" cy="190" r="26" fill="#58636d"/>
+      <path d="M205 145h105v22l-24 18 24 18v22H205z" fill="none" stroke="#f14c4c" stroke-width="12"/>
+      <text x="54" y="292" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">グリル</text>
+      <path d="M54 310h240l-24 82H78z" fill="none" stroke="#c98651" stroke-width="10"/>
+      <text x="70" y="426" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">ルーフレール</text>
+      <path d="M70 456h210" stroke="#fff" stroke-width="12"/><path d="M96 430v52M254 430v52" stroke="#fff" stroke-width="10"/>
+      <text x="28" y="535" fill="#fff" font-size="23">20-inch smoke-cut wheels</text>
+      <text x="28" y="574" fill="#fff" font-size="23">Dynamic flow rear lights</text>
+      <text x="28" y="613" fill="#fff" font-size="23">Honeycomb grille</text>
+    </g>
+    <g transform="translate(440 190)">
+      <rect width="350" height="620" rx="24" fill="#1b2630" stroke="#c9cdd1" stroke-width="3"/>
+      <text x="28" y="60" fill="#fff" font-size="31" font-weight="700">EXCEED</text>
+      <text x="52" y="112" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">ホイール</text><text x="205" y="112" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">テールライト</text>
+      <circle cx="110" cy="190" r="66" fill="none" stroke="#eef1f3" stroke-width="14"/><circle cx="110" cy="190" r="26" fill="#58636d"/>
+      <path d="M205 145h105v22l-24 18 24 18v22H205z" fill="none" stroke="#f14c4c" stroke-width="12"/>
+      <text x="54" y="292" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">グリル</text>
+      <path d="M54 310h240l-18 82H72z" fill="none" stroke="#8f867d" stroke-width="10"/>
+      <text x="70" y="426" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">ルーフレール</text>
+      <path d="M70 456h210" stroke="#fff" stroke-width="12"/><path d="M96 430v52M254 430v52" stroke="#fff" stroke-width="10"/>
+      <text x="28" y="535" fill="#fff" font-size="23">20-inch bright-cut wheels</text>
+      <text x="28" y="574" fill="#fff" font-size="23">Dynamic flow rear lights</text>
+      <text x="28" y="613" fill="#fff" font-size="23">Roof rails</text>
+    </g>
+    <g transform="translate(810 190)">
+      <rect width="350" height="620" rx="24" fill="#1b2630" stroke="#6d7883" stroke-width="3"/>
+      <text x="28" y="60" fill="#fff" font-size="31" font-weight="700">GSR</text>
+      <text x="52" y="112" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">ホイール</text><text x="205" y="112" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">テールライト</text>
+      <circle cx="110" cy="190" r="58" fill="none" stroke="#767f87" stroke-width="18"/><circle cx="110" cy="190" r="24" fill="#38434c"/>
+      <rect x="205" y="154" width="105" height="62" rx="12" fill="none" stroke="#f14c4c" stroke-width="12"/>
+      <text x="54" y="292" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">グリル</text>
+      <path d="M54 310h240l-18 82H72z" fill="none" stroke="#8f867d" stroke-width="10"/>
+      <text x="70" y="426" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">ルーフレール</text>
+      <path d="M70 456h210" stroke="#fff" stroke-width="12"/><path d="M96 430v52M254 430v52" stroke="#fff" stroke-width="10"/>
+      <text x="28" y="535" fill="#fff" font-size="23">18-inch dark grey wheels</text>
+      <text x="28" y="574" fill="#fff" font-size="23">Standard LED rear lights</text>
+      <text x="28" y="613" fill="#fff" font-size="23">Roof rails</text>
+    </g>
+    <g transform="translate(1180 190)">
+      <rect width="350" height="620" rx="24" fill="#1b2630" stroke="#6d7883" stroke-width="3"/>
+      <text x="28" y="60" fill="#fff" font-size="31" font-weight="700">GLS</text>
+      <text x="52" y="112" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">ホイール</text><text x="205" y="112" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">テールライト</text>
+      <circle cx="110" cy="190" r="58" fill="none" stroke="#767f87" stroke-width="18"/><circle cx="110" cy="190" r="24" fill="#38434c"/>
+      <rect x="205" y="154" width="105" height="62" rx="12" fill="none" stroke="#f14c4c" stroke-width="12"/>
+      <text x="54" y="292" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">グリル</text>
+      <path d="M54 310h240l-18 82H72z" fill="none" stroke="#8f867d" stroke-width="10"/>
+      <text x="70" y="426" fill="#aeb9c4" font-family="Meiryo, sans-serif" font-size="18">ルーフレール</text>
+      <path d="M70 462h210" stroke="#63707b" stroke-width="6" stroke-dasharray="14 12"/>
+      <text x="28" y="535" fill="#fff" font-size="23">18-inch dark grey wheels</text>
+      <text x="28" y="574" fill="#fff" font-size="23">Standard LED rear lights</text>
+      <text x="28" y="613" fill="#fff" font-size="23">No roof rails</text>
+    </g>
+  </g>
+  <!-- Clear tabular redesign: this overlay replaces the earlier abstract-icon layout. -->
+  <rect width="1600" height="900" fill="#101820"/>
+  <text x="72" y="82" fill="#ffffff" font-family="Meiryo, Arial, sans-serif" font-size="46" font-weight="700">新型パジェロ 4グレード比較</text>
+  <text x="72" y="126" fill="#b8c2cc" font-family="Meiryo, Arial, sans-serif" font-size="22">価格と外観の違いを、公式装備表から一目で確認</text>
+  <g aria-label="Mitsubishi three-diamond mark and name">
+    <g transform="translate(1280 22) scale(4.5)"><path d="M8 22.38H0l4-6.92h8zm8 0h8l-4-6.92h-8zm0-13.84l-4-6.92-4 6.92 4 6.92Z" fill="#e60012"/></g>
+    <text x="1398" y="88" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="700">MITSUBISHI MOTORS</text>
+  </g>
+  <g transform="translate(60 180)" font-family="Meiryo, Arial, sans-serif">
+    <rect width="1480" height="86" rx="14" fill="#28343f"/>
+    <text x="22" y="54" fill="#ffffff" font-size="23" font-weight="700">グレード</text><text x="267" y="54" fill="#ffffff" font-size="23" font-weight="700">価格</text><text x="477" y="54" fill="#ffffff" font-size="23" font-weight="700">ホイール</text><text x="717" y="54" fill="#ffffff" font-size="23" font-weight="700">テールライト</text><text x="1012" y="54" fill="#ffffff" font-size="23" font-weight="700">グリル</text><text x="1272" y="54" fill="#ffffff" font-size="23" font-weight="700">ルーフレール</text>
+    <g transform="translate(0 100)"><rect width="1480" height="112" rx="12" fill="#1c2730" stroke="#c98651" stroke-width="3"/><text x="22" y="48" fill="#ffffff" font-size="25" font-weight="700">SUPER EXCEED</text><text x="267" y="48" fill="#ffffff" font-size="25">795万800円</text><text x="477" y="42" fill="#ffffff" font-size="22">20インチ</text><text x="477" y="75" fill="#b8c2cc" font-size="18">黒＋切削スモーク</text><text x="717" y="42" fill="#ffffff" font-size="22">ダイナミックフロー</text><text x="717" y="75" fill="#b8c2cc" font-size="18">流れるように点灯</text><text x="1012" y="48" fill="#ffffff" font-size="22">ハニカム</text><text x="1272" y="48" fill="#ffffff" font-size="22">あり</text></g>
+    <g transform="translate(0 226)"><rect width="1480" height="112" rx="12" fill="#1c2730" stroke="#9ea8b2" stroke-width="2"/><text x="22" y="48" fill="#ffffff" font-size="25" font-weight="700">EXCEED</text><text x="267" y="48" fill="#ffffff" font-size="25">693万円</text><text x="477" y="42" fill="#ffffff" font-size="22">20インチ</text><text x="477" y="75" fill="#b8c2cc" font-size="18">黒＋切削光輝</text><text x="717" y="42" fill="#ffffff" font-size="22">ダイナミックフロー</text><text x="717" y="75" fill="#b8c2cc" font-size="18">流れるように点灯</text><text x="1012" y="42" fill="#ffffff" font-size="22">ダーク</text><text x="1012" y="75" fill="#b8c2cc" font-size="18">ウォームグレー</text><text x="1272" y="48" fill="#ffffff" font-size="22">あり</text></g>
+    <g transform="translate(0 352)"><rect width="1480" height="112" rx="12" fill="#1c2730" stroke="#6e7a85" stroke-width="2"/><text x="22" y="48" fill="#ffffff" font-size="25" font-weight="700">GSR</text><text x="267" y="48" fill="#ffffff" font-size="25">676万5000円</text><text x="477" y="42" fill="#ffffff" font-size="22">18インチ</text><text x="477" y="75" fill="#b8c2cc" font-size="18">ダークグレー</text><text x="717" y="48" fill="#ffffff" font-size="22">通常点灯LED</text><text x="1012" y="42" fill="#ffffff" font-size="22">ダーク</text><text x="1012" y="75" fill="#b8c2cc" font-size="18">ウォームグレー</text><text x="1272" y="48" fill="#ffffff" font-size="22">あり</text></g>
+    <g transform="translate(0 478)"><rect width="1480" height="112" rx="12" fill="#1c2730" stroke="#6e7a85" stroke-width="2"/><text x="22" y="48" fill="#ffffff" font-size="25" font-weight="700">GLS</text><text x="267" y="48" fill="#ffffff" font-size="25">619万3000円</text><text x="477" y="42" fill="#ffffff" font-size="22">18インチ</text><text x="477" y="75" fill="#b8c2cc" font-size="18">ダークグレー</text><text x="717" y="48" fill="#ffffff" font-size="22">通常点灯LED</text><text x="1012" y="42" fill="#ffffff" font-size="22">ダーク</text><text x="1012" y="75" fill="#b8c2cc" font-size="18">ウォームグレー</text><text x="1272" y="48" fill="#ffffff" font-size="22">なし</text></g>
+  </g>
+  <text x="72" y="840" fill="#b8c2cc" font-family="Meiryo, Arial, sans-serif" font-size="20">編集図：実際の車体形状とボディカラーは、記事内の三菱自動車公式360°表示で確認できます。</text>
+</svg>
