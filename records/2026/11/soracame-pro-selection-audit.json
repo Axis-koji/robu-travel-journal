@@ -1,0 +1,343 @@
+{
+  "SiteRoot": "E:\\Documents\\Codex\\2026-08-01\\robuse-selection-drafts\\work\\publish-nikkei-hotfix-20261025",
+  "SelectionArticleCount": 48,
+  "FindingCount": 56,
+  "Findings": [
+    {
+      "Path": "articles\\ai-smartglasses-vietnam-travel\\index.html",
+      "Code": "HAND_AUTHORED_TOC",
+      "Severity": "error",
+      "Message": "本文内の旧目次があります。共通シェルの左目次と重複・配置崩れの原因になります。"
+    },
+    {
+      "Path": "articles\\ai-smartglasses-vietnam-travel\\index.html",
+      "Code": "PURCHASE_PANEL_MISSING",
+      "Severity": "error",
+      "Message": "アフィリエイトリンクがありますが、共通購入欄に収まっていません。"
+    },
+    {
+      "Path": "articles\\ai-smartglasses-vietnam-travel\\index.html",
+      "Code": "LEGACY_PURCHASE_COMPONENT",
+      "Severity": "error",
+      "Message": "旧購入部品が残っています。HAB005J基準へ統一が必要です。"
+    },
+    {
+      "Path": "articles\\ai-smartglasses-vietnam-travel\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "articles\\arrows-alpha2-durability-ai-healthcare\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 0）。"
+    },
+    {
+      "Path": "articles\\dyson-camerajet-seven-checks\\index.html",
+      "Code": "PURCHASE_PANEL_MISSING",
+      "Severity": "error",
+      "Message": "アフィリエイトリンクがありますが、共通購入欄に収まっていません。"
+    },
+    {
+      "Path": "articles\\dyson-camerajet-seven-checks\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "articles\\garmin-fenix-9-pro-titanium-inreach\\index.html",
+      "Code": "CONCLUSION_HEADING",
+      "Severity": "error",
+      "Message": "固定の結論見出しがありません。"
+    },
+    {
+      "Path": "articles\\garmin-fenix-9-pro-titanium-inreach\\index.html",
+      "Code": "PURCHASE_PANEL_MISSING",
+      "Severity": "error",
+      "Message": "アフィリエイトリンクがありますが、共通購入欄に収まっていません。"
+    },
+    {
+      "Path": "articles\\garmin-fenix-9-pro-titanium-inreach\\index.html",
+      "Code": "LEGACY_PURCHASE_COMPONENT",
+      "Severity": "error",
+      "Message": "旧購入部品が残っています。HAB005J基準へ統一が必要です。"
+    },
+    {
+      "Path": "articles\\garmin-fenix-9-pro-titanium-inreach\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "articles\\instax-pal-2-features\\index.html",
+      "Code": "CONTACT_CSS_MISSING",
+      "Severity": "error",
+      "Message": "固定問い合わせフォームCSSがありません。"
+    },
+    {
+      "Path": "articles\\instax-pal-2-features\\index.html",
+      "Code": "SELECTION_GREETING",
+      "Severity": "error",
+      "Message": "Robu Selection禁止の冒頭挨拶があります。"
+    },
+    {
+      "Path": "articles\\instax-pal-2-features\\index.html",
+      "Code": "PURCHASE_PANEL_MISSING",
+      "Severity": "error",
+      "Message": "アフィリエイトリンクがありますが、共通購入欄に収まっていません。"
+    },
+    {
+      "Path": "articles\\instax-pal-2-features\\index.html",
+      "Code": "LEGACY_PURCHASE_COMPONENT",
+      "Severity": "error",
+      "Message": "旧購入部品が残っています。HAB005J基準へ統一が必要です。"
+    },
+    {
+      "Path": "articles\\instax-pal-2-features\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "articles\\mitz-wakebukuuro-16\\index.html",
+      "Code": "CONCLUSION_HEADING",
+      "Severity": "error",
+      "Message": "固定の結論見出しがありません。"
+    },
+    {
+      "Path": "articles\\nasa-nikon-d5\\index.html",
+      "Code": "CONCLUSION_HEADING",
+      "Severity": "error",
+      "Message": "固定の結論見出しがありません。"
+    },
+    {
+      "Path": "articles\\notta-memo-pro-buying-guide\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 2）。"
+    },
+    {
+      "Path": "articles\\openai-jalapeno-ai-chip\\index.html",
+      "Code": "HAND_AUTHORED_TOC",
+      "Severity": "error",
+      "Message": "本文内の旧目次があります。共通シェルの左目次と重複・配置崩れの原因になります。"
+    },
+    {
+      "Path": "articles\\openai-jalapeno-ai-chip\\index.html",
+      "Code": "PURCHASE_PANEL_MISSING",
+      "Severity": "error",
+      "Message": "アフィリエイトリンクがありますが、共通購入欄に収まっていません。"
+    },
+    {
+      "Path": "articles\\openai-jalapeno-ai-chip\\index.html",
+      "Code": "LEGACY_PURCHASE_COMPONENT",
+      "Severity": "error",
+      "Message": "旧購入部品が残っています。HAB005J基準へ統一が必要です。"
+    },
+    {
+      "Path": "articles\\openai-jalapeno-ai-chip\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "articles\\owl-mw08-review\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 0）。"
+    },
+    {
+      "Path": "articles\\owl-mw08-review\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "articles\\ricoh-gr-iv-30th-anniversary\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 2）。"
+    },
+    {
+      "Path": "articles\\seiko-lukia-liberty-limited-2026\\index.html",
+      "Code": "HAND_AUTHORED_TOC",
+      "Severity": "error",
+      "Message": "本文内の旧目次があります。共通シェルの左目次と重複・配置崩れの原因になります。"
+    },
+    {
+      "Path": "articles\\seiko-lukia-liberty-limited-2026\\index.html",
+      "Code": "PURCHASE_PANEL_MISSING",
+      "Severity": "error",
+      "Message": "アフィリエイトリンクがありますが、共通購入欄に収まっていません。"
+    },
+    {
+      "Path": "articles\\seiko-lukia-liberty-limited-2026\\index.html",
+      "Code": "LEGACY_PURCHASE_COMPONENT",
+      "Severity": "error",
+      "Message": "旧購入部品が残っています。HAB005J基準へ統一が必要です。"
+    },
+    {
+      "Path": "articles\\seiko-lukia-liberty-limited-2026\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "articles\\seiko-lukia-liberty-limited-2026\\index.html",
+      "Code": "AFFILIATE_REL",
+      "Severity": "error",
+      "Message": "アフィリエイトリンクのrel属性が固定要件を満たしていません。"
+    },
+    {
+      "Path": "articles\\seiko-prospex-hbc011j\\index.html",
+      "Code": "HAND_AUTHORED_TOC",
+      "Severity": "error",
+      "Message": "本文内の旧目次があります。共通シェルの左目次と重複・配置崩れの原因になります。"
+    },
+    {
+      "Path": "articles\\sharp-niah-ai-home\\index.html",
+      "Code": "CONCLUSION_HEADING",
+      "Severity": "error",
+      "Message": "固定の結論見出しがありません。"
+    },
+    {
+      "Path": "articles\\sharp-niah-ai-home\\index.html",
+      "Code": "PURCHASE_PANEL_MISSING",
+      "Severity": "error",
+      "Message": "アフィリエイトリンクがありますが、共通購入欄に収まっていません。"
+    },
+    {
+      "Path": "articles\\sharp-niah-ai-home\\index.html",
+      "Code": "LEGACY_PURCHASE_COMPONENT",
+      "Severity": "error",
+      "Message": "旧購入部品が残っています。HAB005J基準へ統一が必要です。"
+    },
+    {
+      "Path": "articles\\sharp-niah-ai-home\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "articles\\sony-ult-tower-7\\index.html",
+      "Code": "PURCHASE_PANEL_MISSING",
+      "Severity": "error",
+      "Message": "アフィリエイトリンクがありますが、共通購入欄に収まっていません。"
+    },
+    {
+      "Path": "articles\\sony-ult-tower-7\\index.html",
+      "Code": "LEGACY_PURCHASE_COMPONENT",
+      "Severity": "error",
+      "Message": "旧購入部品が残っています。HAB005J基準へ統一が必要です。"
+    },
+    {
+      "Path": "articles\\sony-ult-tower-7\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "articles\\sony-wh-ch730n-noise-canceling-headphones\\index.html",
+      "Code": "CONCLUSION_HEADING",
+      "Severity": "error",
+      "Message": "固定の結論見出しがありません。"
+    },
+    {
+      "Path": "articles\\wakoh-signatures-watch\\index.html",
+      "Code": "SELECTION_GREETING",
+      "Severity": "error",
+      "Message": "Robu Selection禁止の冒頭挨拶があります。"
+    },
+    {
+      "Path": "articles\\wakoh-signatures-watch\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 2）。"
+    },
+    {
+      "Path": "en\\articles\\breitling-navitimer-samurai-japan\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 0）。"
+    },
+    {
+      "Path": "en\\articles\\dyson-camerajet-seven-checks\\index.html",
+      "Code": "PURCHASE_PANEL_MISSING",
+      "Severity": "error",
+      "Message": "アフィリエイトリンクがありますが、共通購入欄に収まっていません。"
+    },
+    {
+      "Path": "en\\articles\\dyson-camerajet-seven-checks\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "en\\articles\\meta-glasses\\index.html",
+      "Code": "CONCLUSION_HEADING",
+      "Severity": "error",
+      "Message": "固定の結論見出しがありません。"
+    },
+    {
+      "Path": "en\\articles\\meta-glasses\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 0）。"
+    },
+    {
+      "Path": "en\\articles\\meta-glasses\\index.html",
+      "Code": "PURCHASE_AFTER_SOURCES",
+      "Severity": "error",
+      "Message": "購入欄が出典より後にあります。"
+    },
+    {
+      "Path": "en\\articles\\notta-memo-pro-buying-guide\\index.html",
+      "Code": "CONCLUSION_HEADING",
+      "Severity": "error",
+      "Message": "固定の結論見出しがありません。"
+    },
+    {
+      "Path": "en\\articles\\notta-memo-pro-buying-guide\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 2）。"
+    },
+    {
+      "Path": "en\\articles\\owl-mw08-review\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 0）。"
+    },
+    {
+      "Path": "en\\articles\\owl-mw08-review\\index.html",
+      "Code": "PURCHASE_BUTTON_STANDARD",
+      "Severity": "error",
+      "Message": "共通購入ボタンがありません。"
+    },
+    {
+      "Path": "en\\articles\\ricoh-gr-iv-30th-anniversary\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 2）。"
+    },
+    {
+      "Path": "en\\articles\\wakoh-signatures-watch\\index.html",
+      "Code": "CONCLUSION_HEADING",
+      "Severity": "error",
+      "Message": "固定の結論見出しがありません。"
+    },
+    {
+      "Path": "en\\articles\\wakoh-signatures-watch\\index.html",
+      "Code": "DISCLOSURE_COUNT",
+      "Severity": "error",
+      "Message": "購入欄内の広告開示が1つではありません（現在 2）。"
+    },
+    {
+      "Path": "assets\\css\\robus-selection-theme.css",
+      "Code": "DISCLOSURE_VISUAL_STANDARD",
+      "Severity": "error",
+      "Message": "購入欄の広告開示を明るい背景・濃い文字で表示する共通スタイルを確認できません。"
+    }
+  ]
+}
