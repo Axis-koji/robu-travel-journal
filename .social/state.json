@@ -442,6 +442,11 @@
       "attempted_at": "2026-10-29T17:09:18.632396+00:00",
       "payload_hash": "9ac424a10b5b81b2f40b0a10918268e261f7fdebd23b9143cd7311af7d5e7f39",
       "post_id": "18139608670727111"
+    },
+    "recolte-auto-cooking-pot-rsy2:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-11-08T00:07:54.160994+00:00",
+      "payload_hash": "a7690996445a23981d52544564a08a6c71431034aca19a6769d41e24905083b9"
     }
   },
   "channels": {
