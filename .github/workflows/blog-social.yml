@@ -201,8 +201,14 @@ jobs:
           name: social-preview-and-plan
           path: _download
       - name: Send new articles after successful deployment
-        run: python -m scripts.social publish --plan _download/_social/plan.json
+        run: |
+          if [ "$PUBLISH_ONE" = "true" ]; then
+            python -m scripts.social publish --plan _download/_social/plan.json --deployment-confirmed
+          else
+            python -m scripts.social publish --plan _download/_social/plan.json
+          fi
         env:
+          PUBLISH_ONE: ${{ inputs.mode == 'publish-one' && 'true' || 'false' }}
           SOCIAL_PUBLISH_ENABLED: ${{ inputs.mode == 'publish-one' && 'true' || vars.SOCIAL_PUBLISH_ENABLED }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}

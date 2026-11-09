@@ -122,6 +122,11 @@ def main():
     parser.add_argument("--key")
     parser.add_argument("--outcome", choices=["published", "retry"])
     parser.add_argument("--post-id", default="")
+    parser.add_argument(
+        "--deployment-confirmed",
+        action="store_true",
+        help="同じActions実行のdeploy成功を公開確認として使用する（一記事限定投稿用）",
+    )
     args = parser.parse_args()
     root = args.root.resolve()
     config = config_for(root)
@@ -166,7 +171,8 @@ def main():
         print(f"{len(articles)}記事を検出、{len(plan)}記事分のSNS素材を用意しました。")
     elif args.command == "publish":
         plan = json.loads(args.plan.read_text())
-        wait_for_release(config["site_url"], plan["commit"])
+        if not args.deployment_confirmed:
+            wait_for_release(config["site_url"], plan["commit"])
         wait_for_media(plan["articles"])
         publish(plan["articles"], config, ledger_for(config), Direct())
     elif args.command == "resolve":
