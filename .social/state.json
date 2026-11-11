@@ -456,9 +456,10 @@
       "post_id": "18360229546175922"
     },
     "radio-five-stations-next-generation-broadcast-system:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-11-11T22:33:33.348537+00:00",
-      "payload_hash": "00098c52b23cb729f72021ae5e0076bd98e9fcf34d756181a7b369b1129147ac"
+      "payload_hash": "00098c52b23cb729f72021ae5e0076bd98e9fcf34d756181a7b369b1129147ac",
+      "post_id": "1324933827363335_122129052567463588"
     }
   },
   "channels": {
