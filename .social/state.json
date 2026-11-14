@@ -468,9 +468,10 @@
       "post_id": "18059257760803257"
     },
     "cosori-turboblaze-6l-air-fryer:facebook": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-11-14T02:57:22.991911+00:00",
-      "payload_hash": "8981c44be5af5b1e528b9b5f00acbf6a539018ec4bdf39890ba8b9fa8d506406"
+      "payload_hash": "8981c44be5af5b1e528b9b5f00acbf6a539018ec4bdf39890ba8b9fa8d506406",
+      "post_id": "1324933827363335_122129637099463588"
     }
   },
   "channels": {
