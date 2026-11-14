@@ -23,7 +23,7 @@ const { chromium } = require('C:/Users/yrt11/.cache/codex-runtimes/codex-primary
         robots: document.querySelector('meta[name="robots"]')?.content,
         socialPublish: document.querySelector('meta[name="social:publish"]')?.content,
       }));
-      if (!result.title || result.images !== 4 || result.brokenImages || result.tables < 3 || result.purchaseButtons !== 3 || !result.header || result.horizontalOverflow || result.robots?.includes('noindex') || result.socialPublish !== 'false') {
+      if (!result.title || result.images !== 4 || result.brokenImages || result.tables < 3 || result.purchaseButtons !== 3 || !result.header || result.horizontalOverflow || result.robots?.includes('noindex') || result.socialPublish !== 'true') {
         throw new Error(`${language}/${width}: ${JSON.stringify(result)}`);
       }
       await page.screenshot({ path: `.tmp-cosori-${language}-${width}.png`, fullPage: true });
