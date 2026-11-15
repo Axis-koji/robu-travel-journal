@@ -714,11 +714,15 @@ body.robu-published-article .robu-marketplace-section .robu-marketplace-buttons 
 body.robu-published-article .robu-marketplace-section [data-purchase-disclosure] {
   order: 2;
   margin: 14px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
 }
 
 body.robu-published-article .robu-marketplace-section .purchase-note {
   order: 3;
   margin: 8px 0 0;
+  font-size: 1rem;
+  line-height: 1.75;
 }
 
 @media (min-width: 1280px) {
