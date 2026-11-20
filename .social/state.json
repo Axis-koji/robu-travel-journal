@@ -486,9 +486,10 @@
       "post_id": "1324933827363335_122131204269463588"
     },
     "panasonic-eh-nb70-buying-guide:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-11-20T15:57:07.349395+00:00",
-      "payload_hash": "ce354748d83608d04573fc38a92618582a5546b2bcade44db88aa886ee248564"
+      "payload_hash": "ce354748d83608d04573fc38a92618582a5546b2bcade44db88aa886ee248564",
+      "post_id": "18056391806804567"
     }
   },
   "channels": {
