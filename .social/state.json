@@ -498,9 +498,10 @@
       "post_id": "1324933827363335_122131555521463588"
     },
     "panasonic-er-sc6a-hair-clipper:instagram": {
-      "status": "submitting",
+      "status": "published",
       "attempted_at": "2026-11-22T01:22:50.882098+00:00",
-      "payload_hash": "d4be05f16ed9a3f80d7ed0b1d50011e7cf514b70c33f2951e72a439070ddccb0"
+      "payload_hash": "d4be05f16ed9a3f80d7ed0b1d50011e7cf514b70c33f2951e72a439070ddccb0",
+      "post_id": "18005079350808973"
     }
   },
   "channels": {
