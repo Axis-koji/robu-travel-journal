@@ -310,6 +310,23 @@ body.robus-selection-page [data-selection-purchase-standard] .robu-marketplace-b
   }
 }
 
+body.robus-selection-page [data-selection-purchase-standard][data-purchase-editions] {
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none;
+}
+
+body.robus-selection-page [data-selection-purchase-standard][data-purchase-editions] .disclosure {
+  color: var(--robu-selection-muted);
+}
+
+@media (min-width: 641px) {
+  body.robus-selection-page [data-selection-purchase-standard][data-purchase-editions] .robu-marketplace-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
 @media (max-width: 760px) {
   body.robus-selection-page .contact-feedback {
     margin-top: 24px;
