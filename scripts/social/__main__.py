@@ -157,7 +157,7 @@ def main():
             raise ValueError("出力先には専用サブフォルダを指定してください")
         out.mkdir(parents=True, exist_ok=True)
         copy_site(root, out)
-        export_instagram_landing(out, articles, config, state=state)
+        export_instagram_landing(out, articles, config, state=state, featured_article=args.only_article)
         plan = [render(root, a, out, config) for a in selected]
         # Marker ties publishing to this exact deployed commit; prevents stale/manual sends.
         head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root).decode().strip()

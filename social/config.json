@@ -4,6 +4,13 @@
   "platforms": ["facebook", "instagram", "twitter", "tiktok", "threads", "pinterest"],
   "max_articles_per_run": 3,
   "overrides": {
+    "anker-power-bank-25000mah-review": {
+      "campaign": "black-friday-2026",
+      "title": "Ankerのブラックフライデー｜普段使いの充電アイテム2つ",
+      "description": "普段使っているAnkerの充電アイテム2つが、11月27日からブラックフライデーの対象に。USB-Cケーブルを2本内蔵した25,000mAhのモバイルバッテリーは10,790円。そのバッテリーの充電にも使っている65Wの3ポート充電器は3,290円です。どちらも黒モデルの税込予告価格です。使い心地は、ろぶーの気になる事で写真と動画付きで紹介しています。65W充電器の記事 https://www.axis-jp.net/articles/anker-powerport-iii-65w-pod-review/",
+      "disclosure": "記事にはアフィリエイトリンクが含まれます。",
+      "ai_image": false
+    },
     "instax-mini-evo-2-share-memories": {
       "title": "撮った一枚を、その場で誰かに手渡せる。チェキがもっと楽しくなった",
       "description": "旅先で出会った人に写真を渡す。余白に日付や一言を残す。4.5インチタッチパネルと5秒動画が加わったinstax mini Evo 2は、スマホとは違う形で思い出を残せるカメラです。"
