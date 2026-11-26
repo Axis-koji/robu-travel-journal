@@ -145,9 +145,22 @@ jobs:
           (github.event_name != 'workflow_dispatch' || inputs.mode != 'preview') &&
           env.SOCIAL_PUBLISH_ENABLED != 'true' &&
           inputs.mode != 'publish-one'
-        run: >-
-          python -c "from pathlib import Path; from scripts.social.__main__ import copy_site;
-          root = Path('.').resolve(); copy_site(root, (root / '_site').resolve())"
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from scripts.social.__main__ import config_for, copy_site, ledger_for
+          from scripts.social.content import catalog
+          from scripts.social.landing import export_instagram_landing
+
+          root = Path(".").resolve()
+          out = root / "_site"
+          copy_site(root, out)
+          config = config_for(root)
+          state = ledger_for(config).load()
+          export_instagram_landing(out, catalog(root, config), config, state=state)
+          PY
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v4
         if: >-
           env.SOCIAL_PUBLISH_ENABLED == 'true' ||
