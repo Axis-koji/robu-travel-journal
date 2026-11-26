@@ -502,6 +502,11 @@
       "attempted_at": "2026-11-22T01:22:50.882098+00:00",
       "payload_hash": "d4be05f16ed9a3f80d7ed0b1d50011e7cf514b70c33f2951e72a439070ddccb0",
       "post_id": "18005079350808973"
+    },
+    "anker-power-bank-25000mah-review@black-friday-2026:facebook": {
+      "status": "submitting",
+      "attempted_at": "2026-11-26T11:42:20.201320+00:00",
+      "payload_hash": "d93fe3edf6ebe8b862249934fd0419e237c0ddc12bf46658b00e948e9aec32fa"
     }
   },
   "channels": {
